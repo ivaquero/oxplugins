@@ -11,11 +11,11 @@ OX_OXYGEN[oxg]=${OXIDIZER}/defaults/.gitconfig
 OX_ELEMENT[g]=${HOME}/.gitconfig
 
 ##########################################################
-# project management
+# repository management
 ##########################################################
 
 get_default_branch() {
-    git remote show origin | grep 'HEAD branch' | cut -d' ' -f5
+    git remote show origin | grep 'HEAD branch' | cut -d ' ' -f5
 }
 
 # git republish
@@ -25,10 +25,6 @@ grpbl() {
     git pull "$1" "$dbranch"
     git push --set-upstream origin "$dbranch"
 }
-
-##########################################################
-# repository management
-##########################################################
 
 # clean history
 gclhs() {
