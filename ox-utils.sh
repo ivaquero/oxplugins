@@ -51,7 +51,7 @@ rdf() {
 }
 
 # catalyze file: owerwrite configuartion file by Oxidizer defaults
-clyf() {
+clzf() {
     for file in "$@"; do
         local in_path=${OX_OXYGEN[ox$file]}
         local out_path=${OX_ELEMENT[$file]}
@@ -74,7 +74,7 @@ psnf() {
 
 alias epf="oxf"
 alias ipf="rdf"
-alias iif="clyf"
+alias iif="clzf"
 
 ##########################################################
 # Gerneral File Utils
