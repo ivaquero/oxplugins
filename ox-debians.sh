@@ -77,13 +77,3 @@ alias ack="sudo apt check"
 alias axa="sudo add-apt-repository"
 alias axrm="sudo add-apt-repository --remove"
 alias axls="rg ^[^#] /etc/apt/sources.list"
-
-##########################################################
-# wsl
-##########################################################
-
-# use host proxy
-wpx() {
-    host_ip=$(rg "nameserver" </etc/resolv.conf | cut -f 2 -d " ")
-    export ALL_PROXY="https://$host_ip:${OX_PROXY[$1]}"
-}
