@@ -124,36 +124,6 @@ alias bxa="brew tap"
 alias bxrm="brew untap"
 
 ##########################################################
-# mirrors
-##########################################################
-
-bmr() {
-    export HOMEBREW_BREW_GIT_REMOTE="https://${HOMEBREW_MIRROR[$1]}/brew.git"
-    export HOMEBREW_CORE_GIT_REMOTE="https://${HOMEBREW_MIRROR[$1]}/homebrew-core.git"
-
-    for tap in core bottles services cask{,-fonts} command-not-found; do
-        brew tap --custom-remote --force-auto-update "homebrew/${tap}" "https://${HOMEBREW_MIRROR[$1]}/homebrew-${tap}.git"
-    done
-    brew update
-}
-
-bmrq() {
-    unset HOMEBREW_BREW_GIT_REMOTE
-    git -C "$(brew --repo)" remote set-url origin https://github.com/Brew/brew
-    unset HOMEBREW_CORE_GIT_REMOTE
-    BREW_TAPS="$(
-        BREW_TAPS="$(brew tap 2>/dev/null)"
-        echo -n "${BREW_TAPS//$'\n'/:}"
-    )"
-    for tap in core bottles services cask{,-fonts} command-not-found; do
-        if [[ ":${BREW_TAPS}:" == *":homebrew/${tap}:"* ]]; then
-            brew tap --custom-remote "homebrew/${tap}" "https://github.com/Brew/homebrew-${tap}"
-        fi
-    done
-    brew update
-}
-
-##########################################################
 # bundle
 ##########################################################
 

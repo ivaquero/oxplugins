@@ -11,7 +11,7 @@
 - System Shortcuts
   - macOS
   - Debian
-  - File Utility
+  - File Utils
 - Language
   - Julia
   - Node
@@ -28,6 +28,7 @@
   - TeXLive
   - VSCode-CLI
 - Widgets
-  - File Formats
+  - Formats Convertion
   - Weather
+  - Network
   - Notes
