@@ -68,7 +68,7 @@ bupp() {
     case "$1" in
     -g)
         pkgs=$(brew outdated --greedy-auto-updates)
-        num=$(echo "$pkgs" | wc -l | tr ' ' '')
+        num=$(echo "$pkgs" | wc -l | tr -d ' ')
 
         brew_upgrade_parallel "$num" "$pkgs"
         ;;
@@ -78,7 +78,7 @@ bupp() {
             brew_upgrade_parallel $n_args "$@"
         else
             pkgs=$(brew outdated)
-            num=$(echo "$pkgs" | wc -l | tr ' ' '')
+            num=$(echo "$pkgs" | wc -l | tr -d ' ')
 
             brew_upgrade_parallel "$num" "$pkgs"
         fi
