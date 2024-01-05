@@ -40,9 +40,10 @@ sup() {
 
 scl() {
     if [[ -z "$1" ]]; then
-        scoop cleanup --all --cache
+        scoop cleanup --all
+        rm -r "$SCOOP"/cache
     else
-        scoop cleanup "$@" --cache
+        scoop cleanup "$@"
     fi
 }
 

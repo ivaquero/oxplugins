@@ -10,11 +10,9 @@ export APPDATA="${HOME}/AppData"
 # main
 ##########################################################
 
-clean() {
-    case $1 in
-    sdl) rm -r "$SCOOP"/cache ;;
-    esac
-}
+alias shutdown="shutdown -s"
+alias restart="shutdown -r"
+alias hybernate="shutdown -h"
 
 ##########################################################
 # winget
