@@ -5,7 +5,7 @@
 
 export VSCODE_DATA="${APPDATA}/Code"
 
-if [[ $(uname) = "MINGW" ]]; then
+if [[ $(uname) = "*MINGW*" ]]; then
     if [[ ! -d ${VSCODE_DATA} ]]; then
         export VSCODE_DATA="$SCOOP\persist\vscode\data\user-data"
     fi
