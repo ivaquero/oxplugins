@@ -26,19 +26,17 @@ OX_OXIDE[bkvsx]=${OX_BACKUP}/vscode/vscode-exts.txt
 # Cache
 ##########################################################
 
-if [[ $(uname) = "Darwin" ]]; then
-    vscl() {
-        printf "Cleaning up VSCode Cache.\n"
-        rm -rfv "${VSCODE_DATA}"/Cache/*
+vscl() {
+    printf "Cleaning up VSCode Cache.\n"
+    rm -rfv "${VSCODE_DATA}"/Cache/*
 
-        case "$1" in
-        -a)
-            printf "Cleaning up VSCode Workspace Storage.\n"
-            rm -rfv "${VSCODE_DATA}"/User/workspaceStorage/*
-            ;;
-        esac
-    }
-fi
+    case "$1" in
+    -a)
+        printf "Cleaning up VSCode Workspace Storage.\n"
+        rm -rfv "${VSCODE_DATA}"/User/workspaceStorage/*
+        ;;
+    esac
+}
 
 ##########################################################
 # extensions
