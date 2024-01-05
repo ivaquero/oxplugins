@@ -3,8 +3,6 @@
 # Configuration File Utils
 ##########################################################
 
-export PATH="${HOMEBREW_PREFIX}/opt/uutils-coreutils/libexec/uubin:$PATH"
-
 test_oxpath() {
     if [[ -z "$1" ]]; then
         echo "$1 does not exist, please define it in custom.sh"
