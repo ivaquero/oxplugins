@@ -218,7 +218,7 @@ cesd() {
         i*) conda env config vars set CONDA_SUBDIR=osx-64 ;;
         a*) conda env config vars set CONDA_SUBDIR=osx-arm64 ;;
         esac
-    else
+    elif [[ $(uname) = "Linux" ]]; then
         case "$1" in
         i*) conda env config vars set CONDA_SUBDIR=linux-64 ;;
         a*) conda env config vars set CONDA_SUBDIR=linux-aarch64 ;;
