@@ -6,7 +6,7 @@
 # system files
 export ESPANSO_DATA="${APPDATA}/espanso"
 
-if [[ $(uname) = "*MINGW*" ]]; then
+if [[ $(uname) == "*MINGW*" ]]; then
     if [[ ! -d "$APPDATA\espanso" ]]; then
         export ESPANSO_DATA="$SCOOP\persist\espanso\.espanso"
     fi
