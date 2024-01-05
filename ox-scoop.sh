@@ -13,7 +13,7 @@ OX_OXIDE[bks]="$OXIDIZER/defaults/Scoopfile.txt"
 
 up_scoop() {
     echo "Update Scoop by ${OX_OXIDE[bks]}"
-    scoop import $"{OX_OXIDE[bks]}"
+    scoop import "${OX_OXIDE[bks]}"
 }
 
 back_scoop() {
