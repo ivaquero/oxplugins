@@ -4,9 +4,16 @@
 ##########################################################
 
 # system files
-OX_ELEMENT[es]=${APPDATA}/espanso/config/default.yml
-OX_ELEMENT[esb]=${APPDATA}/espanso/match/base.yml
-OX_ELEMENT[esx_]=${APPDATA}/espanso/match/packages
+export ESPANSO_DATA="${APPDATA}/espanso"
+
+if [[ ! -d "$APPDATA\espanso" ]]; then
+    export ESPANSO_DATA="$SCOOP\persist\espanso\.espanso"
+fi
+
+# system files
+OX_ELEMENT[es]=${ESPANSO_DATA}/config/default.yml
+OX_ELEMENT[esb]=${ESPANSO_DATA}/match/base.yml
+OX_ELEMENT[esx_]=${ESPANSO_DATA}/match/packages
 # backup files
 OX_OXIDE[bkes]=${OX_BACKUP}/espanso/config/default.yml
 OX_OXIDE[bkesb]=${OX_BACKUP}/espanso/match/base.yml
