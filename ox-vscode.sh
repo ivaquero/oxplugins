@@ -3,13 +3,16 @@
 # config
 ##########################################################
 
-export VSCODE_DATA="${APPDATA}/Code"
-
-if [[ $(uname) == "*MINGW*" ]]; then
-    if [[ ! -d ${VSCODE_DATA} ]]; then
-        export VSCODE_DATA="$SCOOP\persist\vscode\data\user-data"
+case $(uname) in
+*Darwin* | *Ubuntu* | *Debian* | *WSL*)
+    export VSCODE_DATA="${APPDATA}/Code"
+    ;;
+*MINGW*)
+    if [[ -f "$SCOOP/app/current/vscode/bin/code" ]]; then
+        export VSCODE_DATA="$SCOOP/persist/vscode/data/user-data"
     fi
-fi
+    ;;
+esac
 
 OX_ELEMENT[vs]=${VSCODE_DATA}/User/settings.json
 OX_ELEMENT[vsk]=${VSCODE_DATA}/User/keybindings.json

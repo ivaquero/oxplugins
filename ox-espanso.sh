@@ -4,13 +4,17 @@
 ##########################################################
 
 # system files
-export ESPANSO_DATA="${APPDATA}/espanso"
 
-if [[ $(uname) == "*MINGW*" ]]; then
-    if [[ ! -d "$APPDATA\espanso" ]]; then
-        export ESPANSO_DATA="$SCOOP\persist\espanso\.espanso"
+case $(uname) in
+*Darwin* | *Ubuntu* | *Debian* | *WSL*)
+    export ESPANSO_DATA="${APPDATA}/espanso"
+    ;;
+*MINGW*)
+    if [[ -f "$SCOOP/shims/espansod" ]]; then
+        export ESPANSO_DATA="$SCOOP/persist/espanso/.espanso"
     fi
-fi
+    ;;
+esac
 
 # system files
 OX_ELEMENT[es]=${ESPANSO_DATA}/config/default.yml
