@@ -5,12 +5,14 @@
 ![repo size](https://img.shields.io/github/repo-size/ivaquero/oxplugins-zsh.svg)
 
 - Package Manager
-  - Brew
+  - Brew (macOS & Linux)
+  - Scoop (Windows)
   - Conan
   - Conda
 - System Shortcuts
   - macOS
   - Debian
+  - Windows
   - File Utils
 - Language
   - Julia
@@ -19,8 +21,7 @@
 - Useful CLI
   - Git
   - Pueue
-  - Container (Docker/Podman)
-  - Helix
+  - Container (Docker & Podman)
 - CLI for App
   - Bitwarden-CLI
   - Jupyter
@@ -31,4 +32,4 @@
   - Formats Convertion
   - Weather
   - Network
-  - Notes
+  - Notes (Obsidian & Logseq & Typst)

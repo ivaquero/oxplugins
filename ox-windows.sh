@@ -10,8 +10,8 @@ export APPDATA="${HOME}/AppData"
 # computer
 ##########################################################
 
-alias shutdown="shutdown -s"
-alias restart="shutdown -r"
+alias shutdown="shutdown.exe -s"
+alias restart="shutdown.exe -r"
 
 hibernate() {
     echo "Hibernating."
