@@ -3,7 +3,7 @@
 # config
 ##########################################################
 
-case $(uname) in
+case $(uname -a) in
 *Darwin* | *Ubuntu* | *Debian* | *WSL*)
     export VSCODE_DATA="${APPDATA}/Code"
     ;;

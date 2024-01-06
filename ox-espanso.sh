@@ -5,7 +5,7 @@
 
 # system files
 
-case $(uname) in
+case $(uname -a) in
 *Darwin* | *Ubuntu* | *Debian* | *WSL*)
     export ESPANSO_DATA="${APPDATA}/espanso"
     ;;
