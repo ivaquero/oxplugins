@@ -1,8 +1,8 @@
 # [Oxidizer](https://github.com/ivaquero/oxidizer) Plugins for Zsh
 
-[![license](https://img.shields.io/github/license/ivaquero/oxplugins-zsh)](https://github.com/ivaquero/oxplugins-zsh/blob/master/LICENSE)
-![code size](https://img.shields.io/github/languages/code-size/ivaquero/oxplugins-zsh.svg)
-![repo size](https://img.shields.io/github/repo-size/ivaquero/oxplugins-zsh.svg)
+[![license](https://img.shields.io/github/license/ivaquero/oxplugins)](https://github.com/ivaquero/oxplugins/blob/master/LICENSE)
+![code size](https://img.shields.io/github/languages/code-size/ivaquero/oxplugins.svg)
+![repo size](https://img.shields.io/github/repo-size/ivaquero/oxplugins.svg)
 
 - Package Manager
   - Brew (macOS & Linux)
