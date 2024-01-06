@@ -10,6 +10,8 @@ case $(uname) in
 *MINGW*)
     if [[ -f "$SCOOP/app/current/vscode/bin/code" ]]; then
         export VSCODE_DATA="$SCOOP/persist/vscode/data/user-data"
+    elif [[ -f "$SCOOP/app/current/vscode-win7/bin/code" ]]; then
+        export VSCODE_DATA="$SCOOP/persist/vscode-win7/data/user-data"
     fi
     ;;
 esac

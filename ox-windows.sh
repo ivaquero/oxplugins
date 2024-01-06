@@ -7,12 +7,16 @@ alias open="explorer"
 export APPDATA="${HOME}/AppData"
 
 ##########################################################
-# main
+# computer
 ##########################################################
 
 alias shutdown="shutdown -s"
 alias restart="shutdown -r"
-alias hybernate="shutdown -h"
+
+hibernate() {
+    echo "Hibernating."
+    shutdown -h
+}
 
 ##########################################################
 # winget
@@ -85,7 +89,7 @@ wlcl() {
     esac
     diskpart.exe
     select.exe vdisk file="$file"
-    attach vdisk readonly
-    compact vdisk
-    detach vdisk
+    attach.exe vdisk readonly
+    compact.exe vdisk
+    detach.exe vdisk
 }
