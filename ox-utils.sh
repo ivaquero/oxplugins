@@ -13,7 +13,7 @@ test_oxpath() {
     fi
 }
 
-# oxidize file: backup configuration file to backup folder
+# oxidize file: backup configuration file to personalized folder
 oxf() {
     for file in "$@"; do
         local in_path=${OX_ELEMENT[$file]}
@@ -31,7 +31,7 @@ oxf() {
     done
 }
 
-# reduce file: owerwrite configuation file by backup file
+# reduce file: owerwrite configuation file by personalized file
 rdf() {
     for file in "$@"; do
         local in_path=${OX_OXIDE[bk$file]}
@@ -59,8 +59,8 @@ clzf() {
     done
 }
 
-# poison file: backup Oxidizer defaults to backup folder
-psnf() {
+# propagate file: backup Oxidizer defaults to backup folder
+ppgf() {
     for file in "$@"; do
         local in_path=${OX_OXYGEN[ox$file]}
         local out_path=${OX_OXIDE[bk$file]}
@@ -79,7 +79,7 @@ alias iif="clzf"
 ##########################################################
 
 # refresh file
-frf() {
+rff() {
     if [[ -z "$1" ]]; then
         . "${OX_ELEMENT[zs]}"
     else
