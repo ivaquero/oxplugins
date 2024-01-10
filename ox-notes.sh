@@ -26,12 +26,7 @@ OX_ELEMENT[lgx_]=${HOME}/.logseq/plugins
 
 # compile typst
 typall() {
-    for file in "${TYPST_ROOT}"/"$1"/*.typ; do typst c "$file"; done
+    for file in "${OX_TYPST_ROOT}"/"$1"/*.typ; do typst c "$file"; done
 }
 
-# sync typst lib
-typsync() {
-    for folder in $OX_TYPST_ENV; do
-        cp -R -v "${TYPST_LIB}" "$folder"
-    done
-}
+export TYPST_LIB_ROOT=${APPDATA}/typst
