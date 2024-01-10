@@ -29,4 +29,4 @@ typall() {
     for file in "${OX_TYPST_ROOT}"/"$1"/*.typ; do typst c "$file"; done
 }
 
-export TYPST_LIB_ROOT=${APPDATA}/typst
+export TYPST_PACKAGES=${APPDATA}/typst
