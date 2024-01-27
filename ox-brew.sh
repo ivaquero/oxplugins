@@ -182,10 +182,10 @@ bprc() {
     fromV=${check%==>*}
     toV=${check#*==>}
     if [[ "$toV" != "$fromV" ]]; then
-        echo "Updating $cask from $fromV to $toV"
+        echo "Updating $1 from $fromV to $toV"
         brew bump-cask-pr "$1" --version "$toV"
     else
-        echo "There is no new version"
+        echo "There is no new version of $1"
     fi
 }
 
