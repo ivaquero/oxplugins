@@ -8,7 +8,7 @@ OX_ELEMENT[scs]="/etc/apt/sources.list"
 # backup files
 OX_OXIDE[bkscs]=${OX_BACKUP}/install/source.list
 
-# binaries
+# shortcuts
 if test "$(command -v xdg-open)"; then
     alias open="xdg-open"
 elif test "$(command -v nautilus)"; then
