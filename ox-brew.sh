@@ -19,8 +19,6 @@ case ${SHELL} in
     if type brew &>/dev/null; then
         FPATH=${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}
         autoload -Uz compinit && compinit
-        FPATH=${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}
-        autoload -Uz compinit && compinit
         compaudit | xargs chmod g-w
     fi
     [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ] && . "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
