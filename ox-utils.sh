@@ -8,7 +8,7 @@ test_oxpath() {
         echo "$1 does not exist, please define it in custom.sh"
     fi
 
-    if [ ! -d "$(dirname "$1")" ]; then
+    if [[ ! -d "$(dirname "$1")" ]]; then
         mkdir -p -v "$(dirname "$1")"
     fi
 }
@@ -162,7 +162,7 @@ ched() {
 
 export _ZO_DATA_DIR=${HOME}/.config/zoxide
 
-if [ ! -d "$_ZO_DATA_DIR" ]; then
+if [[ ! -d "$_ZO_DATA_DIR" ]]; then
     mkdir -p -v "$_ZO_DATA_DIR"
 fi
 

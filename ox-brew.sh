@@ -21,12 +21,15 @@ case ${SHELL} in
         autoload -Uz compinit && compinit
         compaudit | xargs chmod g-w
     fi
+    # shellcheck disable=SC1091
     [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ] && . "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+    # shellcheck disable=SC1091
     [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && . "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     ;;
 *bash)
     if [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]; then
-        source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+        # shellcheck disable=SC1091
+        . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
     else
         for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
             [ -r "${COMPLETION}" ] && source "${COMPLETION}"
@@ -40,7 +43,7 @@ esac
 ##########################################################
 
 # backup files
-if [ ! -d "${OX_BACKUP}"/install ]; then
+if [[ ! -d "${OX_BACKUP}"/install ]]; then
     mkdir -p -v "${OX_BACKUP}"/install
 fi
 OX_OXIDE[bkb]="${OX_BACKUP}"/install/Brewfile
@@ -176,7 +179,7 @@ brp() {
 }
 
 bprc() {
-    check=$(echo "$(brew livecheck --cask $1)" | rg -o " .+*" | tr -d ": ")
+    check=$(echo "$(brew livecheck --cask "$1")" | rg -o " .+*" | tr -d ": ")
     fromV=${check%==>*}
     toV=${check#*==>}
     if [[ "$toV" != "$fromV" ]]; then

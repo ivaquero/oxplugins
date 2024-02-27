@@ -63,12 +63,12 @@ clean_conda() {
 
     echo "$the_leaves" | while read -r line; do
         pkg=$(rg "$line" <"$conda_file")
-        if [ -z "$pkg" ]; then
+        if [[ -z "$pkg" ]]; then
             echo "Removing $line"
             mamba remove -n "$conda_env" "$line" --quiet --yes
         fi
     done
-    if [ "$(echo "$the_leaves" | wc -w)" -eq "$(wc -w <"$conda_file")" ] && [ "$(echo "$the_leaves" | wc -c)" -eq "$(wc -c <"$conda_file")" ]; then
+    if [[ "$(echo "$the_leaves" | wc -w)" -eq "$(wc -w <"$conda_file")" ]] && [[ ${#the_leaves} -eq "$(wc -c <"$conda_file")" ]]; then
         echo "Conda Env Cleanup Finished"
     fi
 }

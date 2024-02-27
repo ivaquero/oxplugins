@@ -4,7 +4,7 @@
 ##########################################################
 
 # backup files
-if [ ! -d "${OX_BACKUP}"/text ]; then
+if [[ ! -d "${OX_BACKUP}"/text ]]; then
     mkdir -p -v "${OX_BACKUP}"/text
 fi
 OX_OXIDE[bktl]=${OX_BACKUP}/text/texlive-pkgs.txt

@@ -6,7 +6,7 @@
 # system files
 OX_ELEMENT[nj]=${HOME}/.npmrc
 # backup files
-if [ ! -d "${OX_BACKUP}"/javascript ]; then
+if [[ ! -d "${OX_BACKUP}"/javascript ]]; then
     mkdir -p -v "${OX_BACKUP}"/javascript
 fi
 OX_OXIDE[bknj]=${OX_BACKUP}/javascript/.npmrc

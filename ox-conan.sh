@@ -8,7 +8,7 @@ OX_ELEMENT[cn]=${HOME}/.conan/conan.conf
 OX_ELEMENT[cnr]=${HOME}/.conan/remotes.json
 OX_ELEMENT[cnd]=${HOME}/.conan/profiles/default
 # backup files
-if [ ! -d "${OX_BACKUP}"/conan ]; then
+if [[ ! -d "${OX_BACKUP}"/conan ]]; then
     mkdir -p -v "${OX_BACKUP}"/conan
 fi
 OX_OXIDE[bkcn]=${OX_BACKUP}/conan/conan.conf
