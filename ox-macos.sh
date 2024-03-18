@@ -67,6 +67,16 @@ allow() {
     done
 }
 
+sign() {
+    for app in /Applications/"$1"*.app; do
+        if [[ -z $app ]]; then
+            echo "$app not found."
+        else
+            codesign --force --deep --sign - /Applications/"$app"
+        fi
+    done
+}
+
 hide() {
     chflags hidden "$1"
 }

@@ -145,7 +145,7 @@ alias bifc="bif --cask"
 alias bedc="be --cask"
 
 ##########################################################
-# cask developement
+# cask development
 ##########################################################
 
 HOMEBREW_DOWNLOAD=$(brew --cache)/downloads
