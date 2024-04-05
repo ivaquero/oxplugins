@@ -174,7 +174,7 @@ brp() {
         echo "predownloaded file not found"
         return 1
     fi
-    f_cache=$(fd "$1" "${HOMEBREW_DOWNLOAD}" | sed 's/\.incomplete//g')
+    f_cache=$(fd "$1" "${HOMEBREW_DOWNLOAD}" | sd '.incomplete' '')
     mv -v "$f_pred" "$f_cache"
 }
 

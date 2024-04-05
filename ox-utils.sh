@@ -31,7 +31,7 @@ oxf() {
     done
 }
 
-# reduce file: owerwrite configuation file by personalized file
+# reduce file: overwrite configuration file by personalized file
 rdf() {
     for file in "$@"; do
         local in_path=${OX_OXIDE[bk$file]}
@@ -48,7 +48,7 @@ rdf() {
     done
 }
 
-# catalyze file: owerwrite configuartion file by Oxidizer defaults
+# catalyze file: overwrite configuration file by Oxidizer defaults
 clzf() {
     for file in "$@"; do
         local in_path=${OX_OXYGEN[ox$file]}
@@ -71,7 +71,7 @@ ppgf() {
 }
 
 ##########################################################
-# Gerneral File Utils
+# General File Utils
 ##########################################################
 
 # refresh file

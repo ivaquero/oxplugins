@@ -23,8 +23,8 @@ OX_OXIDE[bkjlx]=${OX_BACKUP}/julia/julia-pkgs.txt
 # 4. remove the extra " at the tail;
 up_julia() {
     echo "Update Julia by ${OX_OXIDE[bkjlx]}"
-    pkgs=$(tr '\n' ', ' <"${OX_OXIDE[bkjlx]}" | sed 's/$/"/g' | sed 's/^/"/g' | sed 's/,/", "/g' | sed 's/, ""//g')
-    cmd=$(echo 'using Pkg; Pkg.add([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(tr '\n' ', ' <"${OX_OXIDE[bkjlx]}" | sd '^' '"' | sd ',$' '"' | sd ',' '","')
+    cmd=$(echo 'using Pkg; Pkg.add([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -46,16 +46,16 @@ alias jlst="julia --eval 'using Pkg; Pkg.status()'"
 
 # install packages
 jlis() {
-    pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-    cmd=$(echo 'using Pkg; Pkg.add([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+    cmd=$(echo 'using Pkg; Pkg.add([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 # uninstall packages
 jlus() {
-    pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-    cmd=$(echo 'using Pkg; Pkg.rm([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+    cmd=$(echo 'using Pkg; Pkg.rm([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -65,8 +65,8 @@ jlup() {
     if [[ -z "$1" ]]; then
         julia --eval "using Pkg; Pkg.update()"
     else
-        pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-        cmd=$(echo 'using Pkg; Pkg.update([,,])' | sed "s/,,/$pkgs/g")
+        pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+        cmd=$(echo 'using Pkg; Pkg.update([,,])' | sd ",," "$pkgs")
         echo "$cmd"
         julia --eval "$cmd"
     fi
@@ -96,15 +96,15 @@ jlrdp() {
 }
 
 jlpn() {
-    pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-    cmd=$(echo 'using Pkg; Pkg.pin([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+    cmd=$(echo 'using Pkg; Pkg.pin([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 jlupn() {
-    pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-    cmd=$(echo 'using Pkg; Pkg.free([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+    cmd=$(echo 'using Pkg; Pkg.free([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -124,16 +124,16 @@ jlmt() {
 
 # build project
 jlb() {
-    pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-    cmd=$(echo 'using Pkg; Pkg.build([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+    cmd=$(echo 'using Pkg; Pkg.build([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 # test project
 jlts() {
-    pkgs=$(echo \"$@\" | sed 's/ /\", \"/g')
-    cmd=$(echo 'using Pkg; Pkg.test([,,])' | sed "s/,,/$pkgs/g")
+    pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
+    cmd=$(echo 'using Pkg; Pkg.test([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
