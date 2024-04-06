@@ -58,9 +58,3 @@ alias nts="npm test"
 alias nau="npm audit"
 alias nfx="npm audit fix"
 alias npb="npm publish"
-
-##########################################################
-# node
-##########################################################
-
-alias nj="node"

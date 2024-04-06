@@ -3,19 +3,19 @@
 # config
 ##########################################################
 
-OX_ELEMENT[jn]="${HOME}/.jupyter/jupyter_notebook_config.py"
+OX_ELEMENT[jr]="${HOME}/.jupyter/jupyter_notebook_config.py"
 
 ##########################################################
 # main
 ##########################################################
 
-alias jnh="jupyter --help"
-alias jn="jupyter notebook"
-alias jncf="jupyter notebook --generate-config"
-alias jnl="jupyter lab"
+alias jrh="jupyter --help"
+alias jrn="jupyter notebook"
+alias jrncf="jupyter notebook --generate-config"
+alias jrl="jupyter lab"
 
 if [[ $(uname) = "Darwin" ]]; then
-    jncl() {
+    jrcl() {
         echo "Cleaning up Jupyter Runtime Cache."
         rm -rfv "${HOME}"/Library/Jupyter/runtime/*.json
     }
@@ -25,19 +25,19 @@ fi
 # kernelspec
 ##########################################################
 
-alias jnk="jupyter kernelspec"
-alias jnkls="jupyter kernelspec list"
-alias jnkis="jupyter kernelspec install"
-alias jnkus="jupyter kernelspec remove"
+alias jrk="jupyter kernelspec"
+alias jrkls="jupyter kernelspec list"
+alias jrkis="jupyter kernelspec install"
+alias jrkus="jupyter kernelspec remove"
 
 ##########################################################
 # book
 ##########################################################
 
-alias jb="jupyter-book"
-alias jbcr="jupyter-book create"
-alias jbcl="jupyter-book clean"
-alias jbb="jupyter-book build"
+alias jrb="jupyter-book"
+alias jrbcr="jupyter-book create"
+alias jrbcl="jupyter-book clean"
+alias jrbb="jupyter-book build"
 
 ghp() {
     ghp-import -n -p -f "$1"/_build/html
