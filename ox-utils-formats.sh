@@ -18,33 +18,34 @@ chft() {
 }
 
 ##########################################################
-# markdown
+# text
 ##########################################################
 
-# $1: input file, $2: output format
-mdto() {
-    if [[ "$1" == "pdf" ]]; then
-        if test "$(command -v tectonic)"; then
-            pdf_engine=tectonic
-        elif test "$(command -v xelatex)"; then
-            pdf_engine=xelatex
-        else
-            echo "No available pdf engine found"
-        fi
-        pandoc "$2" -o "${2%%.*}"."$1" --pdf-engine="$pdf_engine" -V CJKmainfont="${OX_FONT}"
-    elif [[ "$1" == "html" ]]; then
-        pandoc "$2" -o "${2%%.*}"."$1" --standalone --mathjax --shift-heading-level-by=-1
+tohtml() {
+    pandoc "$1" -o "${1%%.*}".html --standalone --mathjax --shift-heading-level-by=-1
+}
+
+todocx() {
+    pandoc "$1" -o "${1%%.*}".docx
+}
+
+totyp() {
+    pandoc "$1" -o "${1%%.*}".typ
+}
+
+topdf() {
+    if test "$(command -v tectonic)"; then
+        pdf_engine=tectonic
+    elif test "$(command -v xelatex)"; then
+        pdf_engine=xelatex
     else
-        pandoc "$2" -o "${2%%.*}"."$1"
+        echo "No available pdf engine found"
     fi
+    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" -V CJKmainfont="${OX_FONT}"
 }
 
 ##########################################################
-# pdf
-##########################################################
-
-##########################################################
-# audio
+# media
 ##########################################################
 
 tomp3() {
@@ -55,10 +56,6 @@ tomp3() {
     fi
     ffmpeg -i "$1" -c:a libmp3lame -b:a "$cbr" "${1%%.*}".mp3
 }
-
-##########################################################
-# video
-##########################################################
 
 tomp4() {
     ffmpeg -fflags +genpts -i "$1" -r 24 "${1%%.*}".mp4
