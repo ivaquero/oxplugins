@@ -94,7 +94,7 @@ bcl() {
 # info & version
 alias bif="brew info"
 alias bpn="brew pin"
-alias bupn="brew unpin"
+alias bupn="brew unpin && brew update"
 
 # r: remote, c: cask
 bst() {
@@ -114,6 +114,7 @@ alias bed="brew edit"
 alias bca="brew cat"
 alias bau="brew audit"
 alias bfx="brew style --fix"
+alias blc="brew livecheck"
 alias bln="brew link"
 alias buln="brew unlink"
 
