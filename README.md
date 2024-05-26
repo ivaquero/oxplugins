@@ -6,7 +6,7 @@
 
 |       Filename        |    Category     |            Support             |
 | :-------------------: | :-------------: | :----------------------------: |
-|   `ox-bone-git.sh`    | Better to Have  |              Git               |
+|    `ox-os-git.sh`     |  OS Shortcuts   |              Git               |
 |   `ox-os-macos.sh`    |  OS Shortcuts   |             macOS              |
 |  `ox-os-debians.sh`   |  OS Shortcuts   |      Debian-Based Systems      |
 |   `ox-os-redhat.sh`   |  OS Shortcuts   |      RedHat-Based Systems      |
