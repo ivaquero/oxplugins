@@ -73,16 +73,23 @@ alias bis="brew install --no-quarantine"
 alias bus="brew uninstall"
 alias bris="brew reinstall --no-quarantine"
 alias bups="brew update"
-alias bup="brew upgrade --no-quarantine"
+
+chck_cask() {
+    brew list --cask | rg "$1"
+}
+
+bup() {
+    # shellcheck disable=SC2005
+    chck=$(echo "$(chck_cask "$1")")
+    if [[ -z $chck ]]; then
+        brew upgrade "$1"
+    else
+        brew upgrade --cask --no-quarantine "$1"
+    fi
+}
+
 alias busg="bus --zap"
 alias bupg="bup --greedy"
-
-alias bls="brew list"
-alias blsf="brew list --formula"
-alias blv="brew leaves"
-alias bsc="brew search"
-alias bdp="brew deps --tree --formula --installed"
-alias bck="brew doctor"
 
 bcl() {
     case "$1" in
@@ -91,7 +98,19 @@ bcl() {
     esac
 }
 
+##########################################################
 # info & version
+##########################################################
+
+alias bck="brew doctor"
+
+alias bls="brew list"
+alias blsf="brew list --formula"
+alias blv="brew leaves"
+alias bdp="brew deps --tree --formula --installed"
+
+alias bsc="brew search"
+
 alias bif="brew info"
 alias bpn="brew pin"
 
@@ -99,7 +118,6 @@ bupn() {
     brew unpin "$1" && brew update
 }
 
-# r: remote, c: cask
 bst() {
     case "$1" in
     -g) brew outdated --greedy ;;
@@ -122,28 +140,10 @@ alias bln="brew link"
 alias buln="brew unlink"
 
 ##########################################################
-# extension
-##########################################################
-
-alias bxa="brew tap"
-alias bxrm="brew untap"
-
-##########################################################
-# bundle
-##########################################################
-
-# backup files
-export HOMEBREW_BUNDLE_FILE=${OX_OXIDE[bkb]}
-
-##########################################################
 # casks
 ##########################################################
 
 alias bisc="bis --cask --no-quarantine"
-alias busc="bus --cask"
-alias brisc="bris --cask --no-quarantine"
-alias bupc="bup --cask"
-
 alias blsc="bls --cask"
 alias bifc="bif --cask"
 alias bedc="be --cask"
@@ -183,7 +183,8 @@ brp() {
 }
 
 bprc() {
-    check=$(echo "$(brew livecheck --cask "$1")" | rg -o " .+*" | tr -d ": ")
+    # shellcheck disable=SC2005
+    check=$(echo "$(blc --cask "$1")" | rg -o " .+*" | tr -d ": ")
     fromV=${check%==>*}
     toV=${check#*==>}
     if [[ "$toV" != "$fromV" ]]; then
@@ -193,6 +194,17 @@ bprc() {
         echo "There is no new version of $1"
     fi
 }
+
+##########################################################
+# extensions
+##########################################################
+
+# taps
+alias bxa="brew tap"
+alias bxrm="brew untap"
+
+# bundle: backup files
+export HOMEBREW_BUNDLE_FILE=${OX_OXIDE[bkb]}
 
 ##########################################################
 # brew services
