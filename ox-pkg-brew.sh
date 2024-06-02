@@ -80,11 +80,15 @@ chck_cask() {
 
 bup() {
     # shellcheck disable=SC2005
-    chck=$(echo "$(chck_cask "$1")")
-    if [[ -z $chck ]]; then
-        brew upgrade "$1"
+    if [[ -z $1 ]]; then
+        brew upgrade
     else
-        brew upgrade --cask --no-quarantine "$1"
+        chck=$(echo "$(chck_cask "$1")")
+        if [[ -z $chck ]]; then
+            brew upgrade "$1"
+        else
+            brew upgrade --cask --no-quarantine "$1"
+        fi
     fi
 }
 
