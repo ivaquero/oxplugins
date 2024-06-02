@@ -41,11 +41,16 @@ back_texlive() {
 # packages
 ##########################################################
 
-alias tlup="tlmgr update --all"
-alias tlups="tlmgr update --all --self"
-alias tlck="tlmgr check"
-alias tlis="tlmgr install"
-alias tlus="tlmgr remove && tlmgr check"
+alias tlup="sudo tlmgr update --all"
+alias tlups="sudo tlmgr update --all --self"
+alias tlck="sudo tlmgr check"
+alias tlis="sudo tlmgr install"
+alias tlus="sudo tlmgr remove && tlmgr check"
+
+##########################################################
+# info
+##########################################################
+
 alias tllsa="tlmgr list"
 alias tlls="tlmgr list --only-installed"
 alias tlif="tlmgr info"
