@@ -14,7 +14,7 @@
 |   `ox-pkg-scoop.sh`   | Package Manager |        Scoop (Windows)         |
 |   `ox-pkg-conda.sh`   | Package Manager |    Conda (Multi-Languages)     |
 |   `ox-pkg-conan.sh`   | Package Manager |          Conan (C++)           |
-|    `ox-pkg-npm.sh`    | Package Manager |        NPM (JavaScript)        |
+|    `ox-pkg-npm.sh`    | Package Manager |    NPM + Yarn (JavaScript)     |
 |   `ox-pkg-tlmgr.sh`   | Package Manager |        tlmgr (TeXLive)         |
 |    `ox-cli-git.sh`    |     App CLI     |              Git               |
 | `ox-cli-bitwarden.sh` |     App CLI     |           Bitwarden            |
