@@ -119,7 +119,7 @@ alias bif="brew info"
 alias bpn="brew pin"
 
 bupn() {
-    brew unpin "$1" && brew update
+    brew unpin "$1" && brew upgrade
 }
 
 bst() {
