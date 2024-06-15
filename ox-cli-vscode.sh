@@ -31,6 +31,10 @@ OX_OXIDE[bkvsx]=${OX_BACKUP}/vscode/vscode-exts.txt
 vscl() {
     printf "Cleaning up VSCode Cache.\n"
     rm -rfv "${VSCODE_DATA}"/Cache/*
+    printf "Cleaning up VSCode Obselete History.\n"
+    rm -rfv "${VSCODE_DATA}"/User/History/-*
+    printf "Cleaning up VSCode Obselete Profiles.\n"
+    rm -rfv "${VSCODE_DATA}"/User/profiles/-*
 
     case "$1" in
     -a)
