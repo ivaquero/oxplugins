@@ -25,6 +25,10 @@ tohtml() {
     pandoc "$1" -o "${1%%.*}".html --standalone --mathjax --shift-heading-level-by=-1
 }
 
+tomd() {
+    pandoc "$1" -o "${1%%.*}".md
+}
+
 todocx() {
     pandoc "$1" -o "${1%%.*}".docx
 }
