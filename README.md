@@ -25,6 +25,7 @@
 |   `ox-lang-ruby.sh`   |    Language     |       Ruby (include gem)       |
 |   `ox-lang-rust.sh`   |    Language     |  Rust (include cargo, rustup)  |
 | `ox-svc-container.sh` |     Service     |  Container (Docker & Podman)   |
+|  `ox-svc-ollama.ps1`  |     Service     |             Ollama             |
 |   `ox-svc-pueue.sh`   |     Service     |             Pueue              |
 |  `ox-utils-files.sh`  |  System Utils   |         File Operation         |
 | `ox-utils-formats.sh` |  System Utils   |       Formats Conversion       |
