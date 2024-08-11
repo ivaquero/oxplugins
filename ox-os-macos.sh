@@ -68,11 +68,13 @@ allow() {
 }
 
 sign() {
+    printf "Initial letter needs to be capitalized\n"
+
     for app in /Applications/"$1"*.app; do
         if [[ -z $app ]]; then
             echo "$app not found."
         else
-            codesign --force --deep --sign - /Applications/"$app"
+            codesign --force --deep --sign - "$app"
         fi
     done
 }
