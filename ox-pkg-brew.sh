@@ -18,8 +18,6 @@ case ${SHELL} in
 *zsh)
     if type brew &>/dev/null; then
         FPATH=${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}
-        autoload -Uz compinit && compinit
-        compaudit | xargs chmod g-w
     fi
     # shellcheck disable=SC1091
     [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ] && . "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
