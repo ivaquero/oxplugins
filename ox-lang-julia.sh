@@ -11,27 +11,47 @@ JULIA_VERSION=$(julia -v | rg -o "\d+\.\d+")
 OX_OXYGEN[jl]=${OXIDIZER}/defaults/startup.jl
 # system files
 OX_ELEMENT[jl]=${JULIA_DEPOT_PATH}/config/startup.jl
-OX_ELEMENT[jlp]=${JULIA_DEPOT_PATH}/environments/v${JULIA_VERSION}/Project.toml
-OX_ELEMENT[jlm]=${JULIA_DEPOT_PATH}/environments/v${JULIA_VERSION}/Manifest.toml
+OX_ELEMENT[jlbp]=${JULIA_DEPOT_PATH}/environments/v${JULIA_VERSION}/Project.toml
+OX_ELEMENT[jlbm]=${JULIA_DEPOT_PATH}/environments/v${JULIA_VERSION}/Manifest.toml
 # backup files
 OX_OXIDE[bkjl]=${OX_BACKUP}/julia/startup.jl
-OX_OXIDE[bkjlx]=${OX_BACKUP}/julia/julia-pkgs.txt
+OX_OXIDE[bkjlb]=${OX_BACKUP}/julia/julia-base.txt
 
 # 1. trim \n;
 # 2. add " to the head and the tail;
 # 3. replace , with ", "
 # 4. remove the extra " at the tail;
 up_julia() {
-    echo "Update Julia by ${OX_OXIDE[bkjlx]}"
-    pkgs=$(tr '\n' ', ' <"${OX_OXIDE[bkjlx]}" | sd '^' '"' | sd ',$' '"' | sd ',' '","')
+    if [[ -z "$1" ]]; then
+        local julia_backup=${OX_OXIDE[bkjlb]}
+    elif [[ ${#1} -lt 4 ]]; then
+        local julia_env=${OX_JULIA_ENV[$1]}
+        local julia_backup=${OX_OXIDE[bkjl$1]}
+    else
+        local julia_env=$1
+        local julia_backup=$2
+    fi
+
+    echo "Update Julia Env $julia_env by $julia_backup"
+    pkgs=$(tr '\n' ', ' <"$julia_backup" | sd '^' '"' | sd ',$' '"' | sd ',' '","')
     cmd=$(echo 'using Pkg; Pkg.add([,,])' | sd ",," "$pkgs")
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 back_julia() {
-    echo "Backup Julia to ${OX_OXIDE[bkjlx]}"
-    rg -o "\w.*=" <"${OX_ELEMENT[jlp]}" | tr -d '= ' >"${OX_OXIDE[bkjlx]}"
+    if [[ -z "$1" ]]; then
+        local julia_backup=${OX_OXIDE[bkjlb]}
+        local julia_backup_proj=${OX_ELEMENT[jlbp]}
+    elif [[ ${#1} -lt 4 ]]; then
+        local julia_env=${OX_JULIA_ENV[$1]}
+        local julia_backup=${OX_OXIDE[bkjl$1]}
+    else
+        local julia_env=$1
+        local julia_backup=$2
+    fi
+    echo "Backup Julia Julia Env $julia_env to $julia_backup"
+    rg -o "\w.*=" <"$julia_backup_proj" | tr -d '= ' >"$julia_backup"
 }
 
 ##########################################################
@@ -74,12 +94,12 @@ jlup() {
 
 # list leave packages
 jllv() {
-    rg -o "\w+ =" <"${OX_ELEMENT[jlp]}" | tr " =" " "
+    rg -o "\w+ =" <"${OX_ELEMENT[jlbp]}" | tr " =" " "
 }
 
 # list packages
 jlls() {
-    rg -o "deps\.\w+" <"${OX_ELEMENT[jlm]}" | tr -d "deps\."
+    rg -o "deps\.\w+" <"${OX_ELEMENT[jlbm]}" | tr -d "deps\."
 }
 
 # dependencies of package
