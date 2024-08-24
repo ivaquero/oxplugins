@@ -59,7 +59,7 @@ back_julia() {
     fi
 
     echo "Backup Julia Env $julia_env to $julia_backup"
-    rg -o "\w.*=" <"$julia_backup_proj" | tr -d '= ' >"$julia_backup"
+    rg -o "\w.*=" <"$julia_env/Project.toml" | tr -d '= ' >"$julia_backup"
 }
 
 clean_julia() {
@@ -127,7 +127,7 @@ jlus() {
 # update packages
 jlup() {
     if [[ -z "$1" ]]; then
-        julia --eval "using Pkg; Pkg.update()"
+        julia --eval "using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.update()"
     else
         pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
         cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.update([,,])' | sd ",," "$pkgs")
@@ -175,9 +175,9 @@ jlupn() {
 
 # calculate mature rate
 jlmt() {
-    num_total=$(rg -c "version =" <"${OX_ELEMENT[jlm]}")
+    num_total=$(rg -c "version =" <"${OX_JULIA_ENV_ACTIVE}/Manifest.toml")
     echo "total: $num_total"
-    num_immature=$(rg -c '"0\.' <"${OX_ELEMENT[jlm]}")
+    num_immature=$(rg -c '"0\.' <"${OX_JULIA_ENV_ACTIVE}/Manifest.toml")
     local mature_rate=$((100 - num_immature * 100 / num_total))
     echo "mature rate: $mature_rate %"
 }
