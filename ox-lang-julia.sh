@@ -5,8 +5,6 @@
 
 export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"${OX_JULIA_ENV[b]}"}
 
-JULIA_VERSION=$(julia -v | rg -o "\d+\.\d+")
-
 # default files
 OX_OXYGEN[jl]=${OXIDIZER}/defaults/startup.jl
 # system files
