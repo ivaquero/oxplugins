@@ -19,12 +19,24 @@ alias bwcf="bw config"
 
 # $1=object
 bwsc() {
-    case "$1" in
+    local option="$1"
+    local target="$2"
+
+    case "$option" in
     -h) bw get --help ;;
-    -u) bw get username "$1" ;;
-    -p) bw get password "$1" ;;
-    -n) bw get notes "$1" ;;
-    *) bw get item "$2" --pretty ;;
+    -u) bw get username "$target" ;;
+    -p) bw get password "$target" ;;
+    -n) bw get notes "$target" ;;
+    -i) bw get item "$target" --pretty ;;
+    *)
+        echo "Usage: bwsc OPTION TARGET
+Options:
+  -h      Show help message.
+  -u      Get username.
+  -p      Get password.
+  -n      Get notes.
+  Otherwise, get the specified item with pretty print."
+        ;;
     esac
 }
 
@@ -42,18 +54,32 @@ alias bwup="bw sync"
 ##########################################################
 
 # $1=object
-bwe() {
-    case "$1" in
-    -d) bw edit folder "$2" ;;
-    *) bw edit item "$1" ;;
+bwed() {
+    local option="$1"
+    local target="$2"
+
+    case "$option" in
+    -d) bw edit folder "$target" ;;
+    -i) bw edit item "$target" ;;
+    *) echo "Usage: bwed OPTION TARGET
+Options:
+  -d      Edit folder.
+  -i      Edit item." ;;
     esac
 }
 
 # $1=object
 bwrm() {
-    case "$1" in
-    -d) bw delete folder "$2" ;;
-    *) bw delete item "$1" ;;
+    local option="$1"
+    local target="$2"
+
+    case "$option" in
+    -d) bw delete folder "$target" ;;
+    -i) bw delete item "$target" ;;
+    *) echo "Usage: bwrm OPTION TARGET
+Options:
+  -d      Delete folder.
+  -i      Delete item." ;;
     esac
 }
 

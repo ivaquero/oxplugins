@@ -89,15 +89,50 @@ alias crdp="mamba repoquery whoneeds"
 
 # clean packages
 ccl() {
-    case "$1" in
-    -l) conda clean --logfiles ;;
-    -i) conda clean --index-cache ;;
-    -p) conda clean --packages ;;
-    -t) conda clean --tarballs ;;
-    -f) conda clean --force-pkgs-dirs ;;
-    -a) conda clean --all ;;
-    *) conda clean --packages && conda clean --tarballs ;;
-    esac
+    if [ $# -eq 0 ]; then
+        echo "Usage: ccl [-h|-l|-i|-p|-t|-f|-a]..."
+        echo "Missing flag, executing greedy cleanup"
+        conda clean --all && conda clean --tarballs
+    fi
+
+    while getopts "hliptfa:" opt; do
+        case $opt in
+        h)
+            echo "Options:"
+            echo "  -h              Help information."
+            echo "  -l              Remove cached log files."
+            echo "  -i              Remove cached index files."
+            echo "  -p              Remove unused packages."
+            echo "  -t              Remove tarball cache."
+            echo "  -f              Force removal of unused pkgs dirs."
+            echo "  -a              Perform all cleaning actions."
+            return 1
+            ;;
+        l)
+            conda clean --logfiles
+            ;;
+        i)
+            conda clean --index-cache
+            ;;
+        p)
+            conda clean --packages
+            ;;
+        t)
+            conda clean --tarballs
+            ;;
+        f)
+            conda clean --force-pkgs-dirs
+            ;;
+        a)
+            conda clean --all
+            ;;
+
+        \?)
+            echo "Invalid option: -$OPTARG"
+            echo "Usage: ccl [-h|-l|-i|-p|-t|-f|-a]..."
+            ;;
+        esac
+    done
 }
 
 # update packages

@@ -21,19 +21,19 @@ get_default_branch() {
 # git republish
 grpbl() {
     git remote add origin "$1"
-    local dbranch=$(get_default_branch)
-    git pull "$1" "$dbranch"
-    git push --set-upstream origin "$dbranch"
+    local branch_d=$(get_default_branch)
+    git pull "$1" "$branch_d"
+    git push --set-upstream origin "$branch_d"
 }
 
 # clean history
 gclhs() {
     git reset --hard HEAD~1
-    local dbranch=$(get_default_branch)
-    git checkout --orphan origin/"$dbranch"
+    local branch_d=$(get_default_branch)
+    git checkout --orphan origin/"$branch_d"
     git add -A
     git commit -am "🎉 New Start"
-    git branch -D "$dbranch"
-    git branch -m "$dbranch"
-    git push -f origin "$dbranch"
+    git branch -D "$branch_d"
+    git branch -m "$branch_d"
+    git push -f origin "$branch_d"
 }

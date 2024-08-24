@@ -95,8 +95,16 @@ alias bupg="bup --greedy"
 
 bcl() {
     case "$1" in
-    -a) brew autoremove && brew cleanup -s --prune=all ;;
-    *) brew autoremove && brew cleanup -s ;;
+    -g)
+        echo "Executing greedy cleanup..."
+        brew autoremove || exit 1
+        brew cleanup -s --prune=all || exit 1
+        ;;
+    *)
+        echo "Executing standard cleanup..."
+        brew autoremove || exit 1
+        brew cleanup -s || exit 1
+        ;;
     esac
 }
 

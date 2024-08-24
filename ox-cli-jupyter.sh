@@ -39,8 +39,4 @@ alias jrbcr="jupyter-book create"
 alias jrbcl="jupyter-book clean"
 alias jrbb="jupyter-book build"
 
-ghp() {
-    ghp-import -n -p -f "$1"/_build/html
-}
-
 export PYDEVD_DISABLE_FILE_VALIDATION=1

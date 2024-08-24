@@ -36,10 +36,16 @@ vscl() {
     printf "Cleaning up VSCode Obselete Profiles.\n"
     rm -rfv "${VSCODE_DATA}"/User/profiles/-*
 
-    case "$1" in
+    local option="$1"
+    case "$option" in
     -a)
         printf "Cleaning up VSCode Workspace Storage.\n"
         rm -rfv "${VSCODE_DATA}"/User/workspaceStorage/*
+        ;;
+    *)
+        echo "Usage: vscl OPTION
+Options:
+  -a      Clean up VSCode Workspace Storage."
         ;;
     esac
 }

@@ -102,5 +102,4 @@ bisp() {
     else
         echo "It's needless to parallel when less then 2 packages "
     fi
-
 }

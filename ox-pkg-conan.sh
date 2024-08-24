@@ -24,16 +24,54 @@ alias cnis="conan install"
 alias cnus="conan remove"
 
 cnsc() {
+    local help_msg="Usage: cnsc [-m <package>] [package]\n
+    Search for packages in Conan.
+    -m, --remote   Search in remote 'conancenter'."
+
+    if [[ $# -eq 0 ]]; then
+        echo "$help_msg"
+        return 1
+    fi
+
     case "$1" in
-    -m) conan search --remote=conancenter "$2" ;;
-    *) conan search "$1" ;;
+    -m | --remote)
+        if [[ -z "$2" ]]; then
+            echo "Error: Package name is required after -m option."
+            echo "$help_msg"
+            return 1
+        else
+            conan search --remote=conancenter "$2"
+        fi
+        ;;
+    *)
+        conan search "$1"
+        ;;
     esac
 }
 
 cndl() {
+    local help_msg="Usage: cndl [-m <package>] [package]\n
+    Search for packages in Conan.
+    -m, --remote   Search in remote 'conancenter'."
+
+    if [[ $# -eq 0 ]]; then
+        echo "$help_msg"
+        return 1
+    fi
+
     case "$1" in
-    -m) conan download --remote=conancenter "$2" ;;
-    *) conan download "$1" ;;
+    -m | --remote)
+        if [[ -z "$2" ]]; then
+            echo "Error: Package name is required after -m option."
+            echo "$help_msg"
+            return 1
+        else
+            conan download --remote=conancenter "$2"
+        fi
+        ;;
+    *)
+        conan download "$1"
+        ;;
     esac
 }
 

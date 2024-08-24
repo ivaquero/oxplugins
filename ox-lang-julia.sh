@@ -27,6 +27,10 @@ up_julia() {
         local julia_env=${OX_JULIA_ENV[$1]}
         local julia_backup=${OX_OXIDE[bkjl$1]}
     else
+        if [[ -z "$2" ]]; then
+            echo "Error: Second parameter is missing."
+            exit 1
+        fi
         local julia_env=$1
         local julia_backup=$2
     fi
@@ -46,6 +50,10 @@ back_julia() {
         local julia_env=${OX_JULIA_ENV[$1]}
         local julia_backup=${OX_OXIDE[bkjl$1]}
     else
+        if [[ -z "$2" ]]; then
+            echo "Error: Second parameter is missing."
+            exit 1
+        fi
         local julia_env=$1
         local julia_backup=$2
     fi
@@ -62,6 +70,10 @@ clean_julia() {
         local julia_env=${OX_JULIA_ENV[$1]}
         local julia_backup=${OX_OXIDE[bkjl$1]}
     else
+        if [[ -z "$2" ]]; then
+            echo "Error: Second parameter is missing."
+            exit 1
+        fi
         local julia_env=$1
         local julia_backup=$2
     fi

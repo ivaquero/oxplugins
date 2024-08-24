@@ -84,8 +84,12 @@ wlv() {
 wlcl() {
     sys="$1"
     case $sys in
-    kali) file="C:/Users/Ci/AppData/Local/Packages/KaliLinux.54290C8133FEE_ey8k8hqnwqnmg/LocalState/ext4.vhdx" ;;
-    *) file="C:/Users/Ci/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc/LocalState/ext4.vhdx" ;;
+    kali)
+        file="C:/Users/Ci/AppData/Local/Packages/KaliLinux.54290C8133FEE_ey8k8hqnwqnmg/LocalState/ext4.vhdx"
+        ;;
+    *)
+        file="C:/Users/Ci/AppData/Local/Packages/CanonicalGroupLimited.Ubuntu20.04onWindows_79rhkp1fndgsc/LocalState/ext4.vhdx"
+        ;;
     esac
     diskpart.exe
     select.exe vdisk file="$file"
