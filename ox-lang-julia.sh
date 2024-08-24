@@ -37,7 +37,7 @@ up_julia() {
 
     echo "Update Julia Env $julia_env by $julia_backup"
     pkgs=$(tr '\n' ', ' <"$julia_backup" | sd '^' '"' | sd ',$' '"' | sd ',' '","')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$julia_env\"); Pkg.add([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate("$julia_env"); Pkg.add([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -111,7 +111,7 @@ jleat() {
 # install packages
 jlis() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.add([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.add([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -119,7 +119,7 @@ jlis() {
 # uninstall packages
 jlus() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.rm([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.rm([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -127,13 +127,13 @@ jlus() {
 # update packages
 jlup() {
     if [[ -z "$1" ]]; then
-        julia --eval "using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.update()"
+        cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.update()' | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     else
         pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-        cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.update([,,])' | sd ",," "$pkgs")
-        echo "$cmd"
-        julia --eval "$cmd"
+        cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.update([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     fi
+    echo "$cmd"
+    julia --eval "$cmd"
 }
 
 # list leave packages
@@ -148,27 +148,27 @@ jlls() {
 
 # dependencies of package
 jldp() {
-    cmd=$(echo "using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); using PkgDependency; PkgDependency.tree(\"$1\") |> println")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); using PkgDependency; PkgDependency.tree(\"$1\") |> println')
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 jlrdp() {
-    cmd=$(echo "using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); using PkgDependency; PkgDependency.tree(\"$1\"; reverse=true) |> println")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); using PkgDependency; PkgDependency.tree(\"$1\"; reverse=true) |> println')
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 jlpn() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.pin([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.pin([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 jlupn() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.free([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.free([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -189,7 +189,7 @@ jlmt() {
 # build project
 jlb() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.build([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.build([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
@@ -197,7 +197,7 @@ jlb() {
 # test project
 jlts() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
-    cmd=$(echo 'using Pkg; Pkg.active(\"$OX_JULIA_ENV_ACTIVE\"); Pkg.test([,,])' | sd ",," "$pkgs")
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.test([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
