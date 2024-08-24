@@ -148,13 +148,13 @@ jlls() {
 
 # dependencies of package
 jldp() {
-    cmd=$(echo 'using Pkg; Pkg.activate(";;"); using PkgDependency; PkgDependency.tree(\"$1\") |> println')
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); using PkgDependency; PkgDependency.tree(",,") |> println' | sd ",," "$1" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
 
 jlrdp() {
-    cmd=$(echo 'using Pkg; Pkg.activate(";;"); using PkgDependency; PkgDependency.tree(\"$1\"; reverse=true) |> println')
+    cmd=$(echo 'using Pkg; Pkg.activate(";;"); using PkgDependency; PkgDependency.tree(",,"; reverse=true) |> println' | sd ",," "$1" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
