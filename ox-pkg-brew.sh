@@ -14,19 +14,18 @@ else
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# shellcheck disable=SC1090
+# shellcheck disable=SC1091
 case ${SHELL} in
 *zsh)
     if type brew &>/dev/null; then
         FPATH=${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}
     fi
-    # shellcheck disable=SC1091
     [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ] && . "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    # shellcheck disable=SC1091
     [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && . "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
     ;;
 *bash)
     if [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]; then
-        # shellcheck disable=SC1091
         . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
     else
         for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
@@ -76,25 +75,40 @@ chck_cask() {
     brew list --cask | rg "$1"
 }
 
+# shellcheck disable=SC2005
 bup() {
-    # shellcheck disable=SC2005
     if [[ -z $1 ]]; then
         brew upgrade
     else
-        chck=$(echo "$(chck_cask "$1")")
-        if [[ -z $chck ]]; then
-            brew upgrade "$1"
-        else
-            brew upgrade --cask --no-quarantine "$1"
-        fi
+        local flags="-v"
+        while getopts "*:" opt; do
+            case "$opt" in
+            *)
+                flags="$flags -$OPTARG"
+                shift
+                ;;
+            esac
+        done
+
+        local pkgs=("$@")
+        for pkg in "${pkgs[@]}"; do
+            chck=$(echo "$(chck_cask "$pkg")")
+            if [[ -z $chck ]]; then
+                brew upgrade "$pkg" "$flags"
+            else
+                brew upgrade "$pkg" "$flags" --cask --no-quarantine
+            fi
+        done
+
     fi
 }
 
 alias busg="bus --zap"
-alias bupg="bup --greedy"
 
 bcl() {
-    case "$1" in
+    local option="$1"
+
+    case "$option" in
     -g)
         echo "Executing greedy cleanup..."
         brew autoremove || exit 1
@@ -120,16 +134,14 @@ alias blv="brew leaves"
 alias bdp="brew deps --tree --formula --installed"
 
 alias bsc="brew search"
-
 alias bif="brew info"
 alias bpn="brew pin"
-
-bupn() {
-    brew unpin "$@" && brew upgrade
-}
+alias bupn="brew unpin"
 
 bst() {
-    case "$1" in
+    local option="$1"
+
+    case "$option" in
     -g) brew outdated --greedy ;;
     *) brew outdated ;;
     esac
@@ -192,8 +204,8 @@ brp() {
     mv -v "$f_pred" "$f_cache"
 }
 
+# shellcheck disable=SC2005
 bprc() {
-    # shellcheck disable=SC2005
     check=$(echo "$(blc --cask "$1")" | rg -o " .+*" | tr -d ": ")
     fromV=${check%==>*}
     toV=${check#*==>}

@@ -16,6 +16,8 @@ OX_OXIDE[bkjl]=${OX_BACKUP}/julia/startup.jl
 # 2. add " to the head and the tail;
 # 3. replace , with ", "
 # 4. remove the extra " at the tail;
+
+# shellcheck disable=SC2016
 up_julia() {
     if [[ -z "$1" ]]; then
         local julia_env=${OX_JULIA_ENV[b]}

@@ -3,6 +3,7 @@
 # config
 ##########################################################
 
+# shellcheck disable=SC2155
 export GPG_TTY=$(tty)
 
 # default files
@@ -19,6 +20,7 @@ get_default_branch() {
 }
 
 # git republish
+# shellcheck disable=SC2155
 grpbl() {
     git remote add origin "$1"
     local branch_d=$(get_default_branch)
@@ -27,6 +29,7 @@ grpbl() {
 }
 
 # clean history
+# shellcheck disable=SC2155
 gclhs() {
     git reset --hard HEAD~1
     local branch_d=$(get_default_branch)
