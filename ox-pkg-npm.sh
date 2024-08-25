@@ -32,10 +32,7 @@ back_node() {
 
 alias nis="npm install"
 alias nus="npm uninstall"
-alias nisg="npm install -g"
-alias nusg="npm uninstall -g"
 alias nup="npm update"
-alias nupg="npm update -g"
 alias nst="npm outdated"
 alias nsc="npm search"
 alias ncl="npm cache clean -f"
@@ -47,9 +44,7 @@ alias ncl="npm cache clean -f"
 alias nh="npm help"
 alias nif="npm info"
 alias nls="npm list"
-alias nlsg="npm list -g"
 alias nlv="npm list --depth 0"
-alias nlvg="npm list --depth 0 -g"
 alias nck="npm doctor"
 
 ##########################################################
@@ -68,20 +63,70 @@ alias npb="npm publish"
 # packages
 ##########################################################
 
-alias yis="yarn add"
-alias yisg="yarn global add"
-alias yus="yarn remove"
-alias yusg="yarn global remove"
-alias yup="yarn upgrade"
-alias yupg="yarn global upgrade"
+yis() {
+    local option="$1"
+    shift
+    local pkgs=("$@")
+
+    case "$option" in
+    -g)
+        yarn global add "${pkgs[@]}"
+        ;;
+    *)
+        yarn add "$option" "${pkgs[@]}"
+        ;;
+    esac
+}
+
+yrm() {
+    local option="$1"
+    shift
+    local pkgs=("$@")
+
+    case "$option" in
+    -g)
+        yarn global remove "${pkgs[@]}"
+        ;;
+    *)
+        yarn remove "$option" "${pkgs[@]}"
+        ;;
+    esac
+}
+
+yup() {
+    local option="$1"
+    shift
+    local pkgs=("$@")
+
+    case "$option" in
+    -g)
+        yarn global upgrade "${pkgs[@]}"
+        ;;
+    *)
+        yarn upgrade "$option" "${pkgs[@]}"
+        ;;
+    esac
+}
+
 alias yst="yarn outdated"
 
 ##########################################################
 # packages
 ##########################################################
 
-alias yls="yarn list"
-alias ylsg="yarn global list"
+yls() {
+    local option="$1"
+
+    case "$option" in
+    -g)
+        yarn global list
+        ;;
+    *)
+        yarn list
+        ;;
+    esac
+}
+
 alias yif="yarn info"
 
 ##########################################################

@@ -90,7 +90,7 @@ alias cnxls="conan remote list"
 # project
 ##########################################################
 
-alias cnii="conan create"
+alias cncr="conan create"
 alias cnb="conan build"
 alias cnif="conan inspect"
 alias cnpb="conan publish"

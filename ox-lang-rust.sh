@@ -42,14 +42,8 @@ alias cgr="cargo run"
 alias cgts="cargo test"
 alias cgfx="cargo fix"
 alias cgpb="cargo publish"
-
-cgii() {
-    if [[ -z "$1" ]]; then
-        cargo init
-    else
-        cargo new "$@"
-    fi
-}
+alias cgii="cargo init"
+alias cgcr="cargo new"
 
 ##########################################################
 # rustup
