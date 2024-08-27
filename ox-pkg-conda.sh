@@ -85,7 +85,7 @@ alias cus="mamba remove"
 alias csc="mamba search"
 # specific
 alias cdp="mamba repoquery depends"
-alias crdp="mamba repoquery whoneeds"
+alias cdpr="mamba repoquery whoneeds"
 
 # clean packages
 ccl() {

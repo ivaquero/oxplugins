@@ -58,7 +58,7 @@ alias ah="apt help"
 alias asc="apt-cache search"
 alias aif="apt-cache show"
 alias adp="apt-cache depends"
-alias ardp="apt-cache rdepends"
+alias adpr="apt-cache rdepends"
 alias als="apt list --installed"
 
 alias ais="sudo apt install"
