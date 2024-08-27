@@ -55,7 +55,7 @@ alias ssc="scoop search"
 alias sif="scoop info"
 alias sst="scoop status"
 alias spn="scoop hold"
-alias supn="scoop unhold"
+alias spnr="scoop unhold"
 
 # aria2
 alias sat="scoop config aria2-enabled true"

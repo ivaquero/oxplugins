@@ -165,7 +165,7 @@ jlpn() {
     julia --eval "$cmd"
 }
 
-jlupn() {
+jlpnr() {
     pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
     cmd=$(echo 'using Pkg; Pkg.activate(";;"); Pkg.free([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"

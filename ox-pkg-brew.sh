@@ -71,8 +71,12 @@ alias bus="brew uninstall"
 alias bris="brew reinstall --no-quarantine"
 alias bups="brew update"
 
-chck_cask() {
+is_cask() {
     brew list --cask | rg "$1"
+}
+
+is_pinned() {
+    brew outdated --formula "$1" | rg "pinned"
 }
 
 # shellcheck disable=SC2005
@@ -92,8 +96,12 @@ bup() {
 
         local pkgs=("$@")
         for pkg in "${pkgs[@]}"; do
-            chck=$(echo "$(chck_cask "$pkg")")
-            if [[ -z $chck ]]; then
+            if [[ -z $(is_cask "$pkg") ]]; then
+                if [[ -z $(is_pinned "$pkg") ]]; then
+                    continue
+                else
+                    brew unpin "$pkg"
+                fi
                 brew upgrade "$pkg" "$flags"
             else
                 brew upgrade "$pkg" "$flags" --cask --no-quarantine
@@ -136,7 +144,7 @@ alias bdp="brew deps --tree --formula --installed"
 alias bsc="brew search"
 alias bif="brew info"
 alias bpn="brew pin"
-alias bupn="brew unpin"
+alias bpnr="brew unpin"
 
 bst() {
     local option="$1"
@@ -159,7 +167,7 @@ alias bau="brew audit"
 alias bfx="brew style --fix"
 alias blc="brew livecheck"
 alias bln="brew link"
-alias buln="brew unlink"
+alias blnr="brew unlink"
 
 ##########################################################
 # casks
