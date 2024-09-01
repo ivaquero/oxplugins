@@ -21,16 +21,29 @@ get_default_branch() {
 
 # git republish
 # shellcheck disable=SC2155
-grpbl() {
+git_repub() {
     git remote add origin "$1"
     local branch_d=$(get_default_branch)
     git pull "$1" "$branch_d"
     git push --set-upstream origin "$branch_d"
 }
 
+# git sync
+git_sync() {
+    if [[ -z "$1" ]]; then
+        local branch_d=$(get_default_branch)
+        local branch="$branch_d"
+    else
+        local branch="$1"
+    fi
+
+    git pull upstream "$branch"
+    git push origin "$branch"
+}
+
 # clean history
 # shellcheck disable=SC2155
-gclhs() {
+git_clean_history() {
     git reset --hard HEAD~1
     local branch_d=$(get_default_branch)
     git checkout --orphan origin/"$branch_d"
