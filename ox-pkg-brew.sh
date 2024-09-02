@@ -69,22 +69,22 @@ alias bcf="brew config"
 alias bis="brew install --no-quarantine"
 
 bus() {
-    local flags="-v"
+    local flag="-v"
     while getopts "g:" opt; do
         case "$opt" in
         g)
-            flags="$flags --zap"
+            flag="$flag --zap"
             shift
             ;;
-        *)
-            flags="$flags -$OPTARG"
+        \?)
+            flag="$flag -$OPTARG"
             shift
             ;;
         esac
     done
     local pkgs=("$@")
 
-    brew uninstall "$flags" "$pkg"
+    brew uninstall "$flag" "$pkg"
 }
 
 alias bris="brew reinstall --no-quarantine"
@@ -103,15 +103,16 @@ bup() {
     if [[ -z $1 ]]; then
         brew upgrade
     else
-        local flags="-v"
-        while getopts "*:" opt; do
+        local flag="-v"
+        while getopts ":" opt; do
             case "$opt" in
-            *)
-                flags="$flags -$OPTARG"
+            \?)
+                flag="$flag -$OPTARG"
                 shift
                 ;;
             esac
         done
+        echo "flag: $flag"
 
         local pkgs=("$@")
         for pkg in "${pkgs[@]}"; do
@@ -123,9 +124,9 @@ bup() {
                     echo "unpin $pkg"
                     brew unpin "$pkg"
                 fi
-                brew upgrade "$flags" "$pkg"
+                brew upgrade "$flag" "$pkg"
             else
-                brew upgrade "$flags" --cask --no-quarantine "$pkg"
+                brew upgrade "$flag" --cask --no-quarantine "$pkg"
             fi
         done
 
