@@ -67,7 +67,26 @@ clean_brew() {
 alias bh="brew help"
 alias bcf="brew config"
 alias bis="brew install --no-quarantine"
-alias bus="brew uninstall"
+
+bus() {
+    local flags="-v"
+    while getopts "g:" opt; do
+        case "$opt" in
+        g)
+            flags="$flags --zap"
+            shift
+            ;;
+        *)
+            flags="$flags -$OPTARG"
+            shift
+            ;;
+        esac
+    done
+    local pkgs=("$@")
+
+    brew uninstall "$flags" "$pkg"
+}
+
 alias bris="brew reinstall --no-quarantine"
 alias bups="brew update"
 
@@ -76,7 +95,7 @@ is_cask() {
 }
 
 is_pinned() {
-    brew outdated --formula "$1" | rg "pinned"
+    brew outdated --formula "$1" | rg 'pinned'
 }
 
 # shellcheck disable=SC2005
@@ -96,22 +115,22 @@ bup() {
 
         local pkgs=("$@")
         for pkg in "${pkgs[@]}"; do
-            if [[ -z $(is_cask "$pkg") ]]; then
-                if [[ -z $(is_pinned "$pkg") ]]; then
-                    continue
-                else
+            cask=$(is_cask "$pkg")
+            if [[ $cask -eq "" ]]; then
+                echo "$pkg is a Formula"
+                pinned=$(is_pinned "$pkg")
+                if [[ $pinned -ne "" ]]; then
+                    echo "unpin $pkg"
                     brew unpin "$pkg"
                 fi
-                brew upgrade "$pkg" "$flags"
+                brew upgrade "$flags" "$pkg"
             else
-                brew upgrade "$pkg" "$flags" --cask --no-quarantine
+                brew upgrade "$flags" --cask --no-quarantine "$pkg"
             fi
         done
 
     fi
 }
-
-alias busg="bus --zap"
 
 bcl() {
     local option="$1"
