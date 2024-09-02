@@ -95,7 +95,7 @@ is_cask() {
 }
 
 is_pinned() {
-    brew outdated --formula "$1" | rg 'pinned'
+    brew outdated --formula "$1"
 }
 
 # shellcheck disable=SC2005
@@ -119,6 +119,7 @@ bup() {
             if [[ $cask -eq "" ]]; then
                 echo "$pkg is a Formula"
                 pinned=$(is_pinned "$pkg")
+                echo "$pinned"
                 if [[ $pinned -ne "" ]]; then
                     echo "unpin $pkg"
                     brew unpin "$pkg"
