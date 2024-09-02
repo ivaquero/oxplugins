@@ -116,11 +116,10 @@ bup() {
         local pkgs=("$@")
         for pkg in "${pkgs[@]}"; do
             cask=$(is_cask "$pkg")
-            if [[ $cask -eq "" ]]; then
+            if [[ $cask == "" ]]; then
                 echo "$pkg is a Formula"
                 pinned=$(is_pinned "$pkg")
-                echo "$pinned"
-                if [[ $pinned -ne "" ]]; then
+                if [[ $pinned != "\n" ]]; then
                     echo "unpin $pkg"
                     brew unpin "$pkg"
                 fi
