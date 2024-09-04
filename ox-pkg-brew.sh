@@ -96,7 +96,7 @@ bup() {
     if [[ -z $1 ]]; then
         brew upgrade
     else
-        local flag="-v"
+        local flag="-q"
         while getopts ":" opt; do
             case "$opt" in
             \?)
