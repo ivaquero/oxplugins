@@ -69,22 +69,15 @@ alias bcf="brew config"
 alias bis="brew install --no-quarantine"
 
 bus() {
-    local flag="-v"
-    while getopts "g:" opt; do
-        case "$opt" in
-        g)
-            flag="$flag --zap"
-            shift
-            ;;
-        \?)
-            flag="$flag -$OPTARG"
-            shift
-            ;;
-        esac
-    done
-    local pkgs=("$@")
-
-    brew uninstall "$flag" "$pkg"
+    local option="$1"
+    case "$option" in
+    -g)
+        brew uninstall --zap "$2"
+        ;;
+    *)
+        brew uninstall "$@"
+        ;;
+    esac
 }
 
 alias bris="brew reinstall --no-quarantine"
