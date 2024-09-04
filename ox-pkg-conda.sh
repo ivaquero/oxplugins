@@ -10,8 +10,15 @@ OX_ELEMENT[c]=${HOME}/.condarc
 # backup files
 OX_OXIDE[bkc]=${OX_BACKUP}/conda/.condarc
 
-if test ! "$(command -v mamba)"; then
-    echo "please install mamba first"
+if test "$(command -v micromamba)"; then
+    export OX_CONDA="micromamba"
+elif test "$(command -v mamba)"; then
+    export OX_CONDA="mamba"
+elif test "$(command -v conda)"; then
+    export OX_CONDA="conda"
+else
+    echo "No conda package manager found"
+    exit 1
 fi
 
 up_conda() {
@@ -28,7 +35,7 @@ up_conda() {
     echo "Update Conda Env $conda_env by $conda_file"
     pkgs=$(tr '\n' ' ' <"$conda_file")
     echo "Installing $pkgs"
-    eval "mamba install $pkgs"
+    eval "$OX_CONDA install $pkgs"
 }
 
 back_conda() {
@@ -65,7 +72,7 @@ clean_conda() {
         pkg=$(rg "$line" <"$conda_file")
         if [[ -z "$pkg" ]]; then
             echo "Removing $line"
-            mamba remove -n "$conda_env" "$line" --quiet --yes
+            $OX_CONDA remove -n "$conda_env" "$line" --quiet --yes
         fi
     done
     if [[ "$(echo "$the_leaves" | wc -w)" -eq "$(wc -w <"$conda_file")" ]] && [[ ${#the_leaves} -eq "$(wc -c <"$conda_file")" ]]; then
@@ -77,22 +84,22 @@ clean_conda() {
 # packages
 ##########################################################
 
-alias ch="conda --help"
-alias ccf="conda config"
-alias cif="conda info"
-alias cis="mamba install"
-alias cus="mamba remove"
-alias csc="mamba search"
+alias ch="$OX_CONDA --help"
+alias ccf="$OX_CONDA config"
+alias cif="$OX_CONDA info"
+alias cis="$OX_CONDA install"
+alias cus="$OX_CONDA remove"
+alias csc="$OX_CONDA search"
 # specific
-alias cdp="mamba repoquery depends"
-alias cdpr="mamba repoquery whoneeds"
+alias cdp="$OX_CONDA repoquery depends"
+alias cdpr="$OX_CONDA repoquery whoneeds"
 
 # clean packages
 ccl() {
     if [ $# -eq 0 ]; then
         echo "Usage: ccl [-h|-l|-i|-p|-t|-f|-a]..."
         echo "Missing flag, executing greedy cleanup"
-        conda clean --all && conda clean --tarballs
+        $OX_CONDA clean --all && $OX_CONDA clean --tarballs
     fi
 
     while getopts "hliptfa:" opt; do
@@ -109,22 +116,22 @@ ccl() {
             return 1
             ;;
         l)
-            conda clean --logfiles
+            $OX_CONDA clean --logfiles
             ;;
         i)
-            conda clean --index-cache
+            $OX_CONDA clean --index-cache
             ;;
         p)
-            conda clean --packages
+            $OX_CONDA clean --packages
             ;;
         t)
-            conda clean --tarballs
+            $OX_CONDA clean --tarballs
             ;;
         f)
-            conda clean --force-pkgs-dirs
+            $OX_CONDA clean --force-pkgs-dirs
             ;;
         a)
-            conda clean --all
+            $OX_CONDA clean --all
             ;;
 
         \?)
@@ -139,11 +146,11 @@ ccl() {
 # $1=name
 cup() {
     if [[ -z "$1" ]]; then
-        mamba update --all
+        $OX_CONDA update --all
     else
         ceat "$1"
-        mamba update --all
-        conda deactivate
+        $OX_CONDA update --all
+        $OX_CONDA deactivate
     fi
 }
 
@@ -151,11 +158,11 @@ cup() {
 # $1=name
 cls() {
     if [[ -z "$1" ]]; then
-        conda list
+        $OX_CONDA list
     elif [[ ${#1} -lt 4 ]]; then
-        conda list -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA list -n "${OX_CONDA_ENV[$1]}"
     else
-        conda list -n "$1"
+        $OX_CONDA list -n "$1"
     fi
 }
 
@@ -183,16 +190,16 @@ cmt() {
 # extension
 ##########################################################
 
-alias cxa="conda config --add channels"
-alias cxrm="conda config --remove channels"
-alias cxls="conda config --get channels"
+alias cxa="$OX_CONDA config --add channels"
+alias cxrm="$OX_CONDA config --remove channels"
+alias cxls="$OX_CONDA config --get channels"
 
 ##########################################################
 # project
 ##########################################################
 
 alias cii="conda init"
-alias cr="conda run"
+alias cr="$OX_CONDA run"
 
 ##########################################################
 # environments
@@ -212,26 +219,33 @@ cck() {
 # activate environment: $1=name
 ceat() {
     if [[ -z "$1" ]]; then
-        conda activate base && clear
+        $OX_CONDA activate base && clear
     elif [[ ${#1} -lt 3 ]]; then
-        conda activate "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA activate "${OX_CONDA_ENV[$1]}"
     else
-        conda activate "$1" && clear
+        $OX_CONDA activate "$1" && clear
     fi
 }
 
 # reactivate environment: $1=name
 cerat() {
-    conda deactivate
+    case $OX_CONDA in
+    micromamba | mamba)
+        $OX_CONDA activate
+        ;;
+    conda)
+        conda deactivate
+        ;;
+    esac
     ceat "$1"
 }
 
 # create environment: $1=name
 cecr() {
     if [[ ${#1} -lt 3 ]]; then
-        conda create -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA create -n "${OX_CONDA_ENV[$1]}"
     else
-        conda create -n "$1"
+        $OX_CONDA create -n "$1"
     fi
     ceat "$1"
 }
@@ -240,9 +254,9 @@ cecr() {
 cerm() {
     conda deactivate
     if [[ ${#1} -lt 3 ]]; then
-        conda env remove -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA env remove -n "${OX_CONDA_ENV[$1]}"
     else
-        conda env remove -n "$1"
+        $OX_CONDA env remove -n "$1"
     fi
 }
 
@@ -250,15 +264,15 @@ cerm() {
 cesd() {
     if [[ $(uname) = "Darwin" ]]; then
         case "$1" in
-        i*) conda env config vars set CONDA_SUBDIR=osx-64 ;;
-        a*) conda env config vars set CONDA_SUBDIR=osx-arm64 ;;
+        i*) $OX_CONDA env config vars set CONDA_SUBDIR=osx-64 ;;
+        a*) $OX_CONDA env config vars set CONDA_SUBDIR=osx-arm64 ;;
         esac
     elif [[ $(uname) = "Linux" ]]; then
         case "$1" in
-        i*) conda env config vars set CONDA_SUBDIR=linux-64 ;;
-        a*) conda env config vars set CONDA_SUBDIR=linux-aarch64 ;;
-        p*) conda env config vars set CONDA_SUBDIR=linux-ppc64le ;;
-        s*) conda env config vars set CONDA_SUBDIR=linux-s390x ;;
+        i*) $OX_CONDA env config vars set CONDA_SUBDIR=linux-64 ;;
+        a*) $OX_CONDA env config vars set CONDA_SUBDIR=linux-aarch64 ;;
+        p*) $OX_CONDA env config vars set CONDA_SUBDIR=linux-ppc64le ;;
+        s*) $OX_CONDA env config vars set CONDA_SUBDIR=linux-s390x ;;
         esac
     fi
 }
@@ -274,18 +288,28 @@ ceep() {
     else
         local conda_env=$1
     fi
-    conda env export -n "$conda_env" -f "${OXIDIZER}"/defaults/"$conda_env"-"$os"-"$(arch)".yml
+    $OX_CONDA env export -n "$conda_env" -f "${OXIDIZER}"/defaults/"$conda_env"-"$os"-"$(arch)".yml
 }
 
 # rename environment: $1=old_name, $2=new_name
 cern() {
     if [[ "$1" == *"/"* ]]; then
-        conda rename --prefix "$1" "$2"
+        $OX_CONDA rename --prefix "$1" "$2"
     else
-        conda rename --name "$1" "$2"
+        $OX_CONDA rename --name "$1" "$2"
     fi
 }
 
-alias cels="conda env list"
-alias ceq="conda deactivate"
+ceq() {
+    case $OX_CONDA in
+    micromamba | mamba)
+        $OX_CONDA activate
+        ;;
+    conda)
+        conda deactivate
+        ;;
+    esac
+}
+
+alias cels="$OX_CONDA env list"
 alias cedf="conda compare"
