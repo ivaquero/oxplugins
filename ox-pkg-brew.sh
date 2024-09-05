@@ -96,7 +96,7 @@ bup() {
     if [[ -z $1 ]]; then
         brew upgrade
     else
-        local flag="-q"
+        local flag="--display-times"
         while getopts ":" opt; do
             case "$opt" in
             \?)
