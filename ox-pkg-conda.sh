@@ -96,7 +96,7 @@ alias cdpr="$OX_CONDA repoquery whoneeds"
 
 # clean packages
 ccl() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         echo "Usage: ccl [-h|-l|-i|-p|-t|-f|-a]..."
         echo "Missing flag, executing greedy cleanup"
         $OX_CONDA clean --all && $OX_CONDA clean --tarballs
@@ -198,7 +198,17 @@ alias cxls="$OX_CONDA config --get channels"
 # project
 ##########################################################
 
-alias cii="conda init"
+cii() {
+    case $OX_CONDA in
+    micromamba | mamba)
+        $OX_CONDA shell init "$@"
+        ;;
+    conda)
+        conda init "$@"
+        ;;
+    esac
+}
+
 alias cr="$OX_CONDA run"
 
 ##########################################################
@@ -207,13 +217,18 @@ alias cr="$OX_CONDA run"
 
 # check environment health
 cck() {
-    if [[ -z "$1" ]]; then
-        conda doctor
-    elif [[ ${#1} -lt 4 ]]; then
-        conda doctor -n "${OX_CONDA_ENV[$1]}"
-    else
-        conda doctor -n "$1"
-    fi
+    case $OX_CONDA in
+    conda)
+        if [[ -z "$1" ]]; then
+            conda doctor
+        elif [[ ${#1} -lt 4 ]]; then
+            conda doctor -n "${OX_CONDA_ENV[$1]}"
+        else
+            conda doctor -n "$1"
+        fi
+        ;;
+    *) exit 1 ;;
+    esac
 }
 
 # activate environment: $1=name
