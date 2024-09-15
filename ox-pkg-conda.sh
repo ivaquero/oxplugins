@@ -103,7 +103,7 @@ ccl() {
     fi
 
     while getopts "hliptfa:" opt; do
-        case $opt in
+        case "$opt" in
         h)
             echo "Options:"
             echo "  -h              Help information."
@@ -133,8 +133,7 @@ ccl() {
         a)
             $OX_CONDA clean --all
             ;;
-
-        \?)
+        *)
             echo "Invalid option: -$OPTARG"
             echo "Usage: ccl [-h|-l|-i|-p|-t|-f|-a]..."
             ;;

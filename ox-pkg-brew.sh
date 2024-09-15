@@ -99,7 +99,7 @@ bup() {
         local flag="--display-times"
         while getopts ":" opt; do
             case "$opt" in
-            \?)
+            *)
                 flag="$flag -$OPTARG"
                 shift
                 ;;
@@ -122,7 +122,6 @@ bup() {
                 brew upgrade "$flag" --cask --no-quarantine "$pkg"
             fi
         done
-
     fi
 }
 
