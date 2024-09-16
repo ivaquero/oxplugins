@@ -23,6 +23,7 @@ case ${SHELL} in
     fi
     [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ] && . "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
     [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && . "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+    [ -d "${HOMEBREW_PREFIX}/share/zsh-history-substring-search" ] && . "${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
     ;;
 *bash)
     if [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]; then
