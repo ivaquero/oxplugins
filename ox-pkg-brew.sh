@@ -16,25 +16,35 @@ fi
 
 # shellcheck disable=SC1090
 # shellcheck disable=SC1091
-case ${SHELL} in
-*zsh)
-    if type brew &>/dev/null; then
+if type brew &>/dev/null; then
+    HOMEBREW_PREFIX="$(brew --prefix)"
+    case ${SHELL} in
+    *zsh)
         FPATH=${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}
-    fi
-    [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ] && . "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-    [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && . "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-    [ -d "${HOMEBREW_PREFIX}/share/zsh-history-substring-search" ] && . "${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
-    ;;
-*bash)
-    if [ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]; then
-        . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
-    else
-        for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
-            [ -r "${COMPLETION}" ] && source "${COMPLETION}"
-        done
-    fi
-    ;;
-esac
+
+        if [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ]; then
+            source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+        fi
+        if [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ]; then
+            source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+        fi
+        if
+            [ -d "${HOMEBREW_PREFIX}/share/zsh-history-substring-search" ]
+        then
+            source "${HOMEBREW_PREFIX}/share/zsh-history-substring-search/zsh-history-substring-search.zsh"
+        fi
+        ;;
+    *bash)
+        if [[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]]; then
+            source "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+        else
+            for COMPLETION in "${HOMEBREW_PREFIX}/etc/bash_completion.d/"*; do
+                [[ -r "${COMPLETION}" ]] && source "${COMPLETION}"
+            done
+        fi
+        ;;
+    esac
+fi
 
 ##########################################################
 # config
