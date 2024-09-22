@@ -21,13 +21,18 @@ if type brew &>/dev/null; then
     case ${SHELL} in
     *zsh)
         FPATH=${HOMEBREW_PREFIX}/share/zsh/site-functions:${FPATH}
-
+        # completion
+        autoload -Uz compinit && rm -f ~/.zcompdump && compinit
+        compaudit | xargs chmod g-w
+        # highlighting
         if [ -d "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting" ]; then
             source "${HOMEBREW_PREFIX}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
         fi
+        # suggestions
         if [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ]; then
             source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
         fi
+        # history
         if
             [ -d "${HOMEBREW_PREFIX}/share/zsh-history-substring-search" ]
         then
