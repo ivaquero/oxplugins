@@ -19,6 +19,11 @@ get_default_branch() {
     git remote show origin | grep 'HEAD branch' | cut -d ' ' -f5
 }
 
+git_squash() {
+    git reset --soft HEAD~"$1"
+    git add -A
+}
+
 # git republish
 # shellcheck disable=SC2155
 git_repub() {
