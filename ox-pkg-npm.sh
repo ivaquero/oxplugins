@@ -55,9 +55,12 @@ alias ncf="npm config"
 alias nii="npm init"
 alias nr="npm run"
 alias nts="npm test"
-alias nau="npm audit"
-alias nfx="npm audit fix"
 alias npb="npm publish"
+
+nfx() {
+    npm audit fix --force "$@"
+    npm audit "$@"
+}
 
 ##########################################################
 # packages
@@ -136,5 +139,4 @@ alias yif="yarn info"
 alias ycf="yarn config"
 alias yii="yarn init"
 alias yr="yarn run"
-alias yau="yarn audit"
 alias ypb="yarn publish"

@@ -191,11 +191,15 @@ alias bii="brew create"
 alias bts="brew test"
 alias bed="brew edit"
 alias bca="brew cat"
-alias bau="brew audit"
-alias bfx="brew style --fix"
 alias blc="brew livecheck"
 alias bln="brew link"
 alias blnr="brew unlink"
+
+bfx() {
+    brew style --fix "$@"
+    brew audit --strict "$@"
+
+}
 
 ##########################################################
 # casks
