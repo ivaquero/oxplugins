@@ -112,7 +112,7 @@ bup() {
     if [[ -z $1 ]]; then
         brew upgrade
     else
-        local flag="--display-times"
+        local flag="-f"
         while getopts ":" opt; do
             case "$opt" in
             *)
@@ -121,19 +121,12 @@ bup() {
                 ;;
             esac
         done
-        echo "flag: $flag"
 
         local pkgs=("$@")
         for pkg in "${pkgs[@]}"; do
             cask=$(is_cask "$pkg")
             if [[ $cask == "" ]]; then
-                echo "$pkg is a Formula"
-                pinned=$(is_pinned "$pkg")
-                if [[ $pinned != "\n" ]]; then
-                    echo "unpin $pkg"
-                    brew unpin "$pkg"
-                fi
-                brew upgrade "$flag" "$pkg"
+                w upgrade "$flag" "$pkg"
             else
                 brew upgrade "$flag" --cask --no-quarantine "$pkg"
             fi
@@ -198,7 +191,6 @@ alias blnr="brew unlink"
 bfx() {
     brew style --fix "$@"
     brew audit --strict "$@"
-
 }
 
 ##########################################################
