@@ -15,22 +15,8 @@ OX_ELEMENT[g]=${HOME}/.gitconfig
 # repository management
 ##########################################################
 
-get_default_branch() {
-    git remote show origin | grep 'HEAD branch' | cut -d ' ' -f5
-}
-
-# git republish
-# shellcheck disable=SC2155
-git_repub() {
-    git remote add origin "$1"
-    local branch_d=$(get_default_branch)
-    git pull "$1" "$branch_d"
-    git push --set-upstream origin "$branch_d"
-}
-
 # clean branch
 git_clean_branch() {
-
     case $1 in
     -f)
         list="-l"
@@ -61,14 +47,12 @@ git_clean_branch() {
 }
 
 # clean history
-# shellcheck disable=SC2155
 git_clean_history() {
     git reset --hard HEAD~1
-    local branch_d=$(get_default_branch)
-    git checkout --orphan origin/"$branch_d"
+    git checkout --orphan origin/"$1"
     git add -A
     git commit -am "🎉 New Start"
-    git branch -D "$branch_d"
-    git branch -m "$branch_d"
-    git push -f origin "$branch_d"
+    git branch -D "$1"
+    git branch -m "$1"
+    git push -f origin "$1"
 }
