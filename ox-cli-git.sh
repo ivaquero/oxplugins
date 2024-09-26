@@ -19,11 +19,6 @@ get_default_branch() {
     git remote show origin | grep 'HEAD branch' | cut -d ' ' -f5
 }
 
-git_squash() {
-    git reset --soft HEAD~"$1"
-    git add -A
-}
-
 # git republish
 # shellcheck disable=SC2155
 git_repub() {
@@ -31,19 +26,6 @@ git_repub() {
     local branch_d=$(get_default_branch)
     git pull "$1" "$branch_d"
     git push --set-upstream origin "$branch_d"
-}
-
-# git sync
-git_sync() {
-    if [[ -z "$1" ]]; then
-        local branch_d=$(get_default_branch)
-        local branch="$branch_d"
-    else
-        local branch="$1"
-    fi
-
-    git pull upstream "$branch"
-    git push origin "$branch"
 }
 
 # clean branch
