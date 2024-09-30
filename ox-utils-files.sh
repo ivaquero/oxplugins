@@ -117,8 +117,8 @@ edf() {
 ##########################################################
 
 alias zpf="ouch compress"
-alias uzpf="ouch decompress"
-alias pkzpf="ouch list"
+alias zpfr="ouch decompress"
+alias zpfls="ouch list"
 
 ##########################################################
 # Hash Files
