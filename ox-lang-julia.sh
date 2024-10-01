@@ -77,17 +77,17 @@ clean_julia() {
         local julia_backup=$2
     fi
 
-    echo "Cleanup Julia Env $julia_env by $julia_file"
+    echo "Cleanup Julia Env $julia_env by $julia_backup"
     the_leaves=$(jllv "$julia_env")
 
     echo "$the_leaves" | while read -r line; do
-        pkg=$(rg "$line" <"$julia_file")
+        pkg=$(rg "$line" <"$julia_backup")
         if [[ -z "$pkg" ]]; then
             echo "Removing $line"
             jlus "$line"
         fi
     done
-    if [[ "$(echo "$the_leaves" | wc -w)" -eq "$(wc -w <"$julia_file")" ]] && [[ ${#the_leaves} -eq "$(wc -c <"$julia_file")" ]]; then
+    if [[ "$(echo "$the_leaves" | wc -w)" -eq "$(wc -w <"$julia_backup")" ]] && [[ ${#the_leaves} -eq "$(wc -c <"$julia_backup")" ]]; then
         echo "Julia Env Cleanup Finished"
     fi
 }
