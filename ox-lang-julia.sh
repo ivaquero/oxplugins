@@ -6,7 +6,7 @@
 export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"${OX_JULIA_ENV[b]}"}
 
 # default files
-OX_OXYGEN[jl]=${OXIDIZER}/defaults/startup.jl
+OX_OXYGEN[oxjl]=${OXIDIZER}/defaults/startup.jl
 # system files
 OX_ELEMENT[jl]=${JULIA_DEPOT_PATH}/config/startup.jl
 # backup files
