@@ -6,7 +6,7 @@
 # system files
 OX_ELEMENT[scs]="/etc/apt/sources.list"
 # backup files
-OX_OXIDE[bkscs]=${OX_BACKUP}/install/source.list
+OX_OXIDE[bkscs]=${OX_BACKUP}/unix/source.list
 
 # shortcuts
 if test "$(command -v xdg-open)"; then

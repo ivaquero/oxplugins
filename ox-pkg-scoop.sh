@@ -6,8 +6,8 @@
 # default files
 OX_OXYGEN[oxs]="$OXIDIZER/defaults/Scoopfile.txt"
 # backup files
-if [[ ! -d "${OX_BACKUP}"/install ]]; then
-    mkdir -p "$OX_BACKUP/install"
+if [[ ! -d "${OX_BACKUP}"/win ]]; then
+    mkdir -p "$OX_BACKUP/win"
 fi
 OX_OXIDE[bks]="$OXIDIZER/defaults/Scoopfile.txt"
 

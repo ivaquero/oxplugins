@@ -56,10 +56,10 @@ fi
 ##########################################################
 
 # backup files
-if [[ ! -d "${OX_BACKUP}"/install ]]; then
-    mkdir -p -v "${OX_BACKUP}"/install
+if [[ ! -d "${OX_BACKUP}"/unix ]]; then
+    mkdir -p -v "${OX_BACKUP}"/unix
 fi
-OX_OXIDE[bkb]="${OX_BACKUP}"/install/Brewfile
+OX_OXIDE[bkb]="${OX_BACKUP}"/unix/Brewfile
 
 up_brew() {
     echo "Update Brew by ${OX_OXIDE[bkb]}"

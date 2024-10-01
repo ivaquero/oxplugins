@@ -23,7 +23,7 @@ hibernate() {
 ##########################################################
 
 # backup files
-OX_OXIDE[bkw]="$OX_BACKUP/install/Wingetfile.json"
+OX_OXIDE[bkw]="$OX_BACKUP/win/Wingetfile.json"
 
 up_winget() {
     echo "Update Scoop by ${OX_OXIDE[bkw]}"

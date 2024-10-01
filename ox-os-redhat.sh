@@ -6,7 +6,7 @@
 # system files
 OX_ELEMENT[scs]="/etc/dnf/dnf.conf"
 # backup files
-OX_OXIDE[bkscs]=${OX_BACKUP}/install/dnf.conf
+OX_OXIDE[bkscs]=${OX_BACKUP}/unix/dnf.conf
 
 ##########################################################
 # dnf
