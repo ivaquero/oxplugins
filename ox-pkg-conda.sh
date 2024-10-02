@@ -241,16 +241,12 @@ ceat() {
     fi
 }
 
+alias ceq="$OX_CONDA deactivate"
+alias cels="$OX_CONDA env list"
+
 # reactivate environment: $1=name
 cerat() {
-    case $OX_CONDA in
-    micromamba | mamba)
-        $OX_CONDA activate
-        ;;
-    conda)
-        conda deactivate
-        ;;
-    esac
+    ceq
     ceat "$1"
 }
 
@@ -266,7 +262,7 @@ cecr() {
 
 # delete environment: $1=name
 cerm() {
-    conda deactivate
+    ceq
     if [[ ${#1} -lt 3 ]]; then
         $OX_CONDA env remove -n "${OX_CONDA_ENV[$1]}"
     else
@@ -314,16 +310,4 @@ cern() {
     fi
 }
 
-ceq() {
-    case $OX_CONDA in
-    micromamba | mamba)
-        $OX_CONDA activate
-        ;;
-    conda)
-        conda deactivate
-        ;;
-    esac
-}
-
-alias cels="$OX_CONDA env list"
 alias cedf="conda compare"
