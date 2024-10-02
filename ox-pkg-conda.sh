@@ -146,10 +146,10 @@ ccl() {
 cup() {
     if [[ -z "$1" ]]; then
         $OX_CONDA update --all
+    elif [[ ${#1} -lt 4 ]]; then
+        $OX_CONDA update --all -n "${OX_CONDA_ENV[$1]}"
     else
-        ceat "$1"
-        $OX_CONDA update --all
-        $OX_CONDA deactivate
+        $OX_CONDA update --all -n "$1"
     fi
 }
 
