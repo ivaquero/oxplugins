@@ -3,21 +3,19 @@
 # config
 ##########################################################
 
-# default files
-OX_OXYGEN[oxs]="$OXIDIZER/defaults/Scoopfile.txt"
+# system files
+OX_ELEMENT[w]="$HOME/AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/settings.json"
 # backup files
-if [[ ! -d "${OX_BACKUP}"/win ]]; then
-    mkdir -p "$OX_BACKUP/win"
-fi
-OX_OXIDE[bks]="$OXIDIZER/defaults/Scoopfile.txt"
+OX_OXIDE[bks]="$OX_BACKUP/win/scoop.jsonc"
+OX_OXIDE[bksx]="$OX_BACKUP/win/Scoopfile.json"
 
 up_scoop() {
-    echo "Update Scoop by ${OX_OXIDE[bks]}"
+    echo "Update Scoop by ${OX_OXIDE[bksx]}"
     scoop import "${OX_OXIDE[bks]}"
 }
 
 back_scoop() {
-    echo "Backup Scoop to ${OX_OXIDE[bks]}"
+    echo "Backup Scoop to ${OX_OXIDE[bksx]}"
     scoop export >"${OX_OXIDE[bks]}"
 }
 
@@ -27,6 +25,12 @@ back_scoop() {
 
 alias sis="scoop install"
 alias sus="scoop uninstall"
+
+sris() {
+    scoop uninstall "$@"
+    scoop install "$@"
+}
+
 alias sls="scoop list"
 alias sups="scoop update"
 

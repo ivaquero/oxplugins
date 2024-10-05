@@ -22,8 +22,14 @@ hibernate() {
 # winget
 ##########################################################
 
+# system files
+OX_ELEMENT[s]="$HOME/.config/scoop/config.json"
 # backup files
-OX_OXIDE[bkw]="$OX_BACKUP/win/Wingetfile.json"
+if [[ ! -d "${OX_BACKUP}"/win ]]; then
+    mkdir -p "$OX_BACKUP/win"
+fi
+OX_OXIDE[bkw]="$OX_BACKUP/win/winget.jsonc"
+OX_OXIDE[bkwx]="$OX_BACKUP/win/Wingetfile.json"
 
 up_winget() {
     echo "Update Scoop by ${OX_OXIDE[bkw]}"
@@ -51,6 +57,8 @@ wup() {
 }
 
 alias wups="winget source update"
+
+alias wcf="winget settings"
 
 # extension
 alias wxa="winget source add"
