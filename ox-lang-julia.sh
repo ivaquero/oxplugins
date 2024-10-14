@@ -36,7 +36,7 @@ up_julia() {
 
     echo "Update Julia Env $julia_env by $julia_backup"
     pkgs=$(tr '\n' ', ' <"$julia_backup" | sd '^' '"' | sd ',$' '"' | sd ',' '","')
-    cmd=$(echo 'using Pkg; Pkg.activate("$julia_env"); Pkg.add([,,])' | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
+    cmd=$(echo "using Pkg; Pkg.activate(\"$julia_env\"); Pkg.add([,,])" | sd ",," "$pkgs" | sd ";;" "$OX_JULIA_ENV_ACTIVE")
     echo "$cmd"
     julia --eval "$cmd"
 }
