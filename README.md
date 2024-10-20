@@ -19,12 +19,11 @@
 | `ox-cli-bitwarden.sh`  |     App CLI     |           Bitwarden            |
 |  `ox-cli-espanso.sh`   |     App CLI     |            Espanso             |
 |  `ox-cli-jupyter.sh`   |     App CLI     | Jupyter (notebook, lab, book)  |
+|   `ox-cli-ollama.sh`   |     App CLI     |             Ollama             |
 |   `ox-cli-vscode.sh`   |     App CLI     |             VSCode             |
 |   `ox-lang-julia.sh`   |    Language     |             Julia              |
 |   `ox-lang-ruby.sh`    |    Language     |       Ruby (include gem)       |
 |   `ox-lang-rust.sh`    |    Language     |  Rust (include cargo, rustup)  |
-|  `ox-svc-ollama.ps1`   |     Service     |             Ollama             |
-|   `ox-svc-pueue.sh`    |     Service     |             Pueue              |
 |  `ox-utils-files.sh`   |  System Utils   |         File Operation         |
 | `ox-utils-formats.sh`  |  System Utils   |       Formats Conversion       |
 | `ox-utils-networks.sh` |  System Utils   |     Network Configuration      |
