@@ -101,7 +101,13 @@ alias jlcl="julia --eval 'using Pkg; Pkg.gc()'"
 alias jlst="julia --eval 'using Pkg; Pkg.status()'"
 
 jleat() {
-    export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV[$1]}
+    if [[ -z $1 ]]; then
+        julia_env='b'
+    else
+        julia_env=$1
+    fi
+
+    export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV[$julia_env]}
     echo "Activate Julia Env $OX_JULIA_ENV_ACTIVE"
 }
 
