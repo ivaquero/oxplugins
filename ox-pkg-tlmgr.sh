@@ -18,18 +18,11 @@ eval "$(/usr/libexec/path_helper)"
 
 up_texlive() {
     echo "Update TeXLive by ${OX_OXIDE[bktl]}"
-    num=$(wc -l <"${OX_OXIDE[bktl]}" | rg -o "\d+")
-
-    pueue group add texlive_update
-    pueue parallel "$num" -g texlive_update
 
     while read -r line <"${OX_OXIDE[bktl]}"; do
         echo "Installing $line"
-        pueue add -g texlive_update "tlmgr install $line"
+        tlmgr install "$line"
     done
-
-    pueue wait -g texlive_update
-    pueue status
 }
 
 back_texlive() {
