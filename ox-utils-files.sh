@@ -167,8 +167,6 @@ if [[ ! -d "$_ZO_DATA_DIR" ]]; then
 fi
 
 OX_ELEMENT[z]=${_ZO_DATA_DIR}/db.zo
-# backup files
-OX_OXIDE[bkz]=${OX_BACKUP}/shell/db.zo
 
 case ${SHELL} in
 *zsh)
