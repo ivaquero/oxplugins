@@ -38,9 +38,9 @@ totyp() {
 }
 
 topdf() {
-    if test "$(command -v tectonic)"; then
+    if command -v tectonic >/dev/null 2>&1; then
         pdf_engine=tectonic
-    elif test "$(command -v xelatex)"; then
+    elif command -v xelatex >/dev/null 2>&1; then
         pdf_engine=xelatex
     else
         echo "No available pdf engine found"

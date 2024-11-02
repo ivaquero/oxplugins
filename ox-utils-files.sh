@@ -124,7 +124,7 @@ alias zpfls="ouch list"
 # Hash Files
 ##########################################################
 
-if test "$(command -v hashsum)"; then
+if command -v hashsum >/dev/null 2>&1; then
     alias sha1="hashsum --sha1"
     alias sha2="hashsum --sha256"
     alias sha5="hashsum --sha512"

@@ -10,11 +10,11 @@ OX_ELEMENT[c]=${HOME}/.condarc
 # backup files
 OX_OXIDE[bkc]=${OX_BACKUP}/conda/.condarc
 
-if test "$(command -v micromamba)"; then
+if command -v micromamba >/dev/null 2>&1; then
     export OX_CONDA="micromamba"
-elif test "$(command -v mamba)"; then
+elif command -v mamba >/dev/null 2>&1; then
     export OX_CONDA="mamba"
-elif test "$(command -v conda)"; then
+elif command -v conda >/dev/null 2>&1; then
     export OX_CONDA="conda"
 else
     echo "No conda package manager found"

@@ -130,7 +130,7 @@ alias tmrm="tmutil delete"
 # mas - app store
 ##########################################################
 
-if test "$(command -v mas)"; then
+if command -v mas >/dev/null 2>&1; then
     alias mis="mas install"
     alias mus="sudo mas uninstall"
     alias mup="mas upgrade"

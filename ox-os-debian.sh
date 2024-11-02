@@ -9,9 +9,9 @@ OX_ELEMENT[scs]="/etc/apt/sources.list"
 OX_OXIDE[bkscs]=${OX_BACKUP}/unix/source.list
 
 # shortcuts
-if test "$(command -v xdg-open)"; then
+if command -v xdg-open >/dev/null 2>&1; then
     alias open="xdg-open"
-elif test "$(command -v nautilus)"; then
+elif command -v nautilus >/dev/null 2>&1; then
     alias open="nautilus"
 fi
 
