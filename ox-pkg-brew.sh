@@ -171,7 +171,12 @@ bst() {
     local option="$1"
 
     case "$option" in
-    -g) brew outdated --greedy ;;
+    -g)
+        local num
+        num=$(brew outdated --greedy | wc -l)
+        printf "\nOutdated Number: %s" "$num"
+        brew outdated --greedy
+        ;;
     *) brew outdated ;;
     esac
 }

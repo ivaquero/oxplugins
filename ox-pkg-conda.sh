@@ -84,15 +84,32 @@ clean_conda() {
 # packages
 ##########################################################
 
-alias ch="$OX_CONDA --help"
-alias ccf="$OX_CONDA config"
-alias cif="$OX_CONDA info"
-alias cis="$OX_CONDA install"
-alias cus="$OX_CONDA remove"
-alias csc="$OX_CONDA search"
+ch() {
+    $OX_CONDA --help
+}
+
+ccf() {
+    $OX_CONDA config
+}
+cif() {
+    $OX_CONDA info
+}
+cis() {
+    $OX_CONDA install
+}
+cus() {
+    $OX_CONDA remove
+}
+csc() {
+    $OX_CONDA search
+}
 # specific
-alias cdp="$OX_CONDA repoquery depends"
-alias cdpr="$OX_CONDA repoquery whoneeds"
+cdp() {
+    $OX_CONDA repoquery depends
+}
+cdpr() {
+    $OX_CONDA repoquery whoneeds
+}
 
 # clean packages
 ccl() {
@@ -189,9 +206,15 @@ cmt() {
 # extension
 ##########################################################
 
-alias cxa="$OX_CONDA config --add channels"
-alias cxrm="$OX_CONDA config --remove channels"
-alias cxls="$OX_CONDA config --get channels"
+cxa() {
+    $OX_CONDA config --add channels
+}
+cxrm() {
+    $OX_CONDA config --remove channels
+}
+cxls() {
+    $OX_CONDA config --get channels
+}
 
 ##########################################################
 # project
@@ -208,7 +231,9 @@ cii() {
     esac
 }
 
-alias cr="$OX_CONDA run"
+cr() {
+    $OX_CONDA run
+}
 
 ##########################################################
 # environments
@@ -241,8 +266,12 @@ ceat() {
     fi
 }
 
-alias ceq="$OX_CONDA deactivate"
-alias cels="$OX_CONDA env list"
+ceq() {
+    $OX_CONDA deactivate
+}
+cels() {
+    $OX_CONDA env list
+}
 
 # reactivate environment: $1=name
 cerat() {
