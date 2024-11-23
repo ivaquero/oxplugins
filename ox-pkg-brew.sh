@@ -169,15 +169,19 @@ alias bpnr="brew unpin"
 
 bst() {
     local option="$1"
+    local num
 
     case "$option" in
     -g)
-        local num
         num=$(brew outdated --greedy | wc -l)
-        printf "\nOutdated Number: %s" "$num"
+        printf "Outdated Number: %s\n" "$num"
         brew outdated --greedy
         ;;
-    *) brew outdated ;;
+    *)
+        num=$(brew outdated | wc -l)
+        printf "Outdated Number: %s\n" "$num"
+        brew outdated
+        ;;
     esac
 }
 
