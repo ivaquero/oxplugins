@@ -126,7 +126,7 @@ bup() {
         for pkg in "${pkgs[@]}"; do
             cask=$(is_cask "$pkg")
             if [[ $cask == "" ]]; then
-                w upgrade "$flag" "$pkg"
+                brew upgrade "$flag" "$pkg"
             else
                 brew upgrade "$flag" --cask --no-quarantine "$pkg"
             fi

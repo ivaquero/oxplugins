@@ -85,30 +85,30 @@ clean_conda() {
 ##########################################################
 
 ch() {
-    $OX_CONDA --help
+    $OX_CONDA --help "$@"
 }
 
 ccf() {
-    $OX_CONDA config
+    $OX_CONDA config "$@"
 }
 cif() {
     $OX_CONDA info
 }
 cis() {
-    $OX_CONDA install
+    $OX_CONDA install "$@"
 }
 cus() {
-    $OX_CONDA remove
+    $OX_CONDA remove "$@"
 }
 csc() {
-    $OX_CONDA search
+    $OX_CONDA search "$1"
 }
 # specific
 cdp() {
-    $OX_CONDA repoquery depends
+    $OX_CONDA repoquery depends "$1"
 }
 cdpr() {
-    $OX_CONDA repoquery whoneeds
+    $OX_CONDA repoquery whoneeds "$1"
 }
 
 # clean packages
@@ -207,13 +207,13 @@ cmt() {
 ##########################################################
 
 cxa() {
-    $OX_CONDA config --add channels
+    $OX_CONDA config --add channels "$@"
 }
 cxrm() {
-    $OX_CONDA config --remove channels
+    $OX_CONDA config --remove channels "$@"
 }
 cxls() {
-    $OX_CONDA config --get channels
+    $OX_CONDA config --get channels "$@"
 }
 
 ##########################################################
@@ -232,7 +232,7 @@ cii() {
 }
 
 cr() {
-    $OX_CONDA run
+    $OX_CONDA run "$@"
 }
 
 ##########################################################
