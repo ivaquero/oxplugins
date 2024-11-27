@@ -91,24 +91,11 @@ ch() {
 ccf() {
     $OX_CONDA config "$@"
 }
-cif() {
-    $OX_CONDA info
-}
 cis() {
     $OX_CONDA install "$@"
 }
 cus() {
     $OX_CONDA remove "$@"
-}
-csc() {
-    $OX_CONDA search "$1"
-}
-# specific
-cdp() {
-    $OX_CONDA repoquery depends "$1"
-}
-cdpr() {
-    $OX_CONDA repoquery whoneeds "$1"
 }
 
 # clean packages
@@ -170,6 +157,17 @@ cup() {
     fi
 }
 
+##########################################################
+# info
+##########################################################
+
+cif() {
+    $OX_CONDA info
+}
+csc() {
+    $OX_CONDA search "$1"
+}
+
 # list packages
 # $1=name
 cls() {
@@ -192,6 +190,14 @@ clv() {
     else
         conda-tree -n "$1" leaves | sort
     fi
+}
+
+# specific
+cdp() {
+    $OX_CONDA repoquery depends "$1"
+}
+cdpr() {
+    $OX_CONDA repoquery whoneeds "$1"
 }
 
 cmt() {

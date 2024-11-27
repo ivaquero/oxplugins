@@ -13,8 +13,8 @@
 |    `ox-pkg-brew.sh`    | Package Manager |    Homebrew (macOS & Linux)    |
 |   `ox-pkg-scoop.sh`    | Package Manager |        Scoop (Windows)         |
 |   `ox-pkg-conda.sh`    | Package Manager |    Conda (Multi-Languages)     |
-|   `ox-pkg-conan.sh`    | Package Manager |          Conan (C++)           |
 |    `ox-pkg-npm.sh`     | Package Manager |    NPM + PNPM (JavaScript)     |
+|    `ox-pkg-pixi.sh`    | Package Manager |     Pixi (Multi-Languages)     |
 |   `ox-pkg-tlmgr.sh`    | Package Manager |        tlmgr (TeXLive)         |
 | `ox-cli-bitwarden.sh`  |     App CLI     |           Bitwarden            |
 |  `ox-cli-espanso.sh`   |     App CLI     |            Espanso             |
