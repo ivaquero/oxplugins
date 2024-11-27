@@ -14,129 +14,96 @@ OX_OXIDE[bkjsx]=${OX_BACKUP}/javascript/js-pkgs.txt
 
 export NODE_EXTRA_CA_CERTS="${HOMEBREW_PREFIX}/share/ca-certificates/cacert.pem"
 
+if command -v pnpm >/dev/null 2>&1; then
+    export OX_NPM="pnpm"
+elif command -v npm >/dev/null 2>&1; then
+    export OX_NPM="npm"
+else
+    echo "No nodejs package manager found"
+    exit 1
+fi
+
 up_node() {
     echo "Update Node by ${OX_OXIDE[bknjx]}"
     pkgs=$(tr "\n" " " <"${OX_OXIDE[bknjx]}")
     echo "Installing $pkgs"
-    eval "npm install -g $pkgs --force"
+    eval "$OX_NPM install -g $pkgs --force"
 }
 
 back_node() {
     echo "Backup Node to ${OX_OXIDE[bknjx]}"
-    npm list -g | rg -o '\w+@' | tr -d '@' >"${OX_OXIDE[bknjx]}"
+    $OX_NPM list -g | rg -o '\w+@' | tr -d '@' >"${OX_OXIDE[bknjx]}"
 }
 
 ##########################################################
 # packages
 ##########################################################
 
-alias nis="npm install"
-alias nus="npm uninstall"
-alias nup="npm update"
-alias nst="npm outdated"
-alias nsc="npm search"
-alias ncl="npm cache clean -f"
+nis() {
+    $OX_NPM install "$@"
+}
+nus() {
+    case $OX_NPM in
+    pnpm) pnpm remove "$@" ;;
+    npm) npm uninstall "$@" ;;
+    esac
+}
+nup() {
+    $OX_NPM update "$@"
+}
+nst() {
+    $OX_NPM outdated "$@"
+}
+nsc() {
+    $OX_NPM search "$@"
+}
+ncl() {
+    case $OX_NPM in
+    pnpm) pnpm cache delete "$@" ;;
+    npm) npm cache clean -f ;;
+    esac
+}
 
 ##########################################################
 # info
 ##########################################################
 
-alias nh="npm help"
-alias nif="npm info"
-alias nls="npm list"
-alias nlv="npm list --depth 0"
-alias nck="npm doctor"
+nh() {
+    $OX_NPM help "$@"
+}
+nif() {
+    npm info "$@"
+}
+nls() {
+    $OX_NPM list "$@"
+}
+nlv() {
+    $OX_NPM list --depth 0
+}
+nck() {
+    $OX_NPM doctor
+}
 
 ##########################################################
 # project
 ##########################################################
 
-alias ncf="npm config"
-alias nii="npm init"
-alias nr="npm run"
-alias nts="npm test"
-alias npb="npm publish"
-
+ncf() {
+    $OX_NPM config "$@"
+}
+nii() {
+    $OX_NPM init "$@"
+}
+nr() {
+    $OX_NPM run "$@"
+}
+nts() {
+    $OX_NPM test "$@"
+}
+npb() {
+    $OX_NPM publish "$@"
+}
 nfx() {
-    npm audit fix --force "$@"
-    npm audit "$@"
+    $OX_NPM audit fix --force "$@"
+    $OX_NPM audit "$@"
 }
-
-##########################################################
-# packages
-##########################################################
-
-yis() {
-    local option="$1"
-    shift
-    local pkgs=("$@")
-
-    case "$option" in
-    -g)
-        yarn global add "${pkgs[@]}"
-        ;;
-    *)
-        yarn add "$option" "${pkgs[@]}"
-        ;;
-    esac
-}
-
-yrm() {
-    local option="$1"
-    shift
-    local pkgs=("$@")
-
-    case "$option" in
-    -g)
-        yarn global remove "${pkgs[@]}"
-        ;;
-    *)
-        yarn remove "$option" "${pkgs[@]}"
-        ;;
-    esac
-}
-
-yup() {
-    local option="$1"
-    shift
-    local pkgs=("$@")
-
-    case "$option" in
-    -g)
-        yarn global upgrade "${pkgs[@]}"
-        ;;
-    *)
-        yarn upgrade "$option" "${pkgs[@]}"
-        ;;
-    esac
-}
-
-alias yst="yarn outdated"
-
-##########################################################
-# packages
-##########################################################
-
-yls() {
-    local option="$1"
-
-    case "$option" in
-    -g)
-        yarn global list
-        ;;
-    *)
-        yarn list
-        ;;
-    esac
-}
-
-alias yif="yarn info"
-
-##########################################################
-# project
-##########################################################
-
-alias ycf="yarn config"
-alias yii="yarn init"
-alias yr="yarn run"
-alias ypb="yarn publish"

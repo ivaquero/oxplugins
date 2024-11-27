@@ -4,8 +4,13 @@
 ##########################################################
 
 # px=proxy
-px() {
-    if [[ ${#1} -lt 3 ]]; then
+pxy() {
+    if [[ -z "$1" ]]; then
+        echo 'unset all proxies'
+        unset https_proxy
+        unset http_proxy
+        unset all_proxy
+    elif [[ ${#1} -lt 3 ]]; then
         local port=${OX_PROXY[$1]}
     else
         local port=$1
@@ -14,13 +19,6 @@ px() {
     export https_proxy=http://127.0.0.1:$port
     export http_proxy=http://127.0.0.1:$port
     export all_proxy=socks5://127.0.0.1:$port
-}
-
-pxq() {
-    echo 'unset all proxies'
-    unset https_proxy
-    unset http_proxy
-    unset all_proxy
 }
 
 ##########################################################
@@ -33,6 +31,6 @@ host_ls() {
 }
 
 # host proxy
-host_px() {
+host_pxy() {
     export ALL_PROXY="https://$1:${OX_PROXY[$2]}"
 }
