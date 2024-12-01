@@ -10,15 +10,17 @@ pxy() {
         unset https_proxy
         unset http_proxy
         unset all_proxy
-    elif [[ ${#1} -lt 3 ]]; then
-        local port=${OX_PROXY[$1]}
     else
-        local port=$1
+        if [[ ${#1} -lt 3 ]]; then
+            local port=${OX_PROXY[$1]}
+        else
+            local port=$1
+        fi
+        echo "using port $port"
+        export https_proxy=http://127.0.0.1:$port
+        export http_proxy=http://127.0.0.1:$port
+        export all_proxy=socks5://127.0.0.1:$port
     fi
-    echo "using port $port"
-    export https_proxy=http://127.0.0.1:$port
-    export http_proxy=http://127.0.0.1:$port
-    export all_proxy=socks5://127.0.0.1:$port
 }
 
 ##########################################################
