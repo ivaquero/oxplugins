@@ -10,8 +10,6 @@ case $(uname -a) in
 *MINGW*)
     if [[ -f "$SCOOP/app/current/vscode/bin/code" ]]; then
         export VSCODE_DATA="$SCOOP/persist/vscode/data/user-data"
-    elif [[ -f "$SCOOP/app/current/vscode-win7/bin/code" ]]; then
-        export VSCODE_DATA="$SCOOP/persist/vscode-win7/data/user-data"
     fi
     ;;
 esac
@@ -24,6 +22,11 @@ OX_OXIDE[bkvs]=${OX_BACKUP}/vscode/settings.json
 OX_OXIDE[bkvsk]=${OX_BACKUP}/vscode/keybindings.json
 OX_OXIDE[bkvss_]=${OX_BACKUP}/vscode/snippets
 OX_OXIDE[bkvsx]=${OX_BACKUP}/vscode/vscode-exts.txt
+
+back_vscode() {
+    echo "Backup VSCode extensions to ${OX_OXIDE[bkvsx]}"
+    code --list-extensions >"${OX_OXIDE[bkvsx]}"
+}
 
 ##########################################################
 # Cache
