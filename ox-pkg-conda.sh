@@ -12,6 +12,14 @@ OX_OXIDE[bkc]=${OX_BACKUP}/conda/.condarc
 
 if command -v micromamba >/dev/null 2>&1; then
     export OX_CONDA="micromamba"
+    case ${SHELL} in
+    *zsh)
+        eval "$(micromamba shell hook --shell zsh)"
+        ;;
+    *bash)
+        eval "$(micromamba shell hook --shell bash)"
+        ;;
+    esac
 elif command -v mamba >/dev/null 2>&1; then
     export OX_CONDA="mamba"
 elif command -v conda >/dev/null 2>&1; then
