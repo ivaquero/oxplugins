@@ -131,7 +131,7 @@ jlus() {
 # update packages
 jlup() {
     if [[ -z "$1" ]]; then
-        cmd=$(echo 'using Pkg; Pkg.update()')
+        cmd='using Pkg; Pkg.update()'
     else
         pkgs=$(echo "$*" | sd '^' '"' | sd '$' '"' | sd ' ' '","' | sd '""' '')
         cmd=$(echo 'using Pkg; Pkg.update([,,])' | sd ",," "$pkgs")
