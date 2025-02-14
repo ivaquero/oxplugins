@@ -27,5 +27,4 @@
 |  `ox-utils-files.sh`   |  System Utils   |         File Operation         |
 | `ox-utils-formats.sh`  |  System Utils   |       Formats Conversion       |
 | `ox-utils-networks.sh` |  System Utils   |     Network Configuration      |
-|  `ox-term-zellij.sh`   | Terminal Utils  |     Zellij (macOS & Linux)     |
 |   `ox-xtra-notes.sh`   |   Extra Utils   | Notes Apps (Obsidian & Logseq) |
