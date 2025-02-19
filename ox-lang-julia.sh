@@ -101,6 +101,7 @@ alias jlr="julia --eval"
 alias jlcl="julia --eval 'using Pkg; Pkg.gc()'"
 alias jlst="julia --eval 'using Pkg; Pkg.status()'"
 
+# activate environment
 jleat() {
     if [[ -z $1 ]]; then
         julia_env='b'
@@ -110,6 +111,18 @@ jleat() {
 
     export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV[$julia_env]}
     echo "Activate Julia Env $OX_JULIA_ENV_ACTIVE"
+}
+
+# diff environment
+jldf() {
+    if [[ -z $1 ]]; then
+        julia_env='b'
+    else
+        julia_env=$1
+    fi
+
+    cd "${OX_JULIA_ENV[$julia_env]}" || exit
+    git diff Manifest.toml
 }
 
 # install packages
