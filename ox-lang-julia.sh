@@ -122,7 +122,10 @@ jldf() {
     fi
 
     cd "${OX_JULIA_ENV[$julia_env]}" || exit
-    git diff Manifest.toml
+    git diff --stat Manifest.toml
+    lines=$(wc -l <Manifest.toml)
+    echo " total lines: $lines"
+    z -
 }
 
 # install packages
