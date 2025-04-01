@@ -134,11 +134,9 @@ if command -v mas >/dev/null 2>&1; then
     alias mis="mas install"
     alias mus="sudo mas uninstall"
     alias mup="mas upgrade"
-    alias mh="mas help"
+    alias mcf="mas config"
     alias mif="mas info"
     alias mls="mas list"
     alias mst="mas outdated"
     alias msc="mas search"
-    alias msi="mas signin"
-    alias mso="mas signout"
 fi
