@@ -7,7 +7,6 @@
 if [[ ! -d "${OX_BACKUP}"/text ]]; then
     mkdir -p -v "${OX_BACKUP}"/text
 fi
-OX_OXIDE[bktl]=${OX_BACKUP}/text/texlive-pkgs.txt
 
 if [[ $(uname) = "Darwin" ]]; then
     export texlive=/usr/local/texlive
@@ -17,9 +16,9 @@ fi
 eval "$(/usr/libexec/path_helper)"
 
 up_texlive() {
-    echo "Update TeXLive by ${OX_OXIDE[bktl]}"
+    echo "Update TeXLive by ${OX_OXIDE[bktlx]}"
 
-    while read -r line <"${OX_OXIDE[bktl]}"; do
+    while read -r line <"${OX_OXIDE[bktlx]}"; do
         echo "Installing $line"
         tlmgr install "$line"
     done

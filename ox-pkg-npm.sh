@@ -9,8 +9,6 @@ OX_ELEMENT[nj]=${HOME}/.npmrc
 if [[ ! -d "${OX_BACKUP}"/javascript ]]; then
     mkdir -p -v "${OX_BACKUP}"/javascript
 fi
-OX_OXIDE[bkn]=${OX_BACKUP}/javascript/.npmrc
-OX_OXIDE[bkjsx]=${OX_BACKUP}/javascript/js-pkgs.txt
 
 export NODE_EXTRA_CA_CERTS="${HOMEBREW_PREFIX}/share/ca-certificates/cacert.pem"
 

@@ -59,15 +59,18 @@ fi
 if [[ ! -d "${OX_BACKUP}"/unix ]]; then
     mkdir -p -v "${OX_BACKUP}"/unix
 fi
-OX_OXIDE[bkb]="${OX_BACKUP}"/unix/Brewfile
+
+# bundle: backup files
+# shellcheck disable=SC2155
+export HOMEBREW_BUNDLE_FILE="${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .brew)"
 
 up_brew() {
-    echo "Update Brew by ${OX_OXIDE[bkb]}"
-    brew bundle --file "${OX_OXIDE[bkb]}"
+    echo "Update Brew by ${HOMEBREW_BUNDLE_FILE}"
+    brew bundle --file "${HOMEBREW_BUNDLE_FILE}"
 }
 
 back_brew() {
-    echo "Backup Brew to ${OX_OXIDE[bkb]}"
+    echo "Backup Brew to ${HOMEBREW_BUNDLE_FILE}"
     brew bundle dump --force
 }
 
@@ -266,9 +269,6 @@ bprc() {
 alias bxa="brew tap"
 alias bxrm="brew untap"
 
-# bundle: backup files
-export HOMEBREW_BUNDLE_FILE=${OX_OXIDE[bkb]}
-
 ##########################################################
 # brew services
 ##########################################################
@@ -280,26 +280,6 @@ alias bscl="brew services cleanup"
 alias bsif="brew services info"
 alias bsls="brew services list"
 
-bss() {
-    if [[ ${#1} -lt 4 ]]; then
-        brew services start "${HOMEBREW_SERVICE[$1]}"
-    else
-        brew services start "$1"
-    fi
-}
-
-bsq() {
-    if [[ ${#1} -lt 4 ]]; then
-        brew services stop "${HOMEBREW_SERVICE[$1]}"
-    else
-        brew services stop "$1"
-    fi
-}
-
-bsrs() {
-    if [[ ${#1} -lt 4 ]]; then
-        brew services restart "${HOMEBREW_SERVICE[$1]}"
-    else
-        brew services restart "$1"
-    fi
-}
+alias bss="brew services start"
+alias bsq="brew services stop"
+alias bsrs="brew services restart"

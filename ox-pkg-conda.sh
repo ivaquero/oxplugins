@@ -3,12 +3,8 @@
 # config
 ##########################################################
 
-# default files
-OX_OXYGEN[oxc]=${OXIDIZER}/defaults/.condarc
 # system files
 OX_ELEMENT[c]=${HOME}/.condarc
-# backup files
-OX_OXIDE[bkc]=${OX_BACKUP}/conda/.condarc
 
 if command -v micromamba >/dev/null 2>&1; then
     export OX_CONDA="micromamba"

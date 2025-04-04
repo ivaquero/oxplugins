@@ -7,8 +7,6 @@ export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"${OX_JULIA_ENV[b]}"}
 
 # system files
 OX_ELEMENT[jl]=${JULIA_DEPOT_PATH}/config/startup.jl
-# backup files
-OX_OXIDE[bkjl]=${OX_BACKUP}/julia/startup.jl
 
 # 1. trim \n;
 # 2. add " to the head and the tail;
