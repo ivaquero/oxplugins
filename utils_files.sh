@@ -17,7 +17,8 @@ test_oxpath() {
 oxf() {
     for file in "$@"; do
         local in_path=${OX_ELEMENT[$file]}
-        local out_path=${OX_OXIDE[bk$file]}
+        # shellcheck disable=SC2155
+        local out_path=$(echo "$OX_OXIDE" | jq -r ."$file")
 
         test_oxpath "$out_path"
 
@@ -34,7 +35,8 @@ oxf() {
 # reduce file: overwrite configuration file by personalized file
 rdf() {
     for file in "$@"; do
-        local in_path=${OX_OXIDE[bk$file]}
+        # shellcheck disable=SC2155
+        local in_path=$(echo "$OX_OXIDE" | jq -r ."$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -51,7 +53,8 @@ rdf() {
 # catalyze file: overwrite configuration file by Oxidizer defaults
 clzf() {
     for file in "$@"; do
-        local in_path=${OX_OXYGEN[ox$file]}
+        # shellcheck disable=SC2155
+        local in_path=$(echo "$OX_OXYGEN" | jq -r ."$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -62,8 +65,10 @@ clzf() {
 # propagate file: backup Oxidizer defaults to backup folder
 ppgf() {
     for file in "$@"; do
-        local in_path=${OX_OXYGEN[ox$file]}
-        local out_path=${OX_OXIDE[bk$file]}
+        # shellcheck disable=SC2155
+        local in_path=$(echo "$OX_OXYGEN" | jq -r ."$file")
+        # shellcheck disable=SC2155
+        local out_path=$(echo "$OX_OXIDE" | jq -r ."$file")
 
         test_oxpath "$out_path"
         cp -v "$in_path" "$out_path"
@@ -92,8 +97,8 @@ brf() {
         cmd="cat"
     fi
     case "$1" in
-    ox[a-z]*) $cmd "${OX_OXYGEN[$1]}" ;;
-    bk[a-z]*) $cmd "${OX_OXIDE[$1]}" ;;
+    ox[a-z]*) $cmd "$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
+    bk[a-z]*) $cmd "$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
@@ -106,8 +111,8 @@ edf() {
         cmd=$EDITOR
     fi
     case "$1" in
-    ox[a-z]*) $cmd "${OX_OXYGEN[$1]}" ;;
-    bk[a-z]*) $cmd "${OX_OXIDE[$1]}" ;;
+    ox[a-z]*) $cmd "$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
+    bk[a-z]*) $cmd "$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
@@ -155,31 +160,3 @@ ched() {
         ;;
     esac
 }
-
-##########################################################
-# Zoxide
-##########################################################
-
-export _ZO_DATA_DIR=${HOME}/.config/zoxide
-
-if [[ ! -d "$_ZO_DATA_DIR" ]]; then
-    mkdir -p -v "$_ZO_DATA_DIR"
-fi
-
-OX_ELEMENT[z]=${_ZO_DATA_DIR}/db.zo
-
-case ${SHELL} in
-*zsh)
-    eval "$(zoxide init zsh)"
-    ;;
-*bash)
-    eval "$(zoxide init bash)"
-    ;;
-esac
-
-alias zh="zoxide --help"
-alias zii="zoxide init"
-alias za="zoxide add"
-alias zrm="zoxide remove"
-alias zed="zoxide edit"
-alias zsc="zoxide query"

@@ -3,6 +3,7 @@
 # config
 ##########################################################
 
+export JULIA_DEPOT_PATH=${JULIA_DEPOT_PATH:-"${HOME}/.julia"}
 export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"${OX_JULIA_ENV[b]}"}
 
 # system files
