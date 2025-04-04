@@ -28,8 +28,6 @@ OX_ELEMENT[s]="$HOME/.config/scoop/config.json"
 if [[ ! -d "${OX_BACKUP}"/win ]]; then
     mkdir -p "$OX_BACKUP/win"
 fi
-OX_OXIDE[bkw]="$OX_BACKUP/win/winget.jsonc"
-OX_OXIDE[bkwx]="$OX_BACKUP/win/Wingetfile.json"
 
 up_winget() {
     echo "Update Scoop by ${OX_OXIDE[bkw]}"

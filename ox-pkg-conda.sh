@@ -25,13 +25,16 @@ else
     exit 1
 fi
 
+bkceb=$(echo "$OX_OXIDE" | jq -r .ceb)
+
 up_conda() {
     if [[ -z "$1" ]]; then
         local conda_env=base
-        local conda_file=${OX_OXIDE[bkceb]}
+        local conda_file=$bkceb
     elif [[ ${#1} -lt 4 ]]; then
         local conda_env=${OX_CONDA_ENV[$1]}
-        local conda_file=${OX_OXIDE[bkce$1]}
+        # shellcheck disable=SC2155
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -45,10 +48,11 @@ up_conda() {
 back_conda() {
     if [[ -z "$1" ]]; then
         local conda_env=base
-        local conda_file=${OX_OXIDE[bkceb]}
+        local conda_file=$bkceb
     elif [[ ${#1} -lt 4 ]]; then
         local conda_env=${OX_CONDA_ENV[$1]}
-        local conda_file=${OX_OXIDE[bkce$1]}
+        # shellcheck disable=SC2155
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -60,10 +64,11 @@ back_conda() {
 clean_conda() {
     if [[ -z "$1" ]]; then
         local conda_env=base
-        local conda_file=${OX_OXIDE[bkceb]}
+        local conda_file=$bkceb
     elif [[ ${#1} -lt 4 ]]; then
         local conda_env=${OX_CONDA_ENV[$1]}
-        local conda_file=${OX_OXIDE[bkce$1]}
+        # shellcheck disable=SC2155
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
     else
         local conda_env=$1
         local conda_file=$2
