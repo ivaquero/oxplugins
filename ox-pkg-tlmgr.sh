@@ -15,10 +15,11 @@ fi
 # bin
 eval "$(/usr/libexec/path_helper)"
 
+bktlx=$(echo "$OX_OXIDE" | jq -r .tlmgr)
 up_texlive() {
-    echo "Update TeXLive by ${OX_OXIDE[bktlx]}"
+    echo "Update TeXLive by $bktlx"
 
-    while read -r line <"${OX_OXIDE[bktlx]}"; do
+    while read -r line <"$bktlx"; do
         echo "Installing $line"
         tlmgr install "$line"
     done

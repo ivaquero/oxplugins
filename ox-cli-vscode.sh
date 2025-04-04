@@ -18,7 +18,7 @@ OX_ELEMENT[vs]=${VSCODE_DATA}/User/settings.json
 OX_ELEMENT[vsk]=${VSCODE_DATA}/User/keybindings.json
 OX_ELEMENT[vss_]=${VSCODE_DATA}/User/snippets
 
-bkvs=$(echo "$OX_OXIDE" | jq -r .vsx)
+bkvs=$(echo "$OX_OXIDE" | jq -r .vscode)
 back_vscode() {
     echo "Backup VSCode extensions to ${OX_BACKUP}/$bkvs"
     code --list-extensions >"${OX_BACKUP}/$bkvs"

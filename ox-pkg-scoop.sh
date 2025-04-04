@@ -5,18 +5,17 @@
 
 # system files
 OX_ELEMENT[w]="$HOME/AppData/Local/Packages/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe/LocalState/settings.json"
-# backup files
-OX_OXIDE[bks]="$OX_BACKUP/win/scoop.jsonc"
-OX_OXIDE[bksx]="$OX_BACKUP/win/Scoopfile.json"
 
+bks=$(echo "$OX_OXIDE" | jq -r .scoop)
+bksx=$(echo "$OX_OXIDE" | jq -r .scoop_file)
 up_scoop() {
-    echo "Update Scoop by ${OX_OXIDE[bksx]}"
-    scoop import "${OX_OXIDE[bks]}"
+    echo "Update Scoop by $bks"
+    scoop import "$bksx"
 }
 
 back_scoop() {
-    echo "Backup Scoop to ${OX_OXIDE[bksx]}"
-    scoop export >"${OX_OXIDE[bks]}"
+    echo "Backup Scoop to $bks"
+    scoop export >"$bksx"
 }
 
 ##########################################################

@@ -21,16 +21,17 @@ else
     exit 1
 fi
 
+bknode=$(echo "$OX_OXIDE" | jq -r .node)
 up_node() {
-    echo "Update Node by ${OX_OXIDE[bknjx]}"
-    pkgs=$(tr "\n" " " <"${OX_OXIDE[bknjx]}")
+    echo "Update Node by $bknode"
+    pkgs=$(tr "\n" " " <"$bknode")
     echo "Installing $pkgs"
     eval "$OX_NPM install -g $pkgs --force"
 }
 
 back_node() {
-    echo "Backup Node to ${OX_OXIDE[bknjx]}"
-    $OX_NPM list -g | rg -o '\w+@' | tr -d '@' >"${OX_OXIDE[bknjx]}"
+    echo "Backup Node to $bknode"
+    $OX_NPM list -g | rg -o '\w+@' | tr -d '@' >"$bknode"
 }
 
 ##########################################################
