@@ -4,9 +4,7 @@
 ##########################################################
 
 # system files
-OX_ELEMENT[scs]="/etc/apt/sources.list"
-# backup files
-OX_OXIDE[bkscs]=${OX_BACKUP}/unix/source.list
+OX_ELEMENT[scls]="/etc/apt/sources.list"
 
 # shortcuts
 if command -v xdg-open >/dev/null 2>&1; then

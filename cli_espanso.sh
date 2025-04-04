@@ -20,10 +20,6 @@ esac
 OX_ELEMENT[es]=${ESPANSO_DATA}/config/default.yml
 OX_ELEMENT[esb]=${ESPANSO_DATA}/match/base.yml
 OX_ELEMENT[esx_]=${ESPANSO_DATA}/match/packages
-# backup files
-OX_OXIDE[bkes]=${OX_BACKUP}/espanso/config/default.yml
-OX_OXIDE[bkesb]=${OX_BACKUP}/espanso/match/base.yml
-OX_OXIDE[bkesx_]=${OX_BACKUP}/espanso/match/packages
 
 ##########################################################
 # packages

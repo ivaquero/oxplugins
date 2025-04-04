@@ -3,12 +3,8 @@
 # config
 ##########################################################
 
-# default files
-OX_OXYGEN[oxc]=${OXIDIZER}/defaults/.condarc
 # system files
 OX_ELEMENT[c]=${HOME}/.condarc
-# backup files
-OX_OXIDE[bkc]=${OX_BACKUP}/conda/.condarc
 
 if command -v micromamba >/dev/null 2>&1; then
     export OX_CONDA="micromamba"
@@ -29,13 +25,18 @@ else
     exit 1
 fi
 
+OX_CONDA_ENV=$(jq .conda_env_shortcut <"$OXIDIZER"/config.json)
+bkceb=$(echo "$OX_OXIDE" | jq -r .ceb)
+
 up_conda() {
     if [[ -z "$1" ]]; then
         local conda_env=base
-        local conda_file=${OX_OXIDE[bkceb]}
+        local conda_file=$bkceb
     elif [[ ${#1} -lt 4 ]]; then
-        local conda_env=${OX_CONDA_ENV[$1]}
-        local conda_file=${OX_OXIDE[bkce$1]}
+        # shellcheck disable=SC2155
+        local conda_env=$(echo "$OX_CONDA_ENV" | jq -r ."$1")
+        # shellcheck disable=SC2155
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -49,10 +50,12 @@ up_conda() {
 back_conda() {
     if [[ -z "$1" ]]; then
         local conda_env=base
-        local conda_file=${OX_OXIDE[bkceb]}
+        local conda_file=$bkceb
     elif [[ ${#1} -lt 4 ]]; then
-        local conda_env=${OX_CONDA_ENV[$1]}
-        local conda_file=${OX_OXIDE[bkce$1]}
+        # shellcheck disable=SC2155
+        local conda_env=$(echo "$OX_CONDA_ENV" | jq -r ."$1")
+        # shellcheck disable=SC2155
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -64,10 +67,12 @@ back_conda() {
 clean_conda() {
     if [[ -z "$1" ]]; then
         local conda_env=base
-        local conda_file=${OX_OXIDE[bkceb]}
+        local conda_file=$bkceb
     elif [[ ${#1} -lt 4 ]]; then
-        local conda_env=${OX_CONDA_ENV[$1]}
-        local conda_file=${OX_OXIDE[bkce$1]}
+        # shellcheck disable=SC2155
+        local conda_env=$(echo "$OX_CONDA_ENV" | jq -r ."$1")
+        # shellcheck disable=SC2155
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -159,7 +164,7 @@ cup() {
     if [[ -z "$1" ]]; then
         $OX_CONDA update --all
     elif [[ ${#1} -lt 4 ]]; then
-        $OX_CONDA update --all -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA update --all -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         $OX_CONDA update --all -n "$1"
     fi
@@ -182,7 +187,7 @@ cls() {
     if [[ -z "$1" ]]; then
         $OX_CONDA list
     elif [[ ${#1} -lt 4 ]]; then
-        $OX_CONDA list -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA list -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         $OX_CONDA list -n "$1"
     fi
@@ -194,7 +199,7 @@ clv() {
     if [[ -z "$1" ]]; then
         conda-tree leaves | sort
     elif [[ ${#1} -lt 4 ]]; then
-        conda-tree -n "${OX_CONDA_ENV[$1]}" leaves | sort
+        conda-tree -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")" leaves | sort
     else
         conda-tree -n "$1" leaves | sort
     fi
@@ -260,7 +265,7 @@ cck() {
         if [[ -z "$1" ]]; then
             conda doctor
         elif [[ ${#1} -lt 4 ]]; then
-            conda doctor -n "${OX_CONDA_ENV[$1]}"
+            conda doctor -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
         else
             conda doctor -n "$1"
         fi
@@ -274,7 +279,7 @@ ceat() {
     if [[ -z "$1" ]]; then
         $OX_CONDA activate base && clear
     elif [[ ${#1} -lt 3 ]]; then
-        $OX_CONDA activate "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA activate "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         $OX_CONDA activate "$1" && clear
     fi
@@ -296,7 +301,7 @@ cerat() {
 # create environment: $1=name
 cecr() {
     if [[ ${#1} -lt 3 ]]; then
-        $OX_CONDA create -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA create -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         $OX_CONDA create -n "$1"
     fi
@@ -307,7 +312,7 @@ cecr() {
 cerm() {
     ceq
     if [[ ${#1} -lt 3 ]]; then
-        $OX_CONDA env remove -n "${OX_CONDA_ENV[$1]}"
+        $OX_CONDA env remove -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         $OX_CONDA env remove -n "$1"
     fi
@@ -337,7 +342,7 @@ ceep() {
     if [[ -z "$1" ]]; then
         local conda_env=base
     elif [[ ${#1} -lt 3 ]]; then
-        local conda_env="${OX_CONDA_ENV[$1]}"
+        local conda_env="$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         local conda_env=$1
     fi

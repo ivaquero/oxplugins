@@ -17,15 +17,11 @@ esac
 OX_ELEMENT[vs]=${VSCODE_DATA}/User/settings.json
 OX_ELEMENT[vsk]=${VSCODE_DATA}/User/keybindings.json
 OX_ELEMENT[vss_]=${VSCODE_DATA}/User/snippets
-# backup files
-OX_OXIDE[bkvs]=${OX_BACKUP}/vscode/settings.json
-OX_OXIDE[bkvsk]=${OX_BACKUP}/vscode/keybindings.json
-OX_OXIDE[bkvss_]=${OX_BACKUP}/vscode/snippets
-OX_OXIDE[bkvsx]=${OX_BACKUP}/vscode/vscode-exts.txt
 
+bkvs=$(echo "$OX_OXIDE" | jq -r .vscode)
 back_vscode() {
-    echo "Backup VSCode extensions to ${OX_OXIDE[bkvsx]}"
-    code --list-extensions >"${OX_OXIDE[bkvsx]}"
+    echo "Backup VSCode extensions to ${OX_BACKUP}/$bkvs"
+    code --list-extensions >"${OX_BACKUP}/$bkvs"
 }
 
 ##########################################################

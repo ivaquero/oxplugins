@@ -4,6 +4,7 @@
 ##########################################################
 
 # px=proxy
+OX_PROXY=$(jq .proxy_port <"$OXIDIZER"/config.json)
 pxy() {
     if [[ -z "$1" ]]; then
         echo 'unset all proxies'
@@ -11,8 +12,10 @@ pxy() {
         unset http_proxy
         unset all_proxy
     else
+
         if [[ ${#1} -lt 3 ]]; then
-            local port=${OX_PROXY[$1]}
+            # shellcheck disable=SC2155
+            local port="$(echo "$OX_PROXY" | jq -r ."$1")"
         else
             local port=$1
         fi
@@ -34,5 +37,6 @@ host_ls() {
 
 # host proxy
 host_pxy() {
-    export ALL_PROXY="https://$1:${OX_PROXY[$2]}"
+    # shellcheck disable=SC2155
+    export ALL_PROXY="https://$1:$(echo "$OX_PROXY" | jq -r ."$1")"
 }
