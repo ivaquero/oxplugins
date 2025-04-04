@@ -4,27 +4,27 @@
 ![code size](https://img.shields.io/github/languages/code-size/ivaquero/oxplugins.svg)
 ![repo size](https://img.shields.io/github/repo-size/ivaquero/oxplugins.svg)
 
-|        Filename        |    Category     |            Support             |
-| :--------------------: | :-------------: | :----------------------------: |
-|    `ox-os-macos.sh`    |  OS Shortcuts   |             macOS              |
-|   `ox-os-debians.sh`   |  OS Shortcuts   |      Debian-Based Systems      |
-|   `ox-os-redhat.sh`    |  OS Shortcuts   |      RedHat-Based Systems      |
-|   `ox-os-windows.sh`   |  OS Shortcuts   |    Windows (include winget)    |
-|    `ox-pkg-brew.sh`    | Package Manager |    Homebrew (macOS & Linux)    |
-|   `ox-pkg-scoop.sh`    | Package Manager |        Scoop (Windows)         |
-|   `ox-pkg-conda.sh`    | Package Manager |    Conda (Multi-Languages)     |
-|    `ox-pkg-npm.sh`     | Package Manager |    NPM + PNPM (JavaScript)     |
-|    `ox-pkg-pixi.sh`    | Package Manager |     Pixi (Multi-Languages)     |
-|   `ox-pkg-tlmgr.sh`    | Package Manager |        tlmgr (TeXLive)         |
-| `ox-cli-bitwarden.sh`  |     App CLI     |           Bitwarden            |
-|  `ox-cli-espanso.sh`   |     App CLI     |            Espanso             |
-|  `ox-cli-jupyter.sh`   |     App CLI     | Jupyter (notebook, lab, book)  |
-|   `ox-cli-ollama.sh`   |     App CLI     |             Ollama             |
-|   `ox-cli-vscode.sh`   |     App CLI     |             VSCode             |
-|   `ox-lang-julia.sh`   |    Language     |             Julia              |
-|   `ox-lang-ruby.sh`    |    Language     |       Ruby (include gem)       |
-|   `ox-lang-rust.sh`    |    Language     |  Rust (include cargo, rustup)  |
-|  `ox-utils-files.sh`   |  System Utils   |         File Operation         |
-| `ox-utils-formats.sh`  |  System Utils   |       Formats Conversion       |
-| `ox-utils-networks.sh` |  System Utils   |     Network Configuration      |
-|   `ox-xtra-notes.sh`   |   Extra Utils   | Notes Apps (Obsidian & Logseq) |
+|      Filename       |    Category     |            Support             |
+| :-----------------: | :-------------: | :----------------------------: |
+|    `os_macos.sh`    |  OS Shortcuts   |             macOS              |
+|   `os_debians.sh`   |  OS Shortcuts   |      Debian-Based Systems      |
+|   `os_redhat.sh`    |  OS Shortcuts   |      RedHat-Based Systems      |
+|   `os_windows.sh`   |  OS Shortcuts   |    Windows (include winget)    |
+|    `pkg_brew.sh`    | Package Manager |    Homebrew (macOS & Linux)    |
+|   `pkg_scoop.sh`    | Package Manager |        Scoop (Windows)         |
+|   `pkg_conda.sh`    | Package Manager |    Conda (Multi-Languages)     |
+|    `pkg_npm.sh`     | Package Manager |    NPM + PNPM (JavaScript)     |
+|    `pkg_pixi.sh`    | Package Manager |     Pixi (Multi-Languages)     |
+|   `pkg_tlmgr.sh`    | Package Manager |        tlmgr (TeXLive)         |
+| `cli_bitwarden.sh`  |     App CLI     |           Bitwarden            |
+|  `cli_espanso.sh`   |     App CLI     |            Espanso             |
+|  `cli_jupyter.sh`   |     App CLI     | Jupyter (notebook, lab, book)  |
+|   `cli_ollama.sh`   |     App CLI     |             Ollama             |
+|   `cli_vscode.sh`   |     App CLI     |             VSCode             |
+|   `lang_julia.sh`   |    Language     |             Julia              |
+|   `lang_ruby.sh`    |    Language     |       Ruby (include gem)       |
+|   `lang_rust.sh`    |    Language     |  Rust (include cargo, rustup)  |
+|  `utils_files.sh`   |  System Utils   |         File Operation         |
+| `utils_formats.sh`  |  System Utils   |       Formats Conversion       |
+| `utils_networks.sh` |  System Utils   |     Network Configuration      |
+|   `xtra_notes.sh`   |   Extra Utils   | Notes Apps (Obsidian & Logseq) |
