@@ -18,7 +18,7 @@ oxf() {
     for file in "$@"; do
         local in_path=${OX_ELEMENT[$file]}
         # shellcheck disable=SC2155
-        local out_path=$(echo "$OX_OXIDE" | jq -r ."$file")
+        local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."$file")
 
         test_oxpath "$out_path"
 
@@ -36,7 +36,7 @@ oxf() {
 rdf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path=$(echo "$OX_OXIDE" | jq -r ."$file")
+        local in_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -54,7 +54,7 @@ rdf() {
 clzf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path=$(echo "$OX_OXYGEN" | jq -r ."$file")
+        local in_path="$Oxidizer"/$(echo "$OX_OXYGEN" | jq -r ."$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -66,9 +66,9 @@ clzf() {
 ppgf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path=$(echo "$OX_OXYGEN" | jq -r ."$file")
+        local in_path="$Oxidizer"/$(echo "$OX_OXYGEN" | jq -r ."$file")
         # shellcheck disable=SC2155
-        local out_path=$(echo "$OX_OXIDE" | jq -r ."$file")
+        local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."$file")
 
         test_oxpath "$out_path"
         cp -v "$in_path" "$out_path"
@@ -97,8 +97,8 @@ brf() {
         cmd="cat"
     fi
     case "$1" in
-    ox[a-z]*) $cmd "$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
-    bk[a-z]*) $cmd "$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $cmd "$Oxidizer"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
+    bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
@@ -111,8 +111,8 @@ edf() {
         cmd=$EDITOR
     fi
     case "$1" in
-    ox[a-z]*) $cmd "$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
-    bk[a-z]*) $cmd "$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $cmd "$Oxidizer"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
+    bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }

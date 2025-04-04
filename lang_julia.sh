@@ -4,24 +4,29 @@
 ##########################################################
 
 export JULIA_DEPOT_PATH=${JULIA_DEPOT_PATH:-"${HOME}/.julia"}
-export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"${OX_JULIA_ENV[b]}"}
 
 # system files
 OX_ELEMENT[jl]=${JULIA_DEPOT_PATH}/config/startup.jl
 
+OX_JULIA_ENV_BASE="${JULIA_DEPOT_PATH}/environments/v$(julia -v | rg -o "\d+\.\d+")"
+OX_JULIA_ENV=$(jq .julia_env_shortcut <"$OXIDIZER"/config.json)
+bkjlb=$(echo "$OX_OXIDE" | jq -r .jlb)
+
+export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"$OX_JULIA_ENV_BASE"}
 # 1. trim \n;
 # 2. add " to the head and the tail;
 # 3. replace , with ", "
 # 4. remove the extra " at the tail;
-
 # shellcheck disable=SC2016
 up_julia() {
     if [[ -z "$1" ]]; then
-        local julia_env=${OX_JULIA_ENV[b]}
-        local julia_backup=${OX_OXIDE[bkjlb]}
+        local julia_env=$OX_JULIA_ENV_BASE
+        local julia_backup=$bkjlb
     elif [[ ${#1} -lt 4 ]]; then
-        local julia_env=${OX_JULIA_ENV[$1]}
-        local julia_backup=${OX_OXIDE[bkjl$1]}
+        # shellcheck disable=SC2155
+        local julia_env=$(echo "$OX_JULIA_ENV" | jq -r ."$1")
+        # shellcheck disable=SC2155
+        local julia_backup=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .jl"$1")
     else
         if [[ -z "$2" ]]; then
             echo "Error: Second parameter is missing."
@@ -41,11 +46,13 @@ up_julia() {
 
 back_julia() {
     if [[ -z "$1" ]]; then
-        local julia_env=${OX_JULIA_ENV[b]}
-        local julia_backup=${OX_OXIDE[bkjlb]}
+        local julia_env=$OX_JULIA_ENV_BASE
+        local julia_backup=$bkjlb
     elif [[ ${#1} -lt 4 ]]; then
-        local julia_env=${OX_JULIA_ENV[$1]}
-        local julia_backup=${OX_OXIDE[bkjl$1]}
+        # shellcheck disable=SC2155
+        local julia_env=$(echo "$OX_JULIA_ENV" | jq -r ."$1")
+        # shellcheck disable=SC2155
+        local julia_backup=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .jl"$1")
     else
         if [[ -z "$2" ]]; then
             echo "Error: Second parameter is missing."
@@ -61,11 +68,13 @@ back_julia() {
 
 clean_julia() {
     if [[ -z "$1" ]]; then
-        local julia_env=${OX_JULIA_ENV[b]}
-        local julia_backup=${OX_OXIDE[bkjlb]}
+        local julia_env=$OX_JULIA_ENV_BASE
+        local julia_backup=$bkjlb
     elif [[ ${#1} -lt 4 ]]; then
-        local julia_env=${OX_JULIA_ENV[$1]}
-        local julia_backup=${OX_OXIDE[bkjl$1]}
+        # shellcheck disable=SC2155
+        local julia_env=$(echo "$OX_JULIA_ENV" | jq -r ."$1")
+        # shellcheck disable=SC2155
+        local julia_backup=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .jl"$1")
     else
         if [[ -z "$2" ]]; then
             echo "Error: Second parameter is missing."
