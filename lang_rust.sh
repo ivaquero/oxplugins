@@ -6,9 +6,6 @@
 # system files
 OX_ELEMENT[cg]=${HOME}/.cargo/config.toml
 OX_ELEMENT[rs]=${HOME}/.rustup/settings.toml
-# backup files
-OX_OXIDE[bkcg]=${OX_BACKUP}/rust/config.toml
-OX_OXIDE[bkrs]=${OX_BACKUP}/rust/settings.toml
 
 ##########################################################
 # packages
