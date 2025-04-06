@@ -25,8 +25,8 @@ else
     exit 1
 fi
 
-OX_CONDA_ENV=$(jq .conda_env_shortcut <"$OXIDIZER"/defaults/config.json)
-bkceb=$(echo "$OX_OXIDE" | jq -r .ceb)
+OX_CONDA_ENV=$(jq .conda_env_shortcuts <"$OXIDIZER"/custom.json)
+bkceb=$(echo "$OX_OXIDE" | jq -r .bkceb)
 
 up_conda() {
     if [[ -z "$1" ]]; then
