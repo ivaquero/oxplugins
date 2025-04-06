@@ -18,7 +18,7 @@ oxf() {
     for file in "$@"; do
         local in_path=${OX_ELEMENT[$file]}
         # shellcheck disable=SC2155
-        local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."$file")
+        local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."bk$file")
 
         test_oxpath "$out_path"
 
@@ -36,7 +36,7 @@ oxf() {
 rdf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."$file")
+        local in_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."bk$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -54,7 +54,7 @@ rdf() {
 clzf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path="$OXIDIZER"/$(echo "$OX_OXYGEN" | jq -r ."$file")
+        local in_path="$OXIDIZER"/$(echo "$OX_OXYGEN" | jq -r ."ox$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"

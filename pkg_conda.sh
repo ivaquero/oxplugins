@@ -342,6 +342,7 @@ ceep() {
     if [[ -z "$1" ]]; then
         local conda_env=base
     elif [[ ${#1} -lt 3 ]]; then
+        # shellcheck disable=SC2155
         local conda_env="$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         local conda_env=$1

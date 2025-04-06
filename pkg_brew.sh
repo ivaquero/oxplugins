@@ -239,7 +239,7 @@ burl() {
 
 # replace cache file by predownloaded file
 brp() {
-    f_pred=$(fd "$1" "${OX_DOWNLOAD}")
+    f_pred=$(fd "$1" "${HOME}/${OX_DOWNLOAD}")
     if [[ ! -f $f_pred ]]; then
         echo "predownloaded file not found"
         return 1

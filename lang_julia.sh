@@ -24,7 +24,7 @@ up_julia() {
         local julia_backup=$bkjlb
     elif [[ ${#1} -lt 4 ]]; then
         # shellcheck disable=SC2155
-        local julia_env=$(echo "$OX_JULIA_ENV" | jq -r ."$1")
+        local julia_env=$(echo "$HOME/$OX_JULIA_ENV" | jq -r ."$1")
         # shellcheck disable=SC2155
         local julia_backup=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .jl"$1")
     else
@@ -50,7 +50,7 @@ back_julia() {
         local julia_backup=$bkjlb
     elif [[ ${#1} -lt 4 ]]; then
         # shellcheck disable=SC2155
-        local julia_env=$(echo "$OX_JULIA_ENV" | jq -r ."$1")
+        local julia_env=$(echo "$HOME/$OX_JULIA_ENV" | jq -r ."$1")
         # shellcheck disable=SC2155
         local julia_backup=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .jl"$1")
     else
@@ -72,7 +72,7 @@ clean_julia() {
         local julia_backup=$bkjlb
     elif [[ ${#1} -lt 4 ]]; then
         # shellcheck disable=SC2155
-        local julia_env=$(echo "$OX_JULIA_ENV" | jq -r ."$1")
+        local julia_env=$(echo "$HOME/$OX_JULIA_ENV" | jq -r ."$1")
         # shellcheck disable=SC2155
         local julia_backup=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .jl"$1")
     else
