@@ -9,7 +9,7 @@ export JULIA_DEPOT_PATH=${JULIA_DEPOT_PATH:-"${HOME}/.julia"}
 OX_ELEMENT[jl]=${JULIA_DEPOT_PATH}/config/startup.jl
 
 OX_JULIA_ENV_BASE="${JULIA_DEPOT_PATH}/environments/v$(julia -v | rg -o "\d+\.\d+")"
-OX_JULIA_ENV=$(jq .julia_env_shortcut <"$OXIDIZER"/config.json)
+OX_JULIA_ENV=$(jq .julia_env_shortcut <"$OXIDIZER"/defaults/config.json)
 bkjlb=$(echo "$OX_OXIDE" | jq -r .jlb)
 
 export OX_JULIA_ENV_ACTIVE=${OX_JULIA_ENV_ACTIVE:-"$OX_JULIA_ENV_BASE"}

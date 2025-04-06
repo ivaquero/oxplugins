@@ -4,7 +4,7 @@
 ##########################################################
 
 # px=proxy
-OX_PROXY=$(jq .proxy_port <"$OXIDIZER"/config.json)
+OX_PROXY=$(jq .proxy_port <"$OXIDIZER"/defaults/config.json)
 pxy() {
     if [[ -z "$1" ]]; then
         echo 'unset all proxies'

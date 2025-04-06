@@ -50,11 +50,11 @@ rdf() {
     done
 }
 
-# catalyze file: overwrite configuration file by Oxidizer defaults
+# catalyze file: overwrite configuration file by OXIDIZER defaults
 clzf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path="$Oxidizer"/$(echo "$OX_OXYGEN" | jq -r ."$file")
+        local in_path="$OXIDIZER"/$(echo "$OX_OXYGEN" | jq -r ."$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -62,11 +62,11 @@ clzf() {
     done
 }
 
-# propagate file: backup Oxidizer defaults to backup folder
+# propagate file: backup OXIDIZER defaults to backup folder
 ppgf() {
     for file in "$@"; do
         # shellcheck disable=SC2155
-        local in_path="$Oxidizer"/$(echo "$OX_OXYGEN" | jq -r ."$file")
+        local in_path="$OXIDIZER"/$(echo "$OX_OXYGEN" | jq -r ."$file")
         # shellcheck disable=SC2155
         local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."$file")
 
@@ -97,8 +97,8 @@ brf() {
         cmd="cat"
     fi
     case "$1" in
-    ox[a-z]*) $cmd "$Oxidizer"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
     bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $cmd "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
@@ -111,8 +111,8 @@ edf() {
         cmd=$EDITOR
     fi
     case "$1" in
-    ox[a-z]*) $cmd "$Oxidizer"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
     bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $cmd "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
