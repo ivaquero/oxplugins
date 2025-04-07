@@ -6,10 +6,6 @@
 # system files
 OX_ELEMENT[nj]=${HOME}/.npmrc
 # backup files
-if [[ ! -d "${OX_BACKUP}"/javascript ]]; then
-    mkdir -p -v "${OX_BACKUP}"/javascript
-fi
-
 export NODE_EXTRA_CA_CERTS="${HOMEBREW_PREFIX}/share/ca-certificates/cacert.pem"
 
 if command -v pnpm >/dev/null 2>&1; then

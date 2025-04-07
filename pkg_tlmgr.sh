@@ -3,11 +3,6 @@
 # config
 ##########################################################
 
-# backup files
-if [[ ! -d "${OX_BACKUP}"/text ]]; then
-    mkdir -p -v "${OX_BACKUP}"/text
-fi
-
 if [[ $(uname) = "Darwin" ]]; then
     export texlive=/usr/local/texlive
 fi

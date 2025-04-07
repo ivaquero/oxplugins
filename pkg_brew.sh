@@ -55,13 +55,9 @@ fi
 ##########################################################
 
 # backup files
-if [[ ! -d "${OX_BACKUP}"/unix ]]; then
-    mkdir -p -v "${OX_BACKUP}"/unix
-fi
-
-# bundle: backup files
 bkb="${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .bkb)"
-export HOMEBREW_BUNDLE_FILE=$bkb
+# bundle: backup files
+export HOMEBREW_BUNDLE_FILE="$bkb"
 
 up_brew() {
     echo "Update Brew by ${HOMEBREW_BUNDLE_FILE}"
