@@ -9,7 +9,9 @@
 |    `os_macos.sh`    |  OS Shortcuts   |             macOS              |
 |   `os_debians.sh`   |  OS Shortcuts   |      Debian-Based Systems      |
 |   `os_redhat.sh`    |  OS Shortcuts   |      RedHat-Based Systems      |
+|   `os_windows.sh`   |  OS Shortcuts   |    Windows (include winget)    |
 |    `pkg_brew.sh`    | Package Manager |    Homebrew (macOS & Linux)    |
+|   `pkg_scoop.sh`    | Package Manager |        Scoop (Windows)         |
 |   `pkg_conda.sh`    | Package Manager |    Conda (Multi-Languages)     |
 |    `pkg_npm.sh`     | Package Manager |    NPM + PNPM (JavaScript)     |
 |    `pkg_pixi.sh`    | Package Manager |     Pixi (Multi-Languages)     |

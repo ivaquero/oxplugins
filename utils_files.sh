@@ -144,19 +144,3 @@ else
     alias sha2="sha256sum"
     alias sha5="sha512sum"
 fi
-
-##########################################################
-# Editor
-##########################################################
-
-ched() {
-    sed -i.bak "s|EDITOR=.*|EDITOR=\'$1\'|" "${OX_ELEMENT[ox]}"
-    case ${SHELL} in
-    *zsh)
-        . "${OX_ELEMENT[zs]}"
-        ;;
-    *bash)
-        . "${OX_ELEMENT[bs]}"
-        ;;
-    esac
-}
