@@ -49,16 +49,3 @@ Options:
 alias vsis="code --install-extension"
 alias vsus="code --uninstall-extension"
 alias vsls="code --list-extensions"
-
-##########################################################
-# integration
-##########################################################
-
-case ${SHELL} in
-*zsh)
-    eval "$(code --locate-shell-integration-path zsh)"
-    ;;
-*bash)
-    eval "$(code --locate-shell-integration-path bash)"
-    ;;
-esac

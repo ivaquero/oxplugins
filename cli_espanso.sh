@@ -47,5 +47,4 @@ esa() {
     touch "${APPDATA}"/espanso/match/"$1".yml
 }
 
-alias esh="espanso help"
 alias esed="espanso edit"
