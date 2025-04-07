@@ -14,7 +14,6 @@ else
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# shellcheck disable=SC1090
 # shellcheck disable=SC1091
 if type brew &>/dev/null; then
     HOMEBREW_PREFIX="$(brew --prefix)"
@@ -61,8 +60,8 @@ if [[ ! -d "${OX_BACKUP}"/unix ]]; then
 fi
 
 # bundle: backup files
-# shellcheck disable=SC2155
-export HOMEBREW_BUNDLE_FILE="${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .bkb)"
+bkb="${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .bkb)"
+export HOMEBREW_BUNDLE_FILE=$bkb
 
 up_brew() {
     echo "Update Brew by ${HOMEBREW_BUNDLE_FILE}"
@@ -110,7 +109,6 @@ is_pinned() {
     brew outdated --formula "$1"
 }
 
-# shellcheck disable=SC2005
 bup() {
     if [[ -z $1 ]]; then
         brew upgrade
