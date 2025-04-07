@@ -10,7 +10,7 @@ fi
 # bin
 eval "$(/usr/libexec/path_helper)"
 
-bktlx=$(echo "$OX_OXIDE" | jq -r .tlmgr)
+bktlx=$(echo "$OX_OXIDE" | jq -r .bktlx)
 up_texlive() {
     echo "Update TeXLive by $bktlx"
 

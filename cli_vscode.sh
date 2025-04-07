@@ -54,14 +54,11 @@ alias vsls="code --list-extensions"
 # integration
 ##########################################################
 
-# shell
-if [[ ${TERM_PROGRAM} == "vscode" ]]; then
-    case ${SHELL} in
-    *zsh)
-        eval "$(code --locate-shell-integration-path zsh)"
-        ;;
-    *bash)
-        eval "$(code --locate-shell-integration-path bash)"
-        ;;
-    esac
-fi
+case ${SHELL} in
+*zsh)
+    eval "$(code --locate-shell-integration-path zsh)"
+    ;;
+*bash)
+    eval "$(code --locate-shell-integration-path bash)"
+    ;;
+esac

@@ -12,7 +12,6 @@ pxy() {
         unset http_proxy
         unset all_proxy
     else
-
         if [[ ${#1} -lt 3 ]]; then
             # shellcheck disable=SC2155
             local port="$(echo "$OX_PROXY" | jq -r ."$1")"
