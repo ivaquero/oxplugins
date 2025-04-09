@@ -36,7 +36,7 @@ up_conda() {
         # shellcheck disable=SC2155
         local conda_env=$(echo "$OX_CONDA_ENV" | jq -r ."$1")
         # shellcheck disable=SC2155
-        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .bkce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -55,7 +55,7 @@ back_conda() {
         # shellcheck disable=SC2155
         local conda_env=$(echo "$OX_CONDA_ENV" | jq -r ."$1")
         # shellcheck disable=SC2155
-        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .bkce"$1")
     else
         local conda_env=$1
         local conda_file=$2
@@ -72,7 +72,7 @@ clean_conda() {
         # shellcheck disable=SC2155
         local conda_env=$(echo "$OX_CONDA_ENV" | jq -r ."$1")
         # shellcheck disable=SC2155
-        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .ce"$1")
+        local conda_file=${OX_BACKUP}/$(echo "$OX_OXIDE" | jq -r .bkce"$1")
     else
         local conda_env=$1
         local conda_file=$2
