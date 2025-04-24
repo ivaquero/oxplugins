@@ -1,4 +1,4 @@
-# [Oxidizer](https://github.com/ivaquero/oxidizer) Plugins for Zsh
+# [oxidizer](https://github.com/ivaquero/oxidizer) Plugins for Zsh
 
 [![license](https://img.shields.io/github/license/ivaquero/oxplugins)](https://github.com/ivaquero/oxplugins/blob/master/LICENSE)
 ![code size](https://img.shields.io/github/languages/code-size/ivaquero/oxplugins.svg)
