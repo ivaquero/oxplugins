@@ -6,9 +6,6 @@
 # system files
 OX_ELEMENT[cg]=${HOME}/.cargo/config.toml
 OX_ELEMENT[rs]=${HOME}/.rustup/settings.toml
-# backup files
-OX_OXIDE[bkcg]=${OX_BACKUP}/rust/config.toml
-OX_OXIDE[bkrs]=${OX_BACKUP}/rust/settings.toml
 
 ##########################################################
 # packages
@@ -42,14 +39,8 @@ alias cgr="cargo run"
 alias cgts="cargo test"
 alias cgfx="cargo fix"
 alias cgpb="cargo publish"
-
-cgii() {
-    if [[ -z "$1" ]]; then
-        cargo init
-    else
-        cargo new "$@"
-    fi
-}
+alias cgii="cargo init"
+alias cgcr="cargo new"
 
 ##########################################################
 # rustup

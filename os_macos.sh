@@ -67,6 +67,18 @@ allow() {
     done
 }
 
+sign() {
+    printf "Initial letter needs to be capitalized\n"
+
+    for app in /Applications/"$1"*.app; do
+        if [[ -z $app ]]; then
+            echo "$app not found."
+        else
+            codesign --force --deep --sign - "$app"
+        fi
+    done
+}
+
 hide() {
     chflags hidden "$1"
 }
@@ -105,12 +117,6 @@ sysinfo() {
 }
 
 ##########################################################
-# network
-##########################################################
-
-alias netq="networkQuality"
-
-##########################################################
 # time machine
 ##########################################################
 
@@ -124,15 +130,13 @@ alias tmrm="tmutil delete"
 # mas - app store
 ##########################################################
 
-if test "$(command -v mas)"; then
+if command -v mas >/dev/null 2>&1; then
     alias mis="mas install"
     alias mus="sudo mas uninstall"
     alias mup="mas upgrade"
-    alias mh="mas help"
+    alias mcf="mas config"
     alias mif="mas info"
     alias mls="mas list"
     alias mst="mas outdated"
     alias msc="mas search"
-    alias msi="mas signin"
-    alias mso="mas signout"
 fi

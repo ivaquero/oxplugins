@@ -3,12 +3,6 @@
 # config
 ##########################################################
 
-# backup files
-if [ ! -d "${OX_BACKUP}"/text ]; then
-    mkdir -p -v "${OX_BACKUP}"/text
-fi
-OX_OXIDE[bktl]=${OX_BACKUP}/text/texlive-pkgs.txt
-
 if [[ $(uname) = "Darwin" ]]; then
     export texlive=/usr/local/texlive
 fi
@@ -16,20 +10,14 @@ fi
 # bin
 eval "$(/usr/libexec/path_helper)"
 
+bktlx=$(echo "$OX_OXIDE" | jq -r .bktlx)
 up_texlive() {
-    echo "Update TeXLive by ${OX_OXIDE[bktl]}"
-    num=$(wc -l <"${OX_OXIDE[bktl]}" | rg -o "\d+")
+    echo "Update TeXLive by $bktlx"
 
-    pueue group add texlive_update
-    pueue parallel "$num" -g texlive_update
-
-    while read -r line <"${OX_OXIDE[bktl]}"; do
+    while read -r line <"$bktlx"; do
         echo "Installing $line"
-        pueue add -g texlive_update "tlmgr install $line"
+        tlmgr install "$line"
     done
-
-    pueue wait -g texlive_update
-    pueue status
 }
 
 back_texlive() {
@@ -41,11 +29,16 @@ back_texlive() {
 # packages
 ##########################################################
 
-alias tlup="tlmgr update --all"
-alias tlups="tlmgr update --all --self"
-alias tlck="tlmgr check"
-alias tlis="tlmgr install"
-alias tlus="tlmgr remove && tlmgr check"
+alias tlup="sudo tlmgr update --all"
+alias tlups="sudo tlmgr update --all --self"
+alias tlck="sudo tlmgr check"
+alias tlis="sudo tlmgr install"
+alias tlus="sudo tlmgr remove && tlmgr check"
+
+##########################################################
+# info
+##########################################################
+
 alias tllsa="tlmgr list"
 alias tlls="tlmgr list --only-installed"
 alias tlif="tlmgr info"

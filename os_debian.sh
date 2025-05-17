@@ -4,14 +4,12 @@
 ##########################################################
 
 # system files
-OX_ELEMENT[scs]="/etc/apt/sources.list"
-# backup files
-OX_OXIDE[bkscs]=${OX_BACKUP}/install/source.list
+OX_ELEMENT[scls]="/etc/apt/sources.list"
 
-# binaries
-if test "$(command -v xdg-open)"; then
+# shortcuts
+if command -v xdg-open >/dev/null 2>&1; then
     alias open="xdg-open"
-elif test "$(command -v nautilus)"; then
+elif command -v nautilus >/dev/null 2>&1; then
     alias open="nautilus"
 fi
 
@@ -58,7 +56,7 @@ alias ah="apt help"
 alias asc="apt-cache search"
 alias aif="apt-cache show"
 alias adp="apt-cache depends"
-alias ardp="apt-cache rdepends"
+alias adpr="apt-cache rdepends"
 alias als="apt list --installed"
 
 alias ais="sudo apt install"
@@ -77,13 +75,3 @@ alias ack="sudo apt check"
 alias axa="sudo add-apt-repository"
 alias axrm="sudo add-apt-repository --remove"
 alias axls="rg ^[^#] /etc/apt/sources.list"
-
-##########################################################
-# wsl
-##########################################################
-
-# use host proxy
-wpx() {
-    host_ip=$(rg "nameserver" </etc/resolv.conf | cut -f 2 -d " ")
-    export ALL_PROXY="https://$host_ip:${OX_PROXY[$1]}"
-}

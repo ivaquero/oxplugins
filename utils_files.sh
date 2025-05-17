@@ -3,23 +3,22 @@
 # Configuration File Utils
 ##########################################################
 
-export PATH="${HOMEBREW_PREFIX}/opt/uutils-coreutils/libexec/uubin:$PATH"
-
 test_oxpath() {
     if [[ -z "$1" ]]; then
         echo "$1 does not exist, please define it in custom.sh"
     fi
 
-    if [ ! -d "$(dirname "$1")" ]; then
+    if [[ ! -d "$(dirname "$1")" ]]; then
         mkdir -p -v "$(dirname "$1")"
     fi
 }
 
-# oxidize file: backup configuration file to backup folder
+# oxidize file: backup configuration file to personalized folder
 oxf() {
     for file in "$@"; do
         local in_path=${OX_ELEMENT[$file]}
-        local out_path=${OX_OXIDE[bk$file]}
+        # shellcheck disable=SC2155
+        local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."bk$file")
 
         test_oxpath "$out_path"
 
@@ -33,10 +32,11 @@ oxf() {
     done
 }
 
-# reduce file: owerwrite configuation file by backup file
+# reduce file: overwrite configuration file by personalized file
 rdf() {
     for file in "$@"; do
-        local in_path=${OX_OXIDE[bk$file]}
+        # shellcheck disable=SC2155
+        local in_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."bk$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -50,10 +50,11 @@ rdf() {
     done
 }
 
-# catalyze file: owerwrite configuartion file by Oxidizer defaults
-clyf() {
+# catalyze file: overwrite configuration file by OXIDIZER defaults
+clzf() {
     for file in "$@"; do
-        local in_path=${OX_OXYGEN[ox$file]}
+        # shellcheck disable=SC2155
+        local in_path="$OXIDIZER"/$(echo "$OX_OXYGEN" | jq -r ."ox$file")
         local out_path=${OX_ELEMENT[$file]}
 
         test_oxpath "$out_path"
@@ -61,27 +62,25 @@ clyf() {
     done
 }
 
-# poison file: backup Oxidizer defaults to backup folder
-psnf() {
+# propagate file: backup OXIDIZER defaults to backup folder
+ppgf() {
     for file in "$@"; do
-        local in_path=${OX_OXYGEN[ox$file]}
-        local out_path=${OX_OXIDE[bk$file]}
+        # shellcheck disable=SC2155
+        local in_path="$OXIDIZER"/$(echo "$OX_OXYGEN" | jq -r ."ox$file")
+        # shellcheck disable=SC2155
+        local out_path="$OX_BACKUP"/$(echo "$OX_OXIDE" | jq -r ."bk$file")
 
         test_oxpath "$out_path"
         cp -v "$in_path" "$out_path"
     done
 }
 
-alias epf="oxf"
-alias ipf="rdf"
-alias iif="clyf"
-
 ##########################################################
-# Gerneral File Utils
+# General File Utils
 ##########################################################
 
 # refresh file
-frf() {
+rff() {
     if [[ -z "$1" ]]; then
         . "${OX_ELEMENT[zs]}"
     else
@@ -98,8 +97,8 @@ brf() {
         cmd="cat"
     fi
     case "$1" in
-    ox[a-z]*) $cmd "${OX_OXYGEN[$1]}" ;;
-    bk[a-z]*) $cmd "${OX_OXIDE[$1]}" ;;
+    bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $cmd "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
@@ -112,8 +111,8 @@ edf() {
         cmd=$EDITOR
     fi
     case "$1" in
-    ox[a-z]*) $cmd "${OX_OXYGEN[$1]}" ;;
-    bk[a-z]*) $cmd "${OX_OXIDE[$1]}" ;;
+    bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $cmd "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
     *) $cmd "${OX_ELEMENT[$1]}" ;;
     esac
 }
@@ -123,14 +122,14 @@ edf() {
 ##########################################################
 
 alias zpf="ouch compress"
-alias uzpf="ouch decompress"
-alias pkzpf="ouch list"
+alias zpfr="ouch decompress"
+alias zpfls="ouch list"
 
 ##########################################################
 # Hash Files
 ##########################################################
 
-if test "$(command -v hashsum)"; then
+if command -v hashsum >/dev/null 2>&1; then
     alias sha1="hashsum --sha1"
     alias sha2="hashsum --sha256"
     alias sha5="hashsum --sha512"
@@ -145,73 +144,3 @@ else
     alias sha2="sha256sum"
     alias sha5="sha512sum"
 fi
-
-##########################################################
-# Proxy Utils
-##########################################################
-
-# px=proxy
-px() {
-    if [[ ${#1} -lt 3 ]]; then
-        local port=${OX_PROXY[$1]}
-    else
-        local port=$1
-    fi
-    echo "using port $port"
-    export https_proxy=http://127.0.0.1:$port
-    export http_proxy=http://127.0.0.1:$port
-    export all_proxy=socks5://127.0.0.1:$port
-}
-
-pxq() {
-    echo 'unset all proxies'
-    unset https_proxy
-    unset http_proxy
-    unset all_proxy
-}
-
-##########################################################
-# Editor
-##########################################################
-
-ched() {
-    sed -i.bak "s|EDITOR=.*|EDITOR=\'$1\'|" "${OX_ELEMENT[ox]}"
-    case ${SHELL} in
-    *zsh)
-        . "${OX_ELEMENT[zs]}"
-        ;;
-    *bash)
-        . "${OX_ELEMENT[bs]}"
-        ;;
-    esac
-}
-
-##########################################################
-# Zoxide
-##########################################################
-
-export _ZO_DATA_DIR=${HOME}/.config/zoxide
-
-if [ ! -d "$_ZO_DATA_DIR" ]; then
-    mkdir -p -v "$_ZO_DATA_DIR"
-fi
-
-OX_ELEMENT[z]=${_ZO_DATA_DIR}/db.zo
-# backup files
-OX_OXIDE[bkz]=${OX_BACKUP}/shell/db.zo
-
-case ${SHELL} in
-*zsh)
-    eval "$(zoxide init zsh)"
-    ;;
-*bash)
-    eval "$(zoxide init bash)"
-    ;;
-esac
-
-alias zh="zoxide --help"
-alias zii="zoxide init"
-alias za="zoxide add"
-alias zrm="zoxide remove"
-alias zed="zoxide edit"
-alias zsc="zoxide query"
