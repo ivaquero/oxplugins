@@ -6,8 +6,13 @@
 # system files
 OX_ELEMENT[c]=${HOME}/.condarc
 
-if command -v micromamba >/dev/null 2>&1; then
+if command -v mamba >/dev/null 2>&1; then
+    export OX_CONDA="mamba"
+elif command -v conda >/dev/null 2>&1; then
+    export OX_CONDA="conda"
+else
     export OX_CONDA="micromamba"
+    brew install micromamba
     case ${SHELL} in
     *zsh)
         eval "$(micromamba shell hook --shell zsh)"
@@ -16,13 +21,6 @@ if command -v micromamba >/dev/null 2>&1; then
         eval "$(micromamba shell hook --shell bash)"
         ;;
     esac
-elif command -v mamba >/dev/null 2>&1; then
-    export OX_CONDA="mamba"
-elif command -v conda >/dev/null 2>&1; then
-    export OX_CONDA="conda"
-else
-    echo "No conda package manager found"
-    exit 1
 fi
 
 OX_CONDA_ENV=$(jq .conda_env_shortcuts <"$OXIDIZER"/custom.json)
