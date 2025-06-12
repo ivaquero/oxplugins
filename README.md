@@ -7,7 +7,7 @@
 |      Filename       |    Category     |            Support             |
 | :-----------------: | :-------------: | :----------------------------: |
 |    `os_macos.sh`    |  OS Shortcuts   |             macOS              |
-|   `os_debians.sh`   |  OS Shortcuts   |      Debian-Based Systems      |
+|   `os_debian.sh`    |  OS Shortcuts   |      Debian-Based Systems      |
 |   `os_redhat.sh`    |  OS Shortcuts   |      RedHat-Based Systems      |
 |   `os_windows.sh`   |  OS Shortcuts   |    Windows (include winget)    |
 |    `pkg_brew.sh`    | Package Manager |    Homebrew (macOS & Linux)    |
