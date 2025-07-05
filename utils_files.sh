@@ -5,7 +5,7 @@
 
 test_oxpath() {
     if [[ -z "$1" ]]; then
-        echo "$1 does not exist, please define it in custom.sh"
+        echo "$1 does not exist, please define it in custom.json"
     fi
 
     if [[ ! -d "$(dirname "$1")" ]]; then
