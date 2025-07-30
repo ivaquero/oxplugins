@@ -14,7 +14,6 @@ elif command -v npm >/dev/null 2>&1; then
     export OX_NPM="npm"
 else
     echo "No nodejs package manager found"
-    exit 1
 fi
 
 bknode=$(echo "$OX_OXIDE" | jq -r .node)
