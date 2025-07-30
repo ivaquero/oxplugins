@@ -257,20 +257,7 @@ cr() {
 ##########################################################
 
 # check environment health
-cck() {
-    case $OX_CONDA in
-    conda)
-        if [[ -z "$1" ]]; then
-            conda doctor
-        elif [[ ${#1} -lt 4 ]]; then
-            conda doctor -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
-        else
-            conda doctor -n "$1"
-        fi
-        ;;
-    *) echo "conda not found" ;;
-    esac
-}
+alias cck="conda doctor"
 
 # activate environment: $1=name
 ceat() {
