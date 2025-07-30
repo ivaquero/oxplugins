@@ -10,10 +10,8 @@ export NODE_EXTRA_CA_CERTS="${HOMEBREW_PREFIX}/share/ca-certificates/cacert.pem"
 
 if command -v pnpm >/dev/null 2>&1; then
     export OX_NPM="pnpm"
-elif command -v npm >/dev/null 2>&1; then
-    export OX_NPM="npm"
 else
-    echo "No nodejs package manager found"
+    export OX_NPM="npm"
 fi
 
 bknode=$(echo "$OX_OXIDE" | jq -r .node)
