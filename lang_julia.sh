@@ -31,7 +31,6 @@ up_julia() {
     else
         if [[ -z "$2" ]]; then
             echo "Error: Second parameter is missing."
-            exit 1
         fi
         local julia_env=$1
         local julia_backup=$2
@@ -58,7 +57,6 @@ back_julia() {
     else
         if [[ -z "$2" ]]; then
             echo "Error: Second parameter is missing."
-            exit 1
         fi
         local julia_env=$1
         local julia_backup=$2
@@ -81,7 +79,6 @@ clean_julia() {
     else
         if [[ -z "$2" ]]; then
             echo "Error: Second parameter is missing."
-            exit 1
         fi
         local julia_env=$1
         local julia_backup=$2

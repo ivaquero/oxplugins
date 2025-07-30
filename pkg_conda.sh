@@ -268,7 +268,7 @@ cck() {
             conda doctor -n "$1"
         fi
         ;;
-    *) exit 1 ;;
+    *) echo "conda not found" ;;
     esac
 }
 
