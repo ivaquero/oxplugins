@@ -10,7 +10,9 @@ pdls() {
     pandoc --list-output-formats
 }
 
-[[ -z "$OX_FONT" ]] || export OX_FONT="Arial Unicode MS"
+if [[ -z "$OX_FONT" ]]; then
+    export OX_FONT="Arial Unicode MS"
+fi
 
 # change font
 chft() {
