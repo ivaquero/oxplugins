@@ -10,15 +10,6 @@ pdls() {
     pandoc --list-output-formats
 }
 
-if [[ -z "$OX_FONT" ]]; then
-    export OX_FONT="Arial Unicode MS"
-fi
-
-# change font
-chft() {
-    export OX_FONT=$1
-}
-
 ##########################################################
 # text
 ##########################################################
@@ -44,10 +35,18 @@ topdf() {
         pdf_engine=tectonic
     elif command -v xelatex >/dev/null 2>&1; then
         pdf_engine=xelatex
+    elif command -v lualatex >/dev/null 2>&1; then
+        pdf_engine=lualatex
+    elif command -v pdflatex >/dev/null 2>&1; then
+        pdf_engine=pdflatex
     else
         echo "No available pdf engine found"
     fi
-    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" -V CJKmainfont="${OX_FONT}"
+    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine"\
+    -f gfm \
+    -V geometry:a4paper \
+    -V geometry:margin=2cm \
+    -V CJKmainfont="STFangsong"
 }
 
 ##########################################################
