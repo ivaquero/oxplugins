@@ -19,7 +19,12 @@ tohtml() {
 }
 
 tomd() {
-    pandoc "$1" -o "${1%%.*}".md
+    ext=${1##*.}
+    if [[ "$ext" = "ipynb" ]]; then
+        jupytext --to md "$1"
+    else
+        pandoc "$1" -o "${1%%.*}".md
+    fi
 }
 
 todocx() {
@@ -42,11 +47,15 @@ topdf() {
     else
         echo "No available pdf engine found"
     fi
-    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine"\
-    -f gfm \
-    -V geometry:a4paper \
-    -V geometry:margin=2cm \
-    -V CJKmainfont="STFangsong"
+    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" \
+        -f gfm \
+        -V geometry:a4paper \
+        -V geometry:margin=2cm \
+        -V CJKmainfont="STFangsong"
+}
+
+toipynb() {
+    jupytext --to notebook "$1"
 }
 
 ##########################################################
