@@ -20,7 +20,7 @@ tohtml() {
 
 tomd() {
     ext=${1##*.}
-    if [[ "$ext" = "ipynb" ]]; then
+    if [[ "$ext" == "ipynb" ]]; then
         jupytext --to md "$1"
     else
         pandoc "$1" -o "${1%%.*}".md
