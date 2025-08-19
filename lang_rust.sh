@@ -12,10 +12,10 @@ OX_ELEMENT[rs]=${HOME}/.rustup/settings.toml
 ##########################################################
 
 alias cgh="cargo help"
-alias cgls="cargo --list"
 alias cgis="cargo install"
 alias cgus="cargo uninstall"
 alias cgup="cargo update"
+alias cgls="cargo install --list"
 alias cgcl="cargo clean"
 alias cgsc="cargo search"
 alias cgck="cargo check"
