@@ -63,6 +63,7 @@ allow() {
         else
             echo "Cracking $app"
             xattr -r -d com.apple.quarantine "$app"
+            codesign --force --deep --sign - "$app"
         fi
     done
 }
