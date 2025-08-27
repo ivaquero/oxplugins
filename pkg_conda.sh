@@ -216,7 +216,7 @@ cmt() {
     echo "total: $num_total"
     num_immature=$(cls "$1" | rg -c "\s0\.\d")
     local mature_rate=$((100 - num_immature * 100 / num_total))
-    echo "mature rate: $mature_rate %"
+    echo "maturity: $mature_rate %"
 }
 
 ##########################################################
