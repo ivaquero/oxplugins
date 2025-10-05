@@ -7,9 +7,6 @@ if [[ $(uname) = "Darwin" ]]; then
     export texlive=/usr/local/texlive
 fi
 
-# bin
-eval "$(/usr/libexec/path_helper)"
-
 bktlx=$(echo "$OX_OXIDE" | jq -r .bktlx)
 up_texlive() {
     echo "Update TeXLive by $bktlx"
@@ -21,8 +18,8 @@ up_texlive() {
 }
 
 back_texlive() {
-    echo "Backup TeXLive to ${OX_OXIDE[bktl]}"
-    tlmgr list --only-installed | rg -o "collection-\w+" | rg -v "basic" >"${OX_OXIDE[bktl]}"
+    echo "Backup TeXLive to ${OX_OXIDE[bktlx]}"
+    tlmgr list --only-installed | rg -o "collection-\w+" | rg -v "basic" >"${OX_OXIDE[bktlx]}"
 }
 
 ##########################################################
