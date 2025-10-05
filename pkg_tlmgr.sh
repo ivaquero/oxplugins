@@ -18,8 +18,8 @@ up_texlive() {
 }
 
 back_texlive() {
-    echo "Backup TeXLive to ${OX_OXIDE[bktlx]}"
-    tlmgr list --only-installed | rg -o "collection-\w+" | rg -v "basic" >"${OX_OXIDE[bktlx]}"
+    echo "Backup TeXLive to ${OX_BACKUP}/$bktlx"
+    tlmgr list --only-installed | rg -o "collection-\w+" | rg -v "basic" >"${OX_BACKUP}/$bktlx"
 }
 
 ##########################################################
