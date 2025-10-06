@@ -78,18 +78,7 @@ clean_brew() {
 alias bh="brew help"
 alias bcf="brew config"
 alias bis="brew install --no-quarantine"
-
-bus() {
-    local option="$1"
-    case "$option" in
-    -g)
-        brew uninstall --zap "$2"
-        ;;
-    *)
-        brew uninstall "$@"
-        ;;
-    esac
-}
+alias bis="brew uninstall"
 
 alias bris="brew reinstall --no-quarantine"
 alias bups="brew update"
