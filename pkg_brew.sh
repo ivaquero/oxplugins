@@ -78,7 +78,7 @@ clean_brew() {
 alias bh="brew help"
 alias bcf="brew config"
 alias bis="brew install --no-quarantine"
-alias bis="brew uninstall"
+alias bus="brew uninstall"
 
 alias bris="brew reinstall --no-quarantine"
 alias bups="brew update"
