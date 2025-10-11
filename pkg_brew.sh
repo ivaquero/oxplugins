@@ -263,3 +263,15 @@ alias bsls="brew services list"
 alias bss="brew services start"
 alias bsq="brew services stop"
 alias bsrs="brew services restart"
+
+##########################################################
+# environment
+##########################################################
+
+if [[ "$(uname -sm)" == "Darwin arm64" ]]; then
+    export CPATH="/opt/homebrew/include"
+    export LIBRARY_PATH="/opt/homebrew/lib"
+    export PATH="/opt/homebrew/bin:$PATH"
+    export PATH="/opt/homebrew/opt/node/bin:$PATH"
+    export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+fi
