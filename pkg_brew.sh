@@ -77,10 +77,10 @@ clean_brew() {
 
 alias bh="brew help"
 alias bcf="brew config"
-alias bis="brew install --no-quarantine"
+alias bis="brew install"
 alias bus="brew uninstall"
 
-alias bris="brew reinstall --no-quarantine"
+alias bris="brew reinstall"
 alias bups="brew update"
 
 is_cask() {
@@ -111,7 +111,7 @@ bup() {
             if [[ $cask == "" ]]; then
                 brew upgrade "$flag" "$pkg"
             else
-                brew upgrade "$flag" --cask --no-quarantine "$pkg"
+                brew upgrade "$flag" --cask "$pkg"
             fi
         done
     fi
@@ -189,7 +189,7 @@ bfx() {
 # casks
 ##########################################################
 
-alias bisc="bis --cask --no-quarantine"
+alias bisc="bis --cask"
 alias blsc="bls --cask"
 alias bifc="bif --cask"
 alias bedc="be --cask"
