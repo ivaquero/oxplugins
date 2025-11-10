@@ -15,7 +15,7 @@ pdls() {
 ##########################################################
 
 tohtml() {
-    pandoc "$1" -o "${1%%.*}".html --standalone --mathjax --shift-heading-level-by=-1
+    pandoc "$1" -o "${1%%.*}".html --to html5 --standalone --mathjax --shift-heading-level-by=-1
 }
 
 tomd() {
@@ -48,9 +48,8 @@ topdf() {
         echo "No available pdf engine found"
     fi
     pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" \
-        -f gfm \
         -V geometry:a4paper \
-        -V geometry:margin=2cm \
+        -V geometry:margin=2.5cm \
         -V CJKmainfont="STFangsong"
 }
 
