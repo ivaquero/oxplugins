@@ -53,6 +53,7 @@ clean() {
     esac
 }
 
+alias allowx="xattr -r -d com.apple.quarantine"
 allow() {
     sudo spctl --master-disable
     printf "Initial letter needs to be capitalized\n"
@@ -62,7 +63,7 @@ allow() {
             echo "$app not found."
         else
             echo "Cracking $app"
-            xattr -r -d com.apple.quarantine "$app"
+            allowx "$app"
             codesign --force --deep --sign - "$app"
         fi
     done
