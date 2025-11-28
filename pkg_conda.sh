@@ -195,15 +195,16 @@ cls() {
 # $1=name
 clv() {
     if [[ -z "$1" ]]; then
-        cenv="base"
+        cenv=""
     elif [[ ${#1} -lt 4 ]]; then
         cenv="$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
     else
         cenv="$1"
     fi
 
+    echo "listing leave packages for environment $cenv"
     leaves=""
-    for pkg in $(mamba list -n "$cenv" --json | jq -r '.[].name' | rg -v 'lib.+' | rg -v 'font.+' | rg -v '_.+'); do
+    for pkg in $(mamba list -n "$cenv" --json | jq -r '.[].name' | rg -v 'lib.+' | rg -v 'font.+' | rg -v 'aws.+' | rg -v 'azure.+' | rg -v '_.+'); do
         res=$(micromamba repoquery whoneeds "$pkg" | rg -o 'No entries')
         if [[ $res == 'No entries' ]]; then
             leaves="$leaves\n$pkg"
