@@ -204,19 +204,6 @@ HOMEBREW_CASK_API=$(brew --cache)/api/cask.jws.json
 export HOMEBREW_CASK_API
 export HOMEBREW_TAPS=${HOMEBREW_PREFIX}/Library/Taps
 
-# get cask url
-burl() {
-    cask=$(print "$(jq '.payload' <"$HOMEBREW_CASK_API")" | rg "/$1".rb | rg -o '\{.+*\}')
-    vars=$(echo "$cask" | jq '.variations.arm64_ventura.url')
-    if [[ $vars == null ]]; then
-        url=$(echo "$cask" | jq '.url')
-        echo "$url"
-    else
-        url=$(echo "$cask" | jq '.variations')
-        echo "$vars"
-    fi
-}
-
 # replace cache file by predownloaded file
 brp() {
     f_pred=$(fd "$1" "${HOME}/${OX_DOWNLOAD}")
