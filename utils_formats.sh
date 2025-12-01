@@ -47,7 +47,9 @@ topdf() {
     else
         echo "No available pdf engine found"
     fi
-    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" \
+    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" --syntax-highlighting tango \
+        -V colorlinks \
+        -V urlcolor=NavyBlue \
         -V geometry:a4paper \
         -V geometry:margin=2.5cm \
         -V CJKmainfont="STFangsong"
