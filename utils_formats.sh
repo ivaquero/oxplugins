@@ -3,11 +3,18 @@
 # main
 ##########################################################
 
-pdls() {
-    printf 'input-formats\n'
+pdlsi() {
+    printf 'input-formats\n\n'
     pandoc --list-input-formats
-    printf 'output-formats\n'
+}
+
+pdlso() {
+    printf 'output-formats\n\n'
     pandoc --list-output-formats
+}
+
+pdref() {
+    pandoc --print-default-data-file reference.docx >custom-reference.docx
 }
 
 ##########################################################
@@ -27,12 +34,18 @@ tomd() {
     fi
 }
 
-todocx() {
-    pandoc "$1" -o "${1%%.*}".docx
-}
-
 totyp() {
     pandoc "$1" -o "${1%%.*}".typ
+}
+
+todocx() {
+    if [[ -z $2 ]]; then
+        ref=""
+    else
+        ref="--reference-doc=$2"
+    fi
+
+    pandoc "$1" "$ref" -o "${1%%.*}".docx
 }
 
 topdf() {
@@ -47,12 +60,18 @@ topdf() {
     else
         echo "No available pdf engine found"
     fi
-    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" --syntax-highlighting tango \
+    if [[ -z $2 ]]; then
+        ref=""
+    else
+        ref="--reference-doc=$2"
+    fi
+    pandoc "$1" "$ref" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" --syntax-highlighting tango \
         -V colorlinks \
         -V urlcolor=NavyBlue \
         -V geometry:a4paper \
         -V geometry:margin=2.5cm \
         -V CJKmainfont="STFangsong"
+
 }
 
 toipynb() {
