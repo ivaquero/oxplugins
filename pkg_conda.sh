@@ -59,7 +59,7 @@ back_conda() {
         local conda_file=$2
     fi
     echo "Backup Conda Env $conda_env to $conda_file"
-    clv "$conda_env" >"$conda_file"
+    conda tree -n "$conda_env" leaves | sort >"$conda_file"
 }
 
 clean_conda() {
@@ -77,7 +77,7 @@ clean_conda() {
     fi
 
     echo "Cleanup Conda Env $conda_env by $conda_file"
-    the_leaves=$(clv "$conda_env")
+    the_leaves=$(conda tree -n "$conda_env" leaves)
 
     echo "$the_leaves" | while read -r line; do
         pkg=$(rg "$line" <"$conda_file")
@@ -195,22 +195,12 @@ cls() {
 # $1=name
 clv() {
     if [[ -z "$1" ]]; then
-        cenv=""
+        conda-tree leaves | sort
     elif [[ ${#1} -lt 4 ]]; then
-        cenv="$(echo "$OX_CONDA_ENV" | jq -r ."$1")"
+        conda-tree -n "$(echo "$OX_CONDA_ENV" | jq -r ."$1")" leaves | sort
     else
-        cenv="$1"
+        conda-tree -n "$1" leaves | sort
     fi
-
-    echo "listing leave packages for environment $cenv"
-    leaves=""
-    for pkg in $(mamba list -n "$cenv" --json | jq -r '.[].name' | rg -v 'lib.+' | rg -v 'font.+' | rg -v 'aws.+' | rg -v 'azure.+' | rg -v '_.+'); do
-        res=$(micromamba repoquery whoneeds "$pkg" | rg -o 'No entries')
-        if [[ $res == 'No entries' ]]; then
-            leaves="$leaves\n$pkg"
-        fi
-    done
-    echo "$leaves"
 }
 
 # specific
