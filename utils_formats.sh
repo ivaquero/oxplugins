@@ -39,13 +39,7 @@ totyp() {
 }
 
 todocx() {
-    if [[ -z $2 ]]; then
-        ref=""
-    else
-        ref="--reference-doc=$2"
-    fi
-
-    pandoc "$1" "$ref" -o "${1%%.*}".docx
+    pandoc "$1" -o "${1%%.*}".docx
 }
 
 topdf() {
@@ -60,12 +54,7 @@ topdf() {
     else
         echo "No available pdf engine found"
     fi
-    if [[ -z $2 ]]; then
-        ref=""
-    else
-        ref="--reference-doc=$2"
-    fi
-    pandoc "$1" "$ref" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" --syntax-highlighting tango \
+    pandoc "$1" -o "${1%%.*}".pdf --pdf-engine="$pdf_engine" --syntax-highlighting tango \
         -V colorlinks \
         -V urlcolor=NavyBlue \
         -V geometry:a4paper \
