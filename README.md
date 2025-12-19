@@ -5,7 +5,7 @@
 ![repo size](https://img.shields.io/github/repo-size/ivaquero/oxplugins.svg)
 
 |      Filename       |    Category     |            Support             |
-| :-----------------: | :-------------: | :----------------------------: |
+|:-------------------:|:---------------:|:------------------------------:|
 |    `os_macos.sh`    |  OS Shortcuts   |             macOS              |
 |   `os_debian.sh`    |  OS Shortcuts   |      Debian-Based Systems      |
 |   `os_redhat.sh`    |  OS Shortcuts   |      RedHat-Based Systems      |
@@ -21,6 +21,7 @@
 |  `cli_jupyter.sh`   |     App CLI     | Jupyter (notebook, lab, book)  |
 |   `cli_ollama.sh`   |     App CLI     |             Ollama             |
 |   `cli_vscode.sh`   |     App CLI     |             VSCode             |
+|    `cli_ros.sh`     |     App CLI     |              ROS2              |
 |   `lang_julia.sh`   |    Language     |             Julia              |
 |   `lang_ruby.sh`    |    Language     |       Ruby (include gem)       |
 |   `lang_rust.sh`    |    Language     |  Rust (include cargo, rustup)  |
