@@ -1,8 +1,6 @@
-# [oxidizer](https://github.com/ivaquero/oxidizer) Plugins for Zsh
+# oxidizer - Bash/Zsh
 
-[![license](https://img.shields.io/github/license/ivaquero/oxplugins)](https://github.com/ivaquero/oxplugins/blob/master/LICENSE)
-![code size](https://img.shields.io/github/languages/code-size/ivaquero/oxplugins.svg)
-![repo size](https://img.shields.io/github/repo-size/ivaquero/oxplugins.svg)
+Builtin Bash/Zsh Plugins for [oxidizer](https://github.com/ivaquero/oxidizer), please create issues and discussion there.
 
 |      Filename       |    Category     |            Support             |
 |:-------------------:|:---------------:|:------------------------------:|
@@ -18,7 +16,6 @@
 |   `pkg_tlmgr.sh`    | Package Manager |        tlmgr (TeXLive)         |
 | `cli_bitwarden.sh`  |     App CLI     |           Bitwarden            |
 |  `cli_espanso.sh`   |     App CLI     |            Espanso             |
-|  `cli_jupyter.sh`   |     App CLI     | Jupyter (notebook, lab, book)  |
 |   `cli_ollama.sh`   |     App CLI     |             Ollama             |
 |   `cli_vscode.sh`   |     App CLI     |             VSCode             |
 |    `cli_ros.sh`     |     App CLI     |              ROS2              |
