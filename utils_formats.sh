@@ -92,7 +92,12 @@ tojpg() {
 }
 
 bgnone() {
-    magick "$1" -background white "$1"
+    if [[ -z "$2" ]]; then
+        bg=white
+    else
+        bg=$2
+    fi
+    magick "$1" -background "$bg" "$1"
 }
 
 ##########################################################
