@@ -18,6 +18,7 @@ Builtin Bash/Zsh Plugins for [oxidizer](https://github.com/ivaquero/oxidizer), p
 |   `cli_ollama.sh`   |     App CLI     |            Ollama            |
 |   `cli_vscode.sh`   |     App CLI     |            VSCode            |
 |    `cli_ros.sh`     |     App CLI     |             ROS2             |
+| `cli_multiplex.sh`  |    App Utils    |        Zellij & TMux         |
 |   `lang_julia.sh`   |    Language     |            Julia             |
 |   `lang_rust.sh`    |    Language     | Rust (include cargo, rustup) |
 |  `utils_files.sh`   |  System Utils   |        File Operation        |
