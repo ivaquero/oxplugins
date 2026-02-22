@@ -25,71 +25,33 @@ back_node() {
 # packages
 ##########################################################
 
-nis() {
-    npm install "$@"
-}
-nus() {
-    case npm in
-    pnpm) pnpm remove "$@" ;;
-    npm) npm uninstall "$@" ;;
-    esac
-}
-nup() {
-    npm update "$@"
-}
-nst() {
-    npm outdated "$@"
-}
-nsc() {
-    npm search "$@"
-}
-ncl() {
-    case npm in
-    pnpm) pnpm cache delete "$@" ;;
-    npm) npm cache clean -f ;;
-    esac
-}
+alias nis="npm install"
+alias nus="npm uninstall"
+alias nup="npm update"
+alias nst="npm outdated"
+alias nsc="npm search"
+alias ncl="npm pm cache clean -f"
 
 ##########################################################
 # info
 ##########################################################
 
-nh() {
-    npm help "$@"
-}
-nif() {
-    npm info "$@"
-}
-nls() {
-    npm list "$@"
-}
-nlv() {
-    npm list --depth 0
-}
-nck() {
-    npm doctor
-}
+alias nh="npm help"
+alias nif="npm info"
+alias nls="npm list"
+alias nlv="npm list --depth 0"
+alias nck="npm doctor"
 
 ##########################################################
 # project
 ##########################################################
 
-ncf() {
-    npm config "$@"
-}
-nii() {
-    npm init "$@"
-}
-nr() {
-    npm run "$@"
-}
-nts() {
-    npm test "$@"
-}
-npb() {
-    npm publish "$@"
-}
+alias ncf="npm config"
+alias nii="npm init"
+alias nr="npm run"
+alias nts="npm test"
+alias npb="npm publish"
 nfx() {
-    npm audit fix --force "$@"
+    npm audit fix "$@"
     npm audit "$@"
 }
