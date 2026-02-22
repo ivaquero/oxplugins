@@ -8,23 +8,17 @@ OX_ELEMENT[nj]=${HOME}/.npmrc
 # backup files
 export NODE_EXTRA_CA_CERTS="${HOMEBREW_PREFIX}/share/ca-certificates/cacert.pem"
 
-if command -v pnpm >/dev/null 2>&1; then
-    export OX_NPM="pnpm"
-else
-    export OX_NPM="npm"
-fi
-
-bknode=$(echo "$OX_OXIDE" | jq -r .node)
+bknode=$(echo "$OX_OXIDE" | jq -r .bknjx)
 up_node() {
     echo "Update Node by $bknode"
     pkgs=$(tr "\n" " " <"$bknode")
     echo "Installing $pkgs"
-    eval "$OX_NPM install -g $pkgs --force"
+    eval "npm install -g $pkgs --force"
 }
 
 back_node() {
     echo "Backup Node to $bknode"
-    $OX_NPM list -g | rg -o '\w+@' | tr -d '@' >"$bknode"
+    npm list -g | rg -o '\w+@' | tr -d '@' >"$bknode"
 }
 
 ##########################################################
@@ -32,25 +26,25 @@ back_node() {
 ##########################################################
 
 nis() {
-    $OX_NPM install "$@"
+    npm install "$@"
 }
 nus() {
-    case $OX_NPM in
+    case npm in
     pnpm) pnpm remove "$@" ;;
     npm) npm uninstall "$@" ;;
     esac
 }
 nup() {
-    $OX_NPM update "$@"
+    npm update "$@"
 }
 nst() {
-    $OX_NPM outdated "$@"
+    npm outdated "$@"
 }
 nsc() {
-    $OX_NPM search "$@"
+    npm search "$@"
 }
 ncl() {
-    case $OX_NPM in
+    case npm in
     pnpm) pnpm cache delete "$@" ;;
     npm) npm cache clean -f ;;
     esac
@@ -61,19 +55,19 @@ ncl() {
 ##########################################################
 
 nh() {
-    $OX_NPM help "$@"
+    npm help "$@"
 }
 nif() {
     npm info "$@"
 }
 nls() {
-    $OX_NPM list "$@"
+    npm list "$@"
 }
 nlv() {
-    $OX_NPM list --depth 0
+    npm list --depth 0
 }
 nck() {
-    $OX_NPM doctor
+    npm doctor
 }
 
 ##########################################################
@@ -81,21 +75,21 @@ nck() {
 ##########################################################
 
 ncf() {
-    $OX_NPM config "$@"
+    npm config "$@"
 }
 nii() {
-    $OX_NPM init "$@"
+    npm init "$@"
 }
 nr() {
-    $OX_NPM run "$@"
+    npm run "$@"
 }
 nts() {
-    $OX_NPM test "$@"
+    npm test "$@"
 }
 npb() {
-    $OX_NPM publish "$@"
+    npm publish "$@"
 }
 nfx() {
-    $OX_NPM audit fix --force "$@"
-    $OX_NPM audit "$@"
+    npm audit fix --force "$@"
+    npm audit "$@"
 }
