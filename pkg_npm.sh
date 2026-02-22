@@ -17,8 +17,8 @@ up_node() {
 }
 
 back_node() {
-    echo "Backup Node to $bknode"
-    npm list -g | rg -o '\w+@' | tr -d '@' >"$bknode"
+    echo "Backup Node to ${OX_BACKUP}/$bknode"
+    npm list -g | rg -o '\w+@' | tr -d '@' >"${OX_BACKUP}/$bknode"
 }
 
 ##########################################################
