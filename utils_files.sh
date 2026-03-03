@@ -105,15 +105,19 @@ brf() {
 
 # edit file by default editor
 edf() {
-    if [[ "$2" == -t ]]; then
-        cmd=$EDITOR_T
-    else
-        cmd=$EDITOR
-    fi
     case "$1" in
-    bk[a-z]*) $cmd "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
-    ox[a-z]*) $cmd "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
-    *) $cmd "${OX_ELEMENT[$1]}" ;;
+    bk[a-z]*) $EDITOR "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $EDITOR "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
+    *) $EDITOR "${OX_ELEMENT[$1]}" ;;
+    esac
+}
+
+# edit file by default terminal editor
+tedf() {
+    case "$1" in
+    bk[a-z]*) $EDITOR_T "$OX_BACKUP"/"$(echo "$OX_OXIDE" | jq -r ."$1")" ;;
+    ox[a-z]*) $EDITOR_T "$OXIDIZER"/"$(echo "$OX_OXYGEN" | jq -r ."$1")" ;;
+    *) $EDITOR_T "${OX_ELEMENT[$1]}" ;;
     esac
 }
 
