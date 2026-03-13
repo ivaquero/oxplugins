@@ -11,14 +11,14 @@ export NODE_EXTRA_CA_CERTS="${HOMEBREW_PREFIX}/share/ca-certificates/cacert.pem"
 bknode=$(echo "$OX_OXIDE" | jq -r .bknjx)
 up_node() {
     echo "Update Node by $bknode"
-    pkgs=$(tr "\n" " " <"$bknode")
+    pkgs=$(tr "\n" " " <"${OX_BACKUP}/$bknode")
     echo "Installing $pkgs"
     eval "npm install -g $pkgs --force"
 }
 
 back_node() {
     echo "Backup Node to ${OX_BACKUP}/$bknode"
-    npm list -g | rg -o '\w+@' | tr -d '@' >"${OX_BACKUP}/$bknode"
+    npm list -g | rg -o '[\w@].+@' | tr "\n" " " | sd "@ " "\n" >"${OX_BACKUP}/$bknode"
 }
 
 ##########################################################
