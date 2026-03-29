@@ -21,38 +21,6 @@ update() {
     softwareupdate -i -a >/dev/null 2>&1
 }
 
-clean() {
-    case "$1" in
-    zsh)
-        printf "Cleaning up ZSH History.\n"
-        rm -rfv "${HOME}"/.zsh_sessions/*
-        rm -fv "${HOME}"/.zsh_history
-        ;;
-    chrome)
-        printf "Cleaning up Chrome Cache.\n"
-        rm -rfv "${CACHES}"/Google/Chrome/*
-        ;;
-    container)
-        printf "Cleaning Container Caches\n"
-        for ct in ${HOME}/Library/Containers; do
-            rm -rfv ~/Library/Containers/"$ct"/Data/Library/Caches/*
-        done
-        ;;
-    volume)
-        printf "Emptying trash in Volumes.\n"
-        sudo rm -rfv /Volumes/*/.Trashes
-        ;;
-    log)
-        printf "Emptying the system log files.\n"
-        sudo log erase
-        ;;
-    *)
-        printf "Emptying trash.\n"
-        rm -rfv "${HOME}"/.Trash/*
-        ;;
-    esac
-}
-
 alias allowx="xattr -r -d com.apple.quarantine"
 allow() {
     sudo spctl --master-disable
@@ -67,10 +35,6 @@ allow() {
             codesign --force --deep --sign - "$app"
         fi
     done
-}
-
-hide() {
-    chflags hidden "$1"
 }
 
 ##########################################################
