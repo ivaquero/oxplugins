@@ -59,7 +59,7 @@ back_conda() {
         local conda_file=$2
     fi
     echo "Backup Conda Env $conda_env to $conda_file"
-    conda tree -n "$conda_env" leaves | sort >"$conda_file"
+    conda-tree -n "$conda_env" leaves | sort >"$conda_file"
 }
 
 clean_conda() {
@@ -77,7 +77,7 @@ clean_conda() {
     fi
 
     echo "Cleanup Conda Env $conda_env by $conda_file"
-    the_leaves=$(conda tree -n "$conda_env" leaves)
+    the_leaves=$(conda-tree -n "$conda_env" leaves)
 
     echo "$the_leaves" | while read -r line; do
         pkg=$(rg "$line" <"$conda_file")
