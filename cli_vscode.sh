@@ -11,9 +11,17 @@ OX_ELEMENT[vss_]=${VSCODE_DATA}/User/snippets
 
 back_vscode() {
     # shellcheck disable=SC2155
-    local bkvs=$(echo "$OX_OXIDE" | jq -r .bkvsx)
+    local bkvsx=$(echo "$OX_OXIDE" | jq -r .bkvsx)
     echo "Backup VSCode extensions to ${OX_BACKUP}/$bkvs"
     code --list-extensions >"${OX_BACKUP}/$bkvs"
+}
+
+up_vscode() {
+    local bkvsx=$(echo "$OX_OXIDE" | jq -r .bkvsx)
+    for ext in $(cat "${OX_BACKUP}/$bkvsx"); do
+        echo "Installing $ext"
+        code --install-extension "$ext"
+    done
 }
 
 ##########################################################
